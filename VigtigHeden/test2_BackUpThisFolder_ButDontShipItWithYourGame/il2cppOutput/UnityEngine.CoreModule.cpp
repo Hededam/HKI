@@ -356,8 +356,6 @@ struct MeshFilter_t6D1CE2473A1E45AC73013400585A1163BF66B2F5;
 struct MeshRenderer_t4B7747212F0B88244BB7790C61AE124BFC15BAAE;
 // System.Reflection.MethodInfo
 struct MethodInfo_t;
-// AOT.MonoPInvokeCallbackAttribute
-struct MonoPInvokeCallbackAttribute_t3C659C8B8852BD4E98F7B63E73D36AEE20666527;
 // Unity.Collections.LowLevel.Unsafe.NativeContainerAttribute
 struct NativeContainerAttribute_tCB9EE7FAE6DC2A02429230C41A40D1CA97F05D21;
 // Unity.Collections.LowLevel.Unsafe.NativeContainerSupportsDeallocateOnJobCompletionAttribute
@@ -1725,11 +1723,6 @@ struct Matrix4x4_tDB70CF134A14BA38190C59AA700BCE10E2AED3E6_StaticFields
 
 // System.Reflection.MethodBase
 struct MethodBase_t  : public MemberInfo_t
-{
-};
-
-// AOT.MonoPInvokeCallbackAttribute
-struct MonoPInvokeCallbackAttribute_t3C659C8B8852BD4E98F7B63E73D36AEE20666527  : public Attribute_tFDA8EFEFB0711976D22474794576DAF28F7440AA
 {
 };
 
@@ -4855,22 +4848,6 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void IsReadOnlyAttribute__ctor_m627542EC70C98
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// System.Void AOT.MonoPInvokeCallbackAttribute::.ctor(System.Type)
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MonoPInvokeCallbackAttribute__ctor_mF43F06AF092A13B71E6D0C5456A5FC5ABDCC5893 (MonoPInvokeCallbackAttribute_t3C659C8B8852BD4E98F7B63E73D36AEE20666527* __this, Type_t* ___type0, const RuntimeMethod* method) 
-{
-	{
-		Attribute__ctor_m79ED1BF1EE36D1E417BA89A0D9F91F8AAD8D19E2(__this, NULL);
-		return;
-	}
-}
-#ifdef __clang__
-#pragma clang diagnostic pop
-#endif
-#ifdef __clang__
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Winvalid-offsetof"
-#pragma clang diagnostic ignored "-Wunused-variable"
-#endif
 // System.Void UnityEngineInternal.MathfInternal::.cctor()
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MathfInternal__cctor_mC2F676B6F0CC5E10406BB514D669BD196368295F (const RuntimeMethod* method) 
 {
@@ -6472,36 +6449,6 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Application_get_isBatchMode_mBE1AD2AA536
 	if (!_il2cpp_icall_func)
 	_il2cpp_icall_func = (Application_get_isBatchMode_mBE1AD2AA536A0252E56EF19F72E3EA31A8733EE9_ftn)il2cpp_codegen_resolve_icall ("UnityEngine.Application::get_isBatchMode()");
 	bool icallRetVal = _il2cpp_icall_func();
-	return icallRetVal;
-}
-// System.String UnityEngine.Application::get_unityVersion()
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* Application_get_unityVersion_m09F45DDCFA0A4414AA296A595FDB0B59B44F5387 (const RuntimeMethod* method) 
-{
-	typedef String_t* (*Application_get_unityVersion_m09F45DDCFA0A4414AA296A595FDB0B59B44F5387_ftn) ();
-	static Application_get_unityVersion_m09F45DDCFA0A4414AA296A595FDB0B59B44F5387_ftn _il2cpp_icall_func;
-	if (!_il2cpp_icall_func)
-	_il2cpp_icall_func = (Application_get_unityVersion_m09F45DDCFA0A4414AA296A595FDB0B59B44F5387_ftn)il2cpp_codegen_resolve_icall ("UnityEngine.Application::get_unityVersion()");
-	String_t* icallRetVal = _il2cpp_icall_func();
-	return icallRetVal;
-}
-// System.String UnityEngine.Application::get_version()
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* Application_get_version_mD6AC9813ABCAD4D2A1F764F99E26068CA5B830F2 (const RuntimeMethod* method) 
-{
-	typedef String_t* (*Application_get_version_mD6AC9813ABCAD4D2A1F764F99E26068CA5B830F2_ftn) ();
-	static Application_get_version_mD6AC9813ABCAD4D2A1F764F99E26068CA5B830F2_ftn _il2cpp_icall_func;
-	if (!_il2cpp_icall_func)
-	_il2cpp_icall_func = (Application_get_version_mD6AC9813ABCAD4D2A1F764F99E26068CA5B830F2_ftn)il2cpp_codegen_resolve_icall ("UnityEngine.Application::get_version()");
-	String_t* icallRetVal = _il2cpp_icall_func();
-	return icallRetVal;
-}
-// System.String UnityEngine.Application::get_productName()
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* Application_get_productName_m00192B33A17C93424812C4A99AEA41993380EBA1 (const RuntimeMethod* method) 
-{
-	typedef String_t* (*Application_get_productName_m00192B33A17C93424812C4A99AEA41993380EBA1_ftn) ();
-	static Application_get_productName_m00192B33A17C93424812C4A99AEA41993380EBA1_ftn _il2cpp_icall_func;
-	if (!_il2cpp_icall_func)
-	_il2cpp_icall_func = (Application_get_productName_m00192B33A17C93424812C4A99AEA41993380EBA1_ftn)il2cpp_codegen_resolve_icall ("UnityEngine.Application::get_productName()");
-	String_t* icallRetVal = _il2cpp_icall_func();
 	return icallRetVal;
 }
 // UnityEngine.RuntimePlatform UnityEngine.Application::get_platform()
