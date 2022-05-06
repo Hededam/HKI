@@ -642,6 +642,10 @@ struct IScriptableRuntimeReflectionSystem_t0E6ED00D872A0EFCF87A494C5C893AE9FBE56
 struct ISubsystemDescriptor_tEF29944D579CC7D70F52CB883150735991D54E6E;
 // UnityEngine.UI.Image
 struct Image_tBC1D03F63BF71132E9A5E472B8742F172A011E7E;
+// UnityEngine.InputSystem.InputAction
+struct InputAction_t1B550AD2B55AF322AFB53CD28DA64081220D01CD;
+// UnityEngine.InputSystem.InputActionAsset
+struct InputActionAsset_tF217AC5223B4AAA46EBCB44B33E9259FB117417D;
 // UnityEngine.InputSystem.InputDevice
 struct InputDevice_t8BCF67533E872A75779C24C93D1D7085B72D364B;
 // UnityEngine.UI.InputField
@@ -738,6 +742,8 @@ struct String_t;
 struct StringBuilder_t;
 // UnityEngine.SubsystemsImplementation.SubsystemProvider
 struct SubsystemProvider_tE1865B8FE698C81A59AED35E0E536BD53F402455;
+// UnityEngine.XR.Interaction.Toolkit.TeleportationProvider
+struct TeleportationProvider_t97A0AC16C69ACC50C842581737181148614AF972;
 // UnityEngine.UI.Text
 struct Text_tD60B2346DAA6666BF0D822FF607F0B220C2B9E62;
 // UnityEngine.TextAsset
@@ -796,6 +802,8 @@ struct XRLoader_t80B1B1934C40561C5352ABC95D567DC2A7C9C976;
 struct XRManagerSettings_t7923B66EB3FEE58C7B9F85FF61749B774D3B9E52;
 // Unity.XR.CoreUtils.XROrigin
 struct XROrigin_t5E534A6D886991AF3C1C64127E19A3A510009CFE;
+// UnityEngine.XR.Interaction.Toolkit.XRRayInteractor
+struct XRRayInteractor_t0B25C1D5A938B199A71908E189AB351B43DA4C76;
 // UnityEngine.Yoga.YogaConfig
 struct YogaConfig_tE8B56F99460C291C1F7F46DBD8BAC9F0B653A345;
 // UnityEngine.Analytics.AnalyticsSessionInfo/IdentityTokenChanged
@@ -13427,6 +13435,31 @@ struct OpenXRRestarter_t59BB3482FA6ED413E66F91ABE39820D83AAE8AA1_StaticFields
 	OpenXRRestarter_t59BB3482FA6ED413E66F91ABE39820D83AAE8AA1* ___s_Instance_8;
 };
 
+// TeleportationController
+struct TeleportationController_t857F298D3FB4BB04724FF8DD908B3484284A57A1  : public MonoBehaviour_t532A11E69716D348D8AA7F854AFCBFCB8AD17F71
+{
+	// TeleportationController/ControllerType TeleportationController::targetController
+	int32_t ___targetController_5;
+	// UnityEngine.InputSystem.InputActionAsset TeleportationController::inputAction
+	InputActionAsset_tF217AC5223B4AAA46EBCB44B33E9259FB117417D* ___inputAction_6;
+	// UnityEngine.XR.Interaction.Toolkit.XRRayInteractor TeleportationController::rayInteractor
+	XRRayInteractor_t0B25C1D5A938B199A71908E189AB351B43DA4C76* ___rayInteractor_7;
+	// UnityEngine.XR.Interaction.Toolkit.TeleportationProvider TeleportationController::teleportationProvider
+	TeleportationProvider_t97A0AC16C69ACC50C842581737181148614AF972* ___teleportationProvider_8;
+	// UnityEngine.InputSystem.InputAction TeleportationController::_thumbstickInputAction
+	InputAction_t1B550AD2B55AF322AFB53CD28DA64081220D01CD* ____thumbstickInputAction_9;
+	// UnityEngine.InputSystem.InputAction TeleportationController::_teleportActivate
+	InputAction_t1B550AD2B55AF322AFB53CD28DA64081220D01CD* ____teleportActivate_10;
+	// UnityEngine.InputSystem.InputAction TeleportationController::_teleportCancel
+	InputAction_t1B550AD2B55AF322AFB53CD28DA64081220D01CD* ____teleportCancel_11;
+};
+
+struct TeleportationController_t857F298D3FB4BB04724FF8DD908B3484284A57A1_StaticFields
+{
+	// System.Boolean TeleportationController::_teleportIsActive
+	bool ____teleportIsActive_4;
+};
+
 // UnityEngine.SpatialTracking.TrackedPoseDriver
 struct TrackedPoseDriver_t5A2DEE7957ED76932DB7460383BF09AB1CB4CCCD  : public MonoBehaviour_t532A11E69716D348D8AA7F854AFCBFCB8AD17F71
 {
@@ -17362,12 +17395,18 @@ IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4373[3] =
 IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4376[4] = 
 {
 	0,static_cast<int32_t>(offsetof(ConformanceAutomationFeature_t0C2E5D391DBCC81F1B86F2D7E34719B7D292BFF7_StaticFields, ___xrInstance_16)),static_cast<int32_t>(offsetof(ConformanceAutomationFeature_t0C2E5D391DBCC81F1B86F2D7E34719B7D292BFF7_StaticFields, ___xrSession_17)),0,};
-IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4380[4] = 
+IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4378[3] = 
+{
+	static_cast<int32_t>(sizeof(RuntimeObject)),0,0,};
+IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4379[8] = 
+{
+	static_cast<int32_t>(offsetof(TeleportationController_t857F298D3FB4BB04724FF8DD908B3484284A57A1_StaticFields, ____teleportIsActive_4)),static_cast<int32_t>(offsetof(TeleportationController_t857F298D3FB4BB04724FF8DD908B3484284A57A1, ___targetController_5)),static_cast<int32_t>(offsetof(TeleportationController_t857F298D3FB4BB04724FF8DD908B3484284A57A1, ___inputAction_6)),static_cast<int32_t>(offsetof(TeleportationController_t857F298D3FB4BB04724FF8DD908B3484284A57A1, ___rayInteractor_7)),static_cast<int32_t>(offsetof(TeleportationController_t857F298D3FB4BB04724FF8DD908B3484284A57A1, ___teleportationProvider_8)),static_cast<int32_t>(offsetof(TeleportationController_t857F298D3FB4BB04724FF8DD908B3484284A57A1, ____thumbstickInputAction_9)),static_cast<int32_t>(offsetof(TeleportationController_t857F298D3FB4BB04724FF8DD908B3484284A57A1, ____teleportActivate_10)),static_cast<int32_t>(offsetof(TeleportationController_t857F298D3FB4BB04724FF8DD908B3484284A57A1, ____teleportCancel_11)),};
+IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4383[4] = 
 {
 	static_cast<int32_t>(sizeof(RuntimeObject)),0,0,0,};
-IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4388[5] = 
+IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4391[5] = 
 {
 	static_cast<int32_t>(offsetof(RuntimeDebuggerOpenXRFeature_t1E3C60D2636DEC25D95E63BB3300DBFC5E9057BA_StaticFields, ___kEditorToPlayerRequestDebuggerOutput_15)),static_cast<int32_t>(offsetof(RuntimeDebuggerOpenXRFeature_t1E3C60D2636DEC25D95E63BB3300DBFC5E9057BA_StaticFields, ___kPlayerToEditorSendDebuggerOutput_16)),static_cast<int32_t>(offsetof(RuntimeDebuggerOpenXRFeature_t1E3C60D2636DEC25D95E63BB3300DBFC5E9057BA, ___cacheSize_17)),static_cast<int32_t>(offsetof(RuntimeDebuggerOpenXRFeature_t1E3C60D2636DEC25D95E63BB3300DBFC5E9057BA, ___perThreadCacheSize_18)),0,};
-IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4390[1] = 
+IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4393[1] = 
 {
 	0,};
