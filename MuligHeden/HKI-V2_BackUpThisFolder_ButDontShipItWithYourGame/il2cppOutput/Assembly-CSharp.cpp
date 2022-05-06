@@ -1140,10 +1140,10 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void TeleportationController_Start_m4970D0216
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		// rayInteractor.enabled = false;
+		// rayInteractor.enabled = true;
 		XRRayInteractor_t0B25C1D5A938B199A71908E189AB351B43DA4C76* L_0 = __this->___rayInteractor_7;
 		NullCheck(L_0);
-		Behaviour_set_enabled_mF1DCFE60EB09E0529FE9476CA804A3AA2D72B16A(L_0, (bool)0, NULL);
+		Behaviour_set_enabled_mF1DCFE60EB09E0529FE9476CA804A3AA2D72B16A(L_0, (bool)1, NULL);
 		// Debug.Log("XRI " + targetController.ToString());
 		int32_t* L_1 = (&__this->___targetController_5);
 		Il2CppFakeBox<int32_t> L_2(ControllerType_t28C47AAE5CA45E2431512D81B704122CDDB46892_il2cpp_TypeInfo_var, L_1);
