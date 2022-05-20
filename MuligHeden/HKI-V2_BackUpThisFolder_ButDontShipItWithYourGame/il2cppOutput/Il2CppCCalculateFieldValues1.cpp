@@ -13334,6 +13334,17 @@ struct EyeGazeInteraction_t4EAAB76C8910B2B25C4494294BAEDF8961147158  : public Op
 {
 };
 
+// FireBullet
+struct FireBullet_tBB71B096A126622D517ED60A6A1FF03D4FFB1E57  : public MonoBehaviour_t532A11E69716D348D8AA7F854AFCBFCB8AD17F71
+{
+	// System.Single FireBullet::speed
+	float ___speed_4;
+	// UnityEngine.GameObject FireBullet::bulletObj
+	GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* ___bulletObj_5;
+	// UnityEngine.Transform FireBullet::frontOfGun
+	Transform_tB27202C6F4E36D225EE28A13E4D662BF99785DB1* ___frontOfGun_6;
+};
+
 // UnityEngine.XR.OpenXR.Features.Interactions.HTCViveControllerProfile
 struct HTCViveControllerProfile_t65F40E7ED71E6833A8252AC7F7A2CD250A5A78C4  : public OpenXRInteractionFeature_t643728BC4EB54CC2852F8D9921027BEE62E7682E
 {
@@ -17397,16 +17408,19 @@ IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4376[4] =
 	0,static_cast<int32_t>(offsetof(ConformanceAutomationFeature_t0C2E5D391DBCC81F1B86F2D7E34719B7D292BFF7_StaticFields, ___xrInstance_16)),static_cast<int32_t>(offsetof(ConformanceAutomationFeature_t0C2E5D391DBCC81F1B86F2D7E34719B7D292BFF7_StaticFields, ___xrSession_17)),0,};
 IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4378[3] = 
 {
+	static_cast<int32_t>(offsetof(FireBullet_tBB71B096A126622D517ED60A6A1FF03D4FFB1E57, ___speed_4)),static_cast<int32_t>(offsetof(FireBullet_tBB71B096A126622D517ED60A6A1FF03D4FFB1E57, ___bulletObj_5)),static_cast<int32_t>(offsetof(FireBullet_tBB71B096A126622D517ED60A6A1FF03D4FFB1E57, ___frontOfGun_6)),};
+IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4379[3] = 
+{
 	static_cast<int32_t>(sizeof(RuntimeObject)),0,0,};
-IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4379[8] = 
+IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4380[8] = 
 {
 	static_cast<int32_t>(offsetof(TeleportationController_t857F298D3FB4BB04724FF8DD908B3484284A57A1_StaticFields, ____teleportIsActive_4)),static_cast<int32_t>(offsetof(TeleportationController_t857F298D3FB4BB04724FF8DD908B3484284A57A1, ___targetController_5)),static_cast<int32_t>(offsetof(TeleportationController_t857F298D3FB4BB04724FF8DD908B3484284A57A1, ___inputAction_6)),static_cast<int32_t>(offsetof(TeleportationController_t857F298D3FB4BB04724FF8DD908B3484284A57A1, ___rayInteractor_7)),static_cast<int32_t>(offsetof(TeleportationController_t857F298D3FB4BB04724FF8DD908B3484284A57A1, ___teleportationProvider_8)),static_cast<int32_t>(offsetof(TeleportationController_t857F298D3FB4BB04724FF8DD908B3484284A57A1, ____thumbstickInputAction_9)),static_cast<int32_t>(offsetof(TeleportationController_t857F298D3FB4BB04724FF8DD908B3484284A57A1, ____teleportActivate_10)),static_cast<int32_t>(offsetof(TeleportationController_t857F298D3FB4BB04724FF8DD908B3484284A57A1, ____teleportCancel_11)),};
-IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4383[4] = 
+IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4384[4] = 
 {
 	static_cast<int32_t>(sizeof(RuntimeObject)),0,0,0,};
-IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4391[5] = 
+IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4392[5] = 
 {
 	static_cast<int32_t>(offsetof(RuntimeDebuggerOpenXRFeature_t1E3C60D2636DEC25D95E63BB3300DBFC5E9057BA_StaticFields, ___kEditorToPlayerRequestDebuggerOutput_15)),static_cast<int32_t>(offsetof(RuntimeDebuggerOpenXRFeature_t1E3C60D2636DEC25D95E63BB3300DBFC5E9057BA_StaticFields, ___kPlayerToEditorSendDebuggerOutput_16)),static_cast<int32_t>(offsetof(RuntimeDebuggerOpenXRFeature_t1E3C60D2636DEC25D95E63BB3300DBFC5E9057BA, ___cacheSize_17)),static_cast<int32_t>(offsetof(RuntimeDebuggerOpenXRFeature_t1E3C60D2636DEC25D95E63BB3300DBFC5E9057BA, ___perThreadCacheSize_18)),0,};
-IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4393[1] = 
+IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4394[1] = 
 {
 	0,};
