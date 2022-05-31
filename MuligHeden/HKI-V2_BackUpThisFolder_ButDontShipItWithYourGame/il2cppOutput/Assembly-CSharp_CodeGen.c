@@ -12,8 +12,8 @@
 
 
 
-// 0x00000001 System.Void FireBullet::Fire()
-extern void FireBullet_Fire_m83D7004CF4E7EF252EA1B2FF7D0E2B1F5ECBEF34 (void);
+// 0x00000001 System.Void FireBullet::Fire2()
+extern void FireBullet_Fire2_mA01422FCFD5101FA75E4B4043779EB864A650F0A (void);
 // 0x00000002 System.Void FireBullet::.ctor()
 extern void FireBullet__ctor_m1041E61C0607825E1AED9845F7BC16393545AC5E (void);
 // 0x00000003 System.Void TeleportationController::Start()
@@ -30,7 +30,7 @@ extern void TeleportationController_OnTeleportCancel_mA54D5990A0411077D00A4AD21A
 extern void TeleportationController__ctor_m014D272FFDA1F0DCC2CF330BBBC7D47C8829B001 (void);
 static Il2CppMethodPointer s_methodPointers[8] = 
 {
-	FireBullet_Fire_m83D7004CF4E7EF252EA1B2FF7D0E2B1F5ECBEF34,
+	FireBullet_Fire2_mA01422FCFD5101FA75E4B4043779EB864A650F0A,
 	FireBullet__ctor_m1041E61C0607825E1AED9845F7BC16393545AC5E,
 	TeleportationController_Start_m4970D02163CFB399F7DDD498EFFA82F32093A1A7,
 	TeleportationController_OnDestroy_m62967DDED645DF36333C425823800CC0067DBED5,
