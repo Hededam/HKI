@@ -1216,8 +1216,8 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR void Vector3__ctor_m376936E6B999E
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// System.Void FireBullet::Fire2()
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FireBullet_Fire2_mA01422FCFD5101FA75E4B4043779EB864A650F0A (FireBullet_tBB71B096A126622D517ED60A6A1FF03D4FFB1E57* __this, const RuntimeMethod* method) 
+// System.Void FireBullet::Fire()
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FireBullet_Fire_m83D7004CF4E7EF252EA1B2FF7D0E2B1F5ECBEF34 (FireBullet_tBB71B096A126622D517ED60A6A1FF03D4FFB1E57* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
 	if (!s_Il2CppMethodInitialized)
@@ -1271,8 +1271,8 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FireBullet_Fire2_mA01422FCFD5101FA75E4B4
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FireBullet__ctor_m1041E61C0607825E1AED9845F7BC16393545AC5E (FireBullet_tBB71B096A126622D517ED60A6A1FF03D4FFB1E57* __this, const RuntimeMethod* method) 
 {
 	{
-		// public float speed = 50f;
-		__this->___speed_4 = (50.0f);
+		// public float speed = 500f;
+		__this->___speed_4 = (500.0f);
 		MonoBehaviour__ctor_m592DB0105CA0BC97AA1C5F4AD27B12D68A3B7C1E(__this, NULL);
 		return;
 	}

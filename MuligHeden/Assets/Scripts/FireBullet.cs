@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FireBullet : MonoBehaviour
 {
-    public float speed = 50f;
+    public float speed = 500f;
     public GameObject bulletObj;
     public Transform frontOfGun;
     
