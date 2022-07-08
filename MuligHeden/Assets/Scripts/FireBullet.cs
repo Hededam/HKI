@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FireBullet : MonoBehaviour
 {
-    public float speed = 500f;
+    public float speed = 50f;
     public GameObject bulletObj;
     public Transform frontOfGun;
     
@@ -13,6 +13,6 @@ public class FireBullet : MonoBehaviour
         GetComponent<AudioSource>().Play();
         GameObject spawnedBullet = Instantiate(bulletObj, frontOfGun.position, frontOfGun.rotation);
         spawnedBullet.GetComponent<Rigidbody>().velocity = speed * frontOfGun.forward;
-        Destroy(spawnedBullet, 5f);
+        Destroy(spawnedBullet, 45f);
     }
 }

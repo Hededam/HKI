@@ -1261,8 +1261,8 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FireBullet_Fire_m83D7004CF4E7EF252EA1B2F
 		L_12 = Vector3_op_Multiply_m29F4414A9D30B7C0CD8455C4B2F049E8CCF66745_inline(L_9, L_11, NULL);
 		NullCheck(L_8);
 		Rigidbody_set_velocity_mE4031DF1C2C1CCE889F2AC9D8871D83795BB0D62(L_8, L_12, NULL);
-		// Destroy(spawnedBullet, 5f);
-		Object_Destroy_m0E1B4CF8C29EB7FC8658C2C84C57F49C0DD12C91(L_7, (5.0f), NULL);
+		// Destroy(spawnedBullet, 45f);
+		Object_Destroy_m0E1B4CF8C29EB7FC8658C2C84C57F49C0DD12C91(L_7, (45.0f), NULL);
 		// }
 		return;
 	}
@@ -1271,8 +1271,8 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FireBullet_Fire_m83D7004CF4E7EF252EA1B2F
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FireBullet__ctor_m1041E61C0607825E1AED9845F7BC16393545AC5E (FireBullet_tBB71B096A126622D517ED60A6A1FF03D4FFB1E57* __this, const RuntimeMethod* method) 
 {
 	{
-		// public float speed = 500f;
-		__this->___speed_4 = (500.0f);
+		// public float speed = 50f;
+		__this->___speed_4 = (50.0f);
 		MonoBehaviour__ctor_m592DB0105CA0BC97AA1C5F4AD27B12D68A3B7C1E(__this, NULL);
 		return;
 	}
