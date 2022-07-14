@@ -113,8 +113,8 @@ Material:
     - _TranslucencyInt: 15
     - _UVSec: 0
     - _WIND: 1
-    - _WindForce: 0.327
-    - _WindSpeed: 0.1
+    - _WindForce: 0.124
+    - _WindSpeed: 0.05
     - _WindWavesScale: 0.25
     - _ZWrite: 1
     - __dirty: 0
