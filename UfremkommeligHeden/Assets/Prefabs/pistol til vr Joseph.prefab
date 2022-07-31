@@ -33,7 +33,6 @@ Transform:
   m_LocalRotation: {x: -0.52954334, y: 0.46859792, z: 0.46859786, w: 0.5295432}
   m_LocalPosition: {x: 1.635, y: 0.754, z: 0.442}
   m_LocalScale: {x: 31.299168, y: 21.12371, z: 31.299168}
-  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3223359862126411766}
   - {fileID: 3223359861155412002}
@@ -59,7 +58,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -233,7 +231,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 1
+    m_Bits: 4294967295
   m_SelectMode: 0
   m_CustomReticle: {fileID: 0}
   m_FirstHoverEntered:
@@ -355,7 +353,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 15
-  bulletObj: {fileID: 1335222174489982170, guid: d6ad7ac9d10d5bf488f218a80c036ff2, type: 3}
+  bulletObj: {fileID: 1335222174489982170, guid: d6ad7ac9d10d5bf488f218a80c036ff2,
+    type: 3}
   frontOfGun: {fileID: 3223359861155412002}
 --- !u!1 &3223359861155412013
 GameObject:
@@ -383,7 +382,6 @@ Transform:
   m_LocalRotation: {x: 0.5, y: -0.5, z: -0.5, w: 0.5}
   m_LocalPosition: {x: -0.00668, y: -0, z: 0.00195}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3112292776532876750}
   m_RootOrder: 1
@@ -414,7 +412,6 @@ Transform:
   m_LocalRotation: {x: 0.5, y: -0.5, z: -0.5, w: 0.5}
   m_LocalPosition: {x: 0.00275, y: -0, z: -0.0011}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3112292776532876750}
   m_RootOrder: 0
