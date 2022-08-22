@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Start scenen.unity
+    guid: 0486b4b59e9b9e841a25337894cb0faa
+  - enabled: 1
     path: "Assets/Scenes/HKI Demo Den flyvende \xF8.unity"
     guid: 1bb99f43eaf27a64186db07bc1c2da7a
   - enabled: 0
