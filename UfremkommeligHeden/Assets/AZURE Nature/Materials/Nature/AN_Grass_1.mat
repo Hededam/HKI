@@ -174,11 +174,11 @@ Material:
     - _WIND2: 1
     - _Wind: 1
     - _Wind1: 1
-    - _WindForce: 0.6
+    - _WindForce: 0.456
     - _WindForce2: 0.3
-    - _WindSpeed: 0.4
+    - _WindSpeed: 0.201
     - _WindSpeed2: 0.5
-    - _WindWavesScale: 0.3
+    - _WindWavesScale: 0.247
     - _WindWavesScale2: 0.25
     - _WorldNoiseScale: 0.098
     - _ZWrite: 1
@@ -193,3 +193,4 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SnowColor: {r: 1, g: 1, b: 1, a: 0}
     - _SpecColor: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
