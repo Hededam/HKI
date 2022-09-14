@@ -148,7 +148,7 @@ Material:
     - _WIND: 1
     - _Wind: 1
     - _WindForce: 0.142
-    - _WindSpeed: 0.508
+    - _WindSpeed: 0.219
     - _WindWavesScale: 0.346
     - _ZWrite: 1
     - __dirty: 0
