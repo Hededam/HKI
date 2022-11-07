@@ -12,8 +12,8 @@ EditorBuildSettings:
     path: "Assets/Scenes/HKI Demo Low poly Den flyvende \xF8.unity"
     guid: 1bb99f43eaf27a64186db07bc1c2da7a
   - enabled: 1
-    path: Assets/Scenes/HKI Demo High poly Lagge land.unity
-    guid: dc8ebb6f95ea5af498b5045f29d43a89
+    path: Assets/Scenes/HKI Demo edderkoppeland.unity
+    guid: 0f21b4eaae95dab4992f2b3101dc168d
   - enabled: 0
     path: Assets/BNG Framework/Scenes/XR Demo.unity
     guid: a1360534006d3f845bc79b46b93cfec5
