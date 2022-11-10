@@ -4,24 +4,68 @@ using UnityEngine;
 
 public class RingCourse : MonoBehaviour
 {
-    [SerializeField] private GameObject[] rings;
-    private float time = 0f;
+    [SerializeField] private RingBase[] rings;
+    private float time = 0.0f;
+    private int nextRing = 0;
 
 
     // Start is called before the first frame update
     void Start()
     {
-
+        UpdateRings();
     }
 
     // Update is called once per frame
     void Update()
     {
-        time += Time.deltaTime;
+        if (nextRing > 0)
+        {
+            time += Time.deltaTime;
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            RingPassed(nextRing);
+        }
     }
 
     internal void RingPassed(int ringNumber)
     {
-        Debug.Log("ring " + ringNumber + " passed");
+        if (ringNumber == nextRing)
+        {
+            Debug.Log("ring " + ringNumber + " passed");
+            if (ringNumber == 0)
+            {
+
+            }
+            if (ringNumber < rings.Length - 1)
+            {
+                nextRing++;
+            }
+            else
+            {
+                nextRing = 0;
+                print(time);
+                time = 0.0f;
+            }
+            UpdateRings();
+        }
+    }
+
+    private void UpdateRings()
+    {
+        foreach (RingBase ring in rings)
+        {
+            if (ring.ringID < nextRing)
+            {
+                ring.SetState(state.Passed);
+            }else if (ring.ringID > nextRing)
+            {
+                ring.SetState(state.Normal);
+            }
+            else
+            {
+                ring.SetState(state.Next);
+            }
+        }
     }
 }
