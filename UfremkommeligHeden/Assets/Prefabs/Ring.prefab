@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 484163b4551ec8144aac0bb9cca4379e, type: 2}
+  - {fileID: 2100000, guid: c609c52d4e35e374ebd6fc3cddcaad3e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b12fbf8cc50321f41b03c3f42cd81e72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stateMatNormal: {fileID: 2100000, guid: 484163b4551ec8144aac0bb9cca4379e, type: 2}
-  stateMatNext: {fileID: 2100000, guid: df5d3221364379646b1b22128aaac995, type: 2}
-  stateMatPassed: {fileID: 2100000, guid: ac6321cd6d8b15d40a06f5567457b0eb, type: 2}
+  stateMatNormal: {fileID: 2100000, guid: c609c52d4e35e374ebd6fc3cddcaad3e, type: 2}
+  stateMatNext: {fileID: 2100000, guid: d7caa0a9f189579469f2e9d22f652fa5, type: 2}
+  stateMatPassed: {fileID: 2100000, guid: b3a3372847a97354f82c3fc5d8162563, type: 2}
   ringID: 0
