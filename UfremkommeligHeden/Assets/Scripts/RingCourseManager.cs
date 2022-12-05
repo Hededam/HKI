@@ -6,14 +6,25 @@ namespace RingCourse
 {
     public class RingCourseManager : MonoBehaviour
     {
-        public RingBase[] rings;
-        private float time = 0.0f;
-        private int nextRing = 0;
-        public bool courseStarted = false;
+        [SerializeField]
+        private GameObject ringPrefab;
+        [HideInInspector]
+        public List<CourseRing> rings;
 
+        [HideInInspector]
+        public bool courseStarted = false;
+        [HideInInspector]
+        public float time = 0.0f;
+        private int nextRing = 0;
         // Start is called before the first frame update
         void Start()
         {
+            int nextIndex = 0;
+            foreach(CourseRing ring in GetComponentsInChildren<CourseRing>())
+            {
+                ring.ringID = nextIndex;
+                rings.Add(ring);
+            }
             UpdateRings();
         }
 
@@ -41,13 +52,13 @@ namespace RingCourse
             if (ringNumber == nextRing)
             {
                 int prevRing = nextRing;
-                nextRing = (nextRing + 1) % rings.Length;
+                nextRing = (nextRing + 1) % rings.Count;
                 if (ringNumber == 0)
                 {
                     courseStarted = true;
                     StartCoroutine(Timer());
                 }
-                if (ringNumber >= rings.Length - 1)
+                if (ringNumber >= rings.Count - 1)
                 {
                     print(time);
                     courseStarted = false;
@@ -61,7 +72,7 @@ namespace RingCourse
             }
         }
 
-        private void UpdateRing(RingBase ring)
+        private void UpdateRing(CourseRing ring)
         {
             if (ring.ringID < nextRing)
             {
@@ -79,9 +90,21 @@ namespace RingCourse
 
         private void UpdateRings()
         {
-            foreach (RingBase ring in rings)
+            foreach (CourseRing ring in rings)
             {
                 UpdateRing(ring);
+            }
+        }
+
+        public void AddRing(int index)
+        {
+            Debug.Log(rings.Count);
+            CourseRing newRing = Instantiate(ringPrefab, gameObject.transform.position, gameObject.transform.rotation, gameObject.transform).GetComponent<CourseRing>();
+            newRing.ringID = index;
+            rings.Insert(index, newRing);
+            for (int i = index + 1; i < rings.Count; i++)
+            {
+                rings[i].ringID = i;
             }
         }
     }

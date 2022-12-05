@@ -311,11 +311,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ring_Course
       objectReference: {fileID: 0}
-    - target: {fileID: 1985670470003343396, guid: 818d7576d674e5d47a8d2219f44b3833,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1985670470003343397, guid: 818d7576d674e5d47a8d2219f44b3833,
         type: 3}
       propertyPath: m_RootOrder
