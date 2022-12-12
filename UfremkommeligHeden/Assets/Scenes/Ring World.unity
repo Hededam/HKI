@@ -306,6 +306,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 825934005972051754, guid: 818d7576d674e5d47a8d2219f44b3833,
+        type: 3}
+      propertyPath: ringID
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1907693235127290033, guid: 818d7576d674e5d47a8d2219f44b3833,
+        type: 3}
+      propertyPath: rings.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1985670470003343396, guid: 818d7576d674e5d47a8d2219f44b3833,
         type: 3}
       propertyPath: m_Name
@@ -362,6 +372,26 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1985670470003343397, guid: 818d7576d674e5d47a8d2219f44b3833,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3063033157418316829, guid: 818d7576d674e5d47a8d2219f44b3833,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4132036418943097990, guid: 818d7576d674e5d47a8d2219f44b3833,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8462694705798968346, guid: 818d7576d674e5d47a8d2219f44b3833,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8462694705798968346, guid: 818d7576d674e5d47a8d2219f44b3833,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0

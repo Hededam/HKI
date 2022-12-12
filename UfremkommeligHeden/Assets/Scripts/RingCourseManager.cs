@@ -6,9 +6,7 @@ namespace RingCourse
 {
     public class RingCourseManager : MonoBehaviour
     {
-        [SerializeField]
-        private GameObject ringPrefab;
-        [HideInInspector]
+        //[HideInInspector]
         public List<CourseRing> rings;
 
         [HideInInspector]
@@ -93,18 +91,6 @@ namespace RingCourse
             foreach (CourseRing ring in rings)
             {
                 UpdateRing(ring);
-            }
-        }
-
-        public void AddRing(int index)
-        {
-            Debug.Log(rings.Count);
-            CourseRing newRing = Instantiate(ringPrefab, gameObject.transform.position, gameObject.transform.rotation, gameObject.transform).GetComponent<CourseRing>();
-            newRing.ringID = index;
-            rings.Insert(index, newRing);
-            for (int i = index + 1; i < rings.Count; i++)
-            {
-                rings[i].ringID = i;
             }
         }
     }
