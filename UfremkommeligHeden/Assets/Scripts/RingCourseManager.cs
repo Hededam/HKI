@@ -17,10 +17,8 @@ namespace RingCourse
         // Start is called before the first frame update
         void Start()
         {
-            int nextIndex = 0;
             foreach(CourseRing ring in GetComponentsInChildren<CourseRing>())
             {
-                ring.ringID = nextIndex;
                 rings.Add(ring);
             }
             UpdateRings();
@@ -72,11 +70,12 @@ namespace RingCourse
 
         private void UpdateRing(CourseRing ring)
         {
-            if (ring.ringID < nextRing)
+            int ringIndex = ring.transform.GetSiblingIndex();
+            if (ringIndex < nextRing)
             {
                 ring.SetState(State.Passed);
             }
-            else if (ring.ringID > nextRing)
+            else if (ringIndex > nextRing)
             {
                 ring.SetState(State.Normal);
             }

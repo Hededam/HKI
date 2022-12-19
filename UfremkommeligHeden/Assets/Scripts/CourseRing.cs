@@ -21,8 +21,6 @@ namespace RingCourse
         [SerializeField] private Material stateMatNext;
         [SerializeField] private Material stateMatPassed;
 
-        public int ringID;
-
         // Start is called before the first frame update
         void Start()
         {
@@ -35,7 +33,7 @@ namespace RingCourse
         {
             if (other.CompareTag("Player"))
             {
-                course.RingPassed(ringID);
+                course.RingPassed(transform.GetSiblingIndex());
             }
         }
 

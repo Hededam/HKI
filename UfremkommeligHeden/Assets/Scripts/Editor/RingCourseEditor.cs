@@ -6,7 +6,10 @@ using UnityEditor.EditorTools;
 using RingCourse;
 
 /* TODO:
- * fix undo removing multiple references in manager.rings when multiple are added.
+ * Implement RemoveRing.
+ * easier access to ring transforms.
+ * 
+ * Optimization?
  * 
  * 
  */
@@ -25,6 +28,7 @@ class RingCourseEditor : Editor//, IDrawSelectedHandles
 
     public void OnSceneGUI()
     {
+        Event e = Event.current;
         manager = (RingCourseManager)target;
         //foreach (CourseRing ring in manager.rings)
         //{
@@ -34,19 +38,33 @@ class RingCourseEditor : Editor//, IDrawSelectedHandles
         Handles.color = Color.cyan;
         for (int i = 0; i <= manager.rings.Count; i++)
         {
-            Vector3 pos1 = i > 0 ? RingPosition(i - 1) : RingPosition(i) + (RingPosition(i) - RingPosition(i + 1)).normalized * 5f;
-            Vector3 pos2 = i < manager.rings.Count ? RingPosition(i) : RingPosition(i - 1) + (RingPosition(i - 1) - RingPosition(i - 2)).normalized * 5f;
+            Vector3 pos1 = i > 0 ? RingPosition(i - 1) : RingPosition(i) + (RingPosition(i) - RingPosition(i + 1)).normalized * 6f;
+            Vector3 pos2 = i < manager.rings.Count ? RingPosition(i) : RingPosition(i - 1) + (RingPosition(i - 1) - RingPosition(i - 2)).normalized * 6f;
 
-            Vector3 buttonPos = (pos2 - pos1) * 0.5f + pos1;
-            float buttonSize = HandleUtility.GetHandleSize(buttonPos) * 0.2f;
             if (i > 0 && i < manager.rings.Count)
             {
                 Handles.DrawLine(pos1, pos2, 3.0f);
             }
-            if (Handles.Button(buttonPos, SceneView.currentDrawingSceneView.rotation, buttonSize, buttonSize + 0.5f, Handles.DotHandleCap))
+            if (!e.shift)
             {
-                Debug.Log($"Clicked between ring {i - 1} and {i}");
-                AddRing(i);
+                Vector3 buttonPos = (pos2 - pos1) * 0.5f + pos1;
+                float buttonSize = HandleUtility.GetHandleSize(buttonPos) * 0.2f;
+                if (Handles.Button(buttonPos, SceneView.currentDrawingSceneView.rotation, buttonSize, buttonSize + 0.5f, Handles.DotHandleCap))
+                {
+                    AddRing(i);
+                }
+            }
+            else if (i < manager.rings.Count)
+            {
+                Vector3 buttonPos = pos2;
+                float buttonSize = HandleUtility.GetHandleSize(buttonPos) * 0.2f;
+
+                Handles.color = Color.red;
+                if (Handles.Button(buttonPos, SceneView.currentDrawingSceneView.rotation, buttonSize, buttonSize + 0.5f, Handles.DotHandleCap))
+                {
+                    RemoveRing(i);
+                }
+                Handles.color = Color.cyan;
             }
         }
     }
@@ -56,35 +74,28 @@ class RingCourseEditor : Editor//, IDrawSelectedHandles
         Vector3 pos = Vector3.zero;
         if (index == 0)
         {
-            Debug.Log("start");
-            pos = RingPosition(index) + (RingPosition(index) - RingPosition(index + 1)).normalized * 5f;
+            pos = RingPosition(index) + (RingPosition(index) - RingPosition(index + 1)).normalized * 3f;
         }
         else if (index == manager.rings.Count)
         {
-            Debug.Log("end");
-            pos = RingPosition(index - 1) + (RingPosition(index - 2) - RingPosition(index - 1)).normalized * 5f;
+            pos = RingPosition(index - 1) + (RingPosition(index - 1) - RingPosition(index - 2)).normalized * 3f;
         }
         else
         {
-            Debug.Log("in between");
-            pos = (RingPosition(index) - RingPosition(index - 1)) * 0.5f;
+            pos = RingPosition(index - 1) + (RingPosition(index) - RingPosition(index - 1)) * 0.5f;
         }
         CourseRing newRing = Instantiate(ringPrefab, pos, Quaternion.LookRotation(pos), manager.transform).GetComponent<CourseRing>();
-        newRing.ringID = index;
         newRing.transform.SetSiblingIndex(index);
         Undo.RegisterCreatedObjectUndo(newRing.gameObject, "Add Ring");
-        Undo.RecordObject(manager, "Add Ring");
+        Undo.RegisterCompleteObjectUndo(manager, "Add Ring");
         manager.rings.Insert(index, newRing);
-        for (int i = index + 1; i < manager.rings.Count; i++)
-        {
-            Undo.RecordObject(manager.rings[i], "Add Ring");
-            manager.rings[i].ringID = i;
-        }
     }
 
     public void RemoveRing(int index)
     {
-
+        //Undo.RegisterCompleteObjectUndo(manager, "Remove Ring");
+        //Undo.DestroyObjectImmediate();
+        //manager.rings.RemoveAt(index);
     }
 
     private Vector3 RingPosition(int i)
