@@ -6,8 +6,8 @@ using UnityEditor.EditorTools;
 using RingCourse;
 
 /* TODO:
- * Implement RemoveRing.
  * easier access to ring transforms.
+ * can't remove the rings from the original prefab.
  * 
  * Optimization?
  * 
@@ -30,6 +30,7 @@ class RingCourseEditor : Editor//, IDrawSelectedHandles
     {
         Event e = Event.current;
         manager = (RingCourseManager)target;
+
         //foreach (CourseRing ring in manager.rings)
         //{
         //    Handles.TransformHandle(ring.transform.position, ring.transform.rotation, ring.transform.localScale);
@@ -38,8 +39,8 @@ class RingCourseEditor : Editor//, IDrawSelectedHandles
         Handles.color = Color.cyan;
         for (int i = 0; i <= manager.rings.Count; i++)
         {
-            Vector3 pos1 = i > 0 ? RingPosition(i - 1) : RingPosition(i) + (RingPosition(i) - RingPosition(i + 1)).normalized * 6f;
-            Vector3 pos2 = i < manager.rings.Count ? RingPosition(i) : RingPosition(i - 1) + (RingPosition(i - 1) - RingPosition(i - 2)).normalized * 6f;
+            Vector3 pos1 = i > 0 ? RingPosition(i - 1) : RingPosition(i) + (RingPosition(i) - RingPosition(i + 1)).normalized * 10f;
+            Vector3 pos2 = i < manager.rings.Count ? RingPosition(i) : RingPosition(i - 1) + (RingPosition(i - 1) - RingPosition(i - 2)).normalized * 10f;
 
             if (i > 0 && i < manager.rings.Count)
             {
@@ -51,7 +52,7 @@ class RingCourseEditor : Editor//, IDrawSelectedHandles
                 float buttonSize = HandleUtility.GetHandleSize(buttonPos) * 0.2f;
                 if (Handles.Button(buttonPos, SceneView.currentDrawingSceneView.rotation, buttonSize, buttonSize + 0.5f, Handles.DotHandleCap))
                 {
-                    AddRing(i);
+                    AddRing(i, buttonPos);
                 }
             }
             else if (i < manager.rings.Count)
@@ -69,22 +70,19 @@ class RingCourseEditor : Editor//, IDrawSelectedHandles
         }
     }
 
-    public void AddRing(int index)
+    public void AddRing(int index, Vector3 pos)
     {
-        Vector3 pos = Vector3.zero;
-        if (index == 0)
+        Debug.Log($"{index} {manager.rings.Count}");
+        Quaternion rotation = Quaternion.identity;
+        if (index < manager.rings.Count)
         {
-            pos = RingPosition(index) + (RingPosition(index) - RingPosition(index + 1)).normalized * 3f;
-        }
-        else if (index == manager.rings.Count)
-        {
-            pos = RingPosition(index - 1) + (RingPosition(index - 1) - RingPosition(index - 2)).normalized * 3f;
+            rotation = manager.rings[index].transform.rotation;
         }
         else
         {
-            pos = RingPosition(index - 1) + (RingPosition(index) - RingPosition(index - 1)) * 0.5f;
+            rotation = manager.rings[index - 1].transform.rotation;
         }
-        CourseRing newRing = Instantiate(ringPrefab, pos, Quaternion.LookRotation(pos), manager.transform).GetComponent<CourseRing>();
+        CourseRing newRing = Instantiate(ringPrefab, pos, rotation, manager.transform).GetComponent<CourseRing>();
         newRing.transform.SetSiblingIndex(index);
         Undo.RegisterCreatedObjectUndo(newRing.gameObject, "Add Ring");
         Undo.RegisterCompleteObjectUndo(manager, "Add Ring");
@@ -93,13 +91,13 @@ class RingCourseEditor : Editor//, IDrawSelectedHandles
 
     public void RemoveRing(int index)
     {
-        //Undo.RegisterCompleteObjectUndo(manager, "Remove Ring");
-        //Undo.DestroyObjectImmediate();
-        //manager.rings.RemoveAt(index);
+        Undo.RegisterCompleteObjectUndo(manager, "Remove Ring");
+        Undo.DestroyObjectImmediate(manager.rings[index].gameObject);
+        manager.rings.RemoveAt(index);
     }
 
-    private Vector3 RingPosition(int i)
+    private Vector3 RingPosition(int index)
     {
-        return manager.rings[i].transform.position;
+        return manager.rings[index].transform.position;
     }
 }
