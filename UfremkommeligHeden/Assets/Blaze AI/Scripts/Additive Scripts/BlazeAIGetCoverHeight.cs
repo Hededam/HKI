@@ -2,19 +2,20 @@
 
 namespace BlazeAISpace
 {
-    [ExecuteInEditMode]
     public class BlazeAIGetCoverHeight : MonoBehaviour
     {
-        Collider collider;
+        public float heightOfObject;
 
-        void OnEnable()
+        public void GetHeight()
         {
-            collider = GetComponent<Collider>();
-            if (collider != null) {
-                print($"The object with name {gameObject.name} has a height of: {collider.bounds.size.y}");
-            }else{
-                print($"The object with name {gameObject.name} has no collider.");
+            Collider coll = GetComponent<Collider>();
+
+            if (coll == null) {
+                heightOfObject = -1;
+                return;
             }
+
+            heightOfObject = coll.bounds.size.y;
         }
     }
 }

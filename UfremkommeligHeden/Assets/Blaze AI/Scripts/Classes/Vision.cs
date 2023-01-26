@@ -54,7 +54,9 @@ namespace BlazeAISpace
             [Tooltip("When the AI sees an object with an alert tag it'll immediately change it to this value. In order not to get alerted by it again. If this value is empty it'll fall back to 'Untagged'.")]
             public string fallBackTag;
         }
+        
 
+        [Header("ENEMY/ALERT LAYERS & TAGS")]
         [Tooltip("Add all the layers you want to detect around the world. Any layer not added will be seen through. Recommended not to add other Blaze agents layers in order for them not to block the view from your target. Also no need to set the enemy layers here.")]
         public LayerMask layersToDetect = Physics.AllLayers;
         [Tooltip("Set the layers of the hostiles and alerts. Hostiles are the enemies you want to attack. Alerts are objects when seen will turn the AI to alert state.")]
@@ -66,12 +68,14 @@ namespace BlazeAISpace
         [Tooltip("Tags that will make the agent become in alert state such as tags of dead bodies or an open door. This is optional.")]
         public AlertTags[] alertTags;
 
-        [Header("SET THE VISION RANGE AND CONE ANGLE FOR EACH STATE")]
+
+        [Header("SET THE VISION RANGE AND CONE ANGLE FOR EACH STATE"), Space(7)]
         public normalVision visionDuringNormalState = new normalVision(90f, 10f);
         public alertVision visionDuringAlertState = new alertVision(100f, 15f);
         public attackVision visionDuringAttackState = new attackVision(360f, 15f);
 
-        [Space(5)]
+
+        [Header("SIGHT HEIGHT"), Space(7)]
         [Min(0f), Tooltip("The level of sight (eyes) of the agent. Anything below this vision cone will be seen, anything above it won't. Enable Show Normal Vision, etc... in the DEBUG section to see how the vision cone of different states offsets with this property.")]
         public float sightLevel = 1f;
         [Min(0f), Tooltip("The maximum level of sight of the agent to detect objects, shown as a purple rectangle in the scene view. Any object above the max level won't be seen but anything between the rectangle and below the actual vision cone will be seen.")]
@@ -79,10 +83,10 @@ namespace BlazeAISpace
         [Tooltip("OPTIONAL: add the head object, this will be used for updating both the rotation of the vision according to the head and the sight level automatically. If empty, the rotation will be according to the body, projecting forwards.")]
         public Transform head;
 
-        [Range(1, 30), Space(5), Tooltip("Vision systems normally run once every certain amount of frames to improve performance. Here you can set the amount of frames to pass before running vision on each cycle. The lower the number, the more accurate but expensive. The higher the number, the less accurate but better for performance. Remember the amount of frames passing is basically neglibile, so the accuracy isn't that big of a measure but performance will be better.")]
+        [Header("VISION CYCLE"), Range(1, 30), Space(7), Tooltip("Vision systems normally run once every certain amount of frames to improve performance. Here you can set the amount of frames to pass before running vision on each cycle. The lower the number, the more accurate but expensive. The higher the number, the less accurate but better for performance. Remember the amount of frames passing is basically neglibile, so the accuracy isn't that big of a measure but performance will be better.")]
         public int pulseRate = 10;
         
-        [Header("DEBUG")]
+        [Header("DEBUG"), Space(7)]
         [Tooltip("Show the vision cone of normal state in scene view for easier debugging.")]
         public bool showNormalVision = true;
         [Tooltip("Show the vision cone of alert state in scene view for easier debugging.")]
@@ -116,6 +120,7 @@ namespace BlazeAISpace
                 DrawVisionCone(transform, visionDuringAttackState.coneAngle, visionDuringAttackState.sightRange, Color.red, true);
             }
         }
+
 
         // draw vision cone
         void DrawVisionCone(Transform transform, float angle, float rayRange, Color color, bool ignore = false)
@@ -161,6 +166,7 @@ namespace BlazeAISpace
             Gizmos.DrawLine(npcSight + rightRayDirection1 * rayRange, npcSight + leftRayDirection1 * rayRange);
         }
 
+
         // return the index of the passed alert tag -> if exists
         public int GetAlertTagIndex(string alertTag)
         {
@@ -181,6 +187,7 @@ namespace BlazeAISpace
             return -1;
         }
 
+
         // disable all the behaviour scripts of alert tags
         public void DisableAllAlertBehaviours()
         {
@@ -190,6 +197,7 @@ namespace BlazeAISpace
                 }
             }
         }
+
 
         // check if any tag in hostile and alert are equal
         public void CheckHostileAndAlertItemEqual(bool dialogue=false)

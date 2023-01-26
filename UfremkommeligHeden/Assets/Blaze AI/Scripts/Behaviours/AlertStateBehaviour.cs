@@ -72,6 +72,19 @@ namespace BlazeAISpace
         void Start() 
         {
             blaze = GetComponent<BlazeAI>();
+            
+
+            // cache the idle anim for quick access & use in other systems
+            if (blaze.useAlertStateOnAwake) {
+                if (idleAnim.Length > 0) {
+                    blaze.defaultAlertIdleAnim = idleAnim[0];
+                }
+                else {
+                    blaze.defaultAlertIdleAnim = "";
+                }
+            }
+
+
             _audioTime = Random.Range(audioTime.x, audioTime.y);
 
             // force shut if not the same state
@@ -79,6 +92,7 @@ namespace BlazeAISpace
                 enabled = false;
                 return;
             }
+            
             
             SetEndDestination();
         }
@@ -135,7 +149,9 @@ namespace BlazeAISpace
         {
             ResetAudio();
             ResetReturnToNormal();
+            
             isIdle = false;
+            blaze.stayAlertUntilPos = false;
         }
 
         void OnDrawGizmosSelected()
@@ -263,6 +279,11 @@ namespace BlazeAISpace
             SetEndDestination();
 
 
+            // reset this value -> used for if AI has been called to move to a location 
+            // so don't run the return to normal timer until it reaches position
+            blaze.stayAlertUntilPos = false;
+
+
             yield return new WaitForSeconds(_idleTime);
 
 
@@ -333,10 +354,12 @@ namespace BlazeAISpace
         // count down to return to normal state
         void ReturnToNormalTimer()
         {
-            if (!returnToNormal || isReturningToNormal) return;
+            if (!returnToNormal || isReturningToNormal || blaze.stayAlertUntilPos) return;
+
 
             returnToNormalTimer += Time.deltaTime;
             if (returnToNormalTimer < timeToReturnNormal) return;
+
 
             if (!isReturningToNormal) {
                 StartCoroutine("ReturnToNormal");

@@ -1,11 +1,11 @@
 using UnityEngine;
 using TMPro;
-
+using BlazeAIDemo;
 
 public class HealthUI : MonoBehaviour
 {
     public TextMeshProUGUI healthText;
-    public Health blazeHealth;
+    public BlazeAIDemo.Health blazeHealth;
     
 
     // Update is called once per frame
@@ -14,3 +14,4 @@ public class HealthUI : MonoBehaviour
         healthText.text = "Health: " + blazeHealth.currentHealth;
     }
 }
+

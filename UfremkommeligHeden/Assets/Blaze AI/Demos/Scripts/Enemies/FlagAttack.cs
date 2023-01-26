@@ -11,7 +11,7 @@ namespace BlazeAIDemo
             attacking = true;
         }
 
-        public void StopAttack()
+        public void MeleeHitFinished()
         {
             attacking = false;
         }

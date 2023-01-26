@@ -6,55 +6,60 @@ namespace BlazeAISpace
     [System.Serializable]
     public class Waypoints
     {
-        [Tooltip("Locations of the waypoints in world space. Will appear as orange spheres at agent's location to tweak their locations visually but the [Randomize] property must be set to off. If Randomize is set to off the waypoints CAN NOT be 0 and will add current agent position as the first waypoint.")]
-        public Vector3[] waypoints;
+        [Header("SET WAYPOINTS"), Tooltip("Locations of the waypoints in world space. Will appear as orange spheres at agent's location to tweak their locations visually but the [Randomize] property must be set to off. If Randomize is set to off the waypoints CAN NOT be 0 and will add current agent position as the first waypoint.")]
+        public List<Vector3> waypoints = new List<Vector3>();
         [Tooltip("Set the idle rotation for each waypoint. Set the turning animations below. The rotation direction is shown in the scene view as red squares along the waypoints. If both the x and y are 0 then no rotation will occur and no red squares will appear. THIS GETS SET AUTOMATICALLY BASED ON NUMBER OF WAYPOINTS.")]
-        public Vector2[] waypointsRotation;
+        public List<Vector2> waypointsRotation = new List<Vector2>();
         [Min(0), Tooltip("The amount of time in seconds to pass before turning to waypoint rotation.")]
         public float timeBeforeTurning = 0.2f;
-        [Tooltip("Turning speed of waypoints rotations.")]
+        [Tooltip("Turning speed of waypoints rotations and movement turning.")]
         public float turnSpeed = 2f;
 
         [Space(5)]
         [Tooltip("Setting this to true will loop the waypoints when patrolling, setting it to false will stop at the last waypoint.")]
         public bool loop = false;
         
-        [Space(5), Tooltip("Enabling randomize will instead generate randomized waypoints within a radius from the start position in a continuous fashion and won't use the pre-set waypoints.")]
+        [Header("RANDOMIZE WAYPOINTS"), Space(5), Tooltip("Enabling randomize will instead generate randomized waypoints within a radius from the start position in a continuous fashion and won't use the pre-set waypoints.")]
         public bool randomize = true;
         [Min(0), Tooltip("The radius from the start position to get a randomized position.")]
         public float randomizeRadius = 20f;
         [Tooltip("Shows the radius as a yellow sphere in the scene view.")]
         public bool showRandomizeRadius;
 
-        [Space(5)]
-        [Tooltip("The animation state name that will be called for turning right in normal state. If empty no animation will be played.")]
+        [Header("TURNING"), Space(5)]
+        [Tooltip("Movement turning will make the AI when in normal-alert states turn to the correct direction before moving and always turn to face the correct path. The turn speed is the property found above.")]
+        public bool useMovementTurning = false;
+        [Range(-1f, 1f), Tooltip("Movement turning will be used if the dot product between path corner and AI forward is equal to or less than this value. Best to keep it between 0.5 - 0.7.")]
+        public float movementTurningSensitivity = 0.7f;
+
+        [Tooltip("Play turn animations when turning. This doesn't apply on attack state (it has it's own property to apply turning)"), Space(7)]
+        public bool useTurnAnims;
+
+        [Header("TURN ANIMATIONS"), Tooltip("The animation state name that will be called for turning right in normal state.")]
         public string rightTurnAnimNormal;
-        [Tooltip("The animation state name that will be called for turning left in normal state. If empty no animation will be played.")]
+        [Tooltip("The animation state name that will be called for turning left in normal state.")]
         public string leftTurnAnimNormal;
-        [Tooltip("The animation state name that will be called for turning right in alert state. If empty no animation will be played.")]
+        [Tooltip("The animation state name that will be called for turning right in alert and attack states.")]
         public string rightTurnAnimAlert;
-        [Tooltip("The animation state name that will be called for turning left in alert state. If empty no animation will be played.")]
+        [Tooltip("The animation state name that will be called for turning left in alert and attack states.")]
         public string leftTurnAnimAlert;
         [Tooltip("Transition time from any state to the turning animation.")]
         public float turningAnimT = 0.25f;
 
-        [Space(5), Tooltip("Movement turning will make the AI when in normal-alert states turn to the correct direction before moving and always turn to face the correct path. The turn speed is the property found above.")]
-        public bool useMovementTurning = false;
-        [Range(-1f, 1f), Tooltip("Movement turning will be used if the dot product between path corner and current position is equals to or less than this value. Best to keep it between 0.5 - 0.7.")]
-        public float movementTurningSensitivity = 0.7f;
 
         // save inspector states
         bool inspectorLoop;
         bool inspectorRandomize;
 
 
-        // GUI validation for the waypoint system
+        // GUI validation for the waypoint system -> pass the transform.position of the AI
         public void WaypointsValidation(Vector3 position) 
         {
             if (randomize && loop) {
                 randomize = !inspectorRandomize;
                 loop = !inspectorLoop;
             }
+
             
             inspectorLoop = loop;
             inspectorRandomize = randomize;
@@ -64,44 +69,61 @@ namespace BlazeAISpace
                 showRandomizeRadius = false;
 
                 // if randomize is off and no waypoints -> set current position as waypoint
-                if (waypoints.Length <= 0) {
-                    waypoints = new Vector3[1];
-                    waypoints[0] = position;
-
-                    waypointsRotation[0] = Vector2.zero;
+                if (waypoints.Count <= 0) {
+                    waypoints.Add(position);
+                    waypointsRotation.Clear();
+                    waypointsRotation.Add(Vector2.zero);
 
                     return;
                 }
             }
 
 
-            for (int i=0; i<waypoints.Length; i+=1) {
+            // if one waypoint -> set point to current AI position
+            for (int i=0; i<waypoints.Count; i+=1) {
                 if (waypoints[i] == Vector3.zero) {
                     waypoints[i] = position;
                 }
             }
 
 
+            // set rotations list size
+            WaypointsRotationValidate();
+        }
+
+
+        // set waypoint rotations list
+        public void WaypointsRotationValidate()
+        {
+            
             if (waypointsRotation != null) {
-                Vector2[] arrCopy;
-                arrCopy = new Vector2[waypointsRotation.Length];
+                List<Vector2> listCopy = new List<Vector2>(waypointsRotation);
 
-                waypointsRotation.CopyTo(arrCopy, 0);
-                waypointsRotation = new Vector2[waypoints.Length];
 
-                for (int i=0; i<waypointsRotation.Length; i+=1) {
-                    if (i <= arrCopy.Length-1) {
-                        waypointsRotation[i] = arrCopy[i];
-                        if (waypointsRotation[i].x > 0.5f) waypointsRotation[i].x = 0.5f;
-                        if (waypointsRotation[i].y > 0.5f) waypointsRotation[i].y = 0.5f;
-                        if (waypointsRotation[i].x < -0.5f) waypointsRotation[i].x = -0.5f;
-                        if (waypointsRotation[i].y < -0.5f) waypointsRotation[i].y = -0.5f;
+                int waypointsCount = waypoints.Count;
+                waypointsRotation.Clear();
+                
+                
+                for (int i=0; i<waypointsCount; i++) {
+                    if (i <= listCopy.Count - 1) {
+                        Vector2 temp = listCopy[i];
+
+                        if (temp.x > 0.5f) temp.x = 0.5f;
+                        if (temp.y > 0.5f) temp.y = 0.5f;
+                        if (temp.x < -0.5f) temp.x = -0.5f;
+                        if (temp.y < -0.5f) temp.y = -0.5f;
+
+                        waypointsRotation.Add(temp);
+                        continue;
                     }
+
+                    waypointsRotation.Add(Vector2.zero);
                 }
             }
         }
 
-        // Mark the waypoints in editor-view
+
+        // mark the waypoints in editor-view
         public void Draw(Vector3 position)
         {
             if (randomize) {
@@ -112,15 +134,17 @@ namespace BlazeAISpace
                 return;
             }
 
-            for (int i = 0; i < waypoints.Length; i++) {
-                
+            for (int i = 0; i < waypoints.Count; i++) {
                 if (i == 0) {
                     Gizmos.color = new Color(1f, 0.3f, 0f);
-                }else{
+                }
+                else {
                     Gizmos.color = new Color(1f, 0.6f, 0.0047f);
                 }
+
                 
                 Gizmos.DrawSphere(waypoints[i], 0.3f);
+                
                 
                 // Draws the waypoint rotation cubes
                 if (waypointsRotation[i].x != 0 || waypointsRotation[i].y != 0) {
@@ -128,22 +152,18 @@ namespace BlazeAISpace
                     Gizmos.DrawCube(new Vector3(waypoints[i].x + waypointsRotation[i].x, waypoints[i].y, waypoints[i].z + waypointsRotation[i].y), new Vector3(0.3f, 0.3f, 0.3f));
                 }
 
-                if (waypoints.Length > 1)
-                {
-                    Gizmos.color = Color.blue;
-                    if (i == 0)
-                    {
-                        Gizmos.DrawLine(waypoints[0], waypoints[1]);
 
+                if (waypoints.Count > 1) {
+                    Gizmos.color = Color.blue;
+                    if (i == 0) {
+                        Gizmos.DrawLine(waypoints[0], waypoints[1]);
                     }
-                    else if (i == waypoints.Length - 1)
-                    {
+                    else if (i == waypoints.Count - 1) {
                         Gizmos.DrawLine(waypoints[i - 1], waypoints[i]);
                         Gizmos.color = Color.grey;
-                        Gizmos.DrawLine(waypoints[waypoints.Length - 1], waypoints[0]);
+                        Gizmos.DrawLine(waypoints[waypoints.Count - 1], waypoints[0]);
                     }
-                    else
-                    {
+                    else {
                         Gizmos.color = Color.blue;
                         Gizmos.DrawLine(waypoints[i - 1], waypoints[i]);
                     } 

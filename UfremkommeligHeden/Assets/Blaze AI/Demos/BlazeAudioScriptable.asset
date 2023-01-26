@@ -32,6 +32,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: cb5a69469dfefb84582a16697d2b5d1d, type: 3}
   distractionCheckLocation:
   - {fileID: 8300000, guid: 281edf732ab8fa44a8e4d27508f7ad59, type: 3}
+  searchStart:
+  - {fileID: 8300000, guid: fa8b9a187535cd6449a8ca9c2df872b7, type: 3}
+  searchEnd:
+  - {fileID: 8300000, guid: c45db12db19b6ea4aa5aa0816efe5058, type: 3}
+  returnPatrol:
+  - {fileID: 8300000, guid: c45db12db19b6ea4aa5aa0816efe5058, type: 3}
   hit:
   - {fileID: 8300000, guid: 3c4c77bd4b3be534dbca23027dc7a0de, type: 3}
   - {fileID: 8300000, guid: ca67c5a062483e647bc00a5693196dd7, type: 3}
@@ -40,3 +46,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 84b6e1bd36c17444b9941d1883b59f03, type: 3}
   alertTags:
   - {fileID: 8300000, guid: 6816d08006e454e48841bf1a89ea91be, type: 3}
+  companionIdleAndWander:
+  - {fileID: 8300000, guid: 5cb62bfbf05e04d4db174bf7577911b6, type: 3}
+  - {fileID: 8300000, guid: c45db12db19b6ea4aa5aa0816efe5058, type: 3}
+  companionOnFollow:
+  - {fileID: 8300000, guid: 5cb62bfbf05e04d4db174bf7577911b6, type: 3}
+  companionOnStop:
+  - {fileID: 8300000, guid: cb5a69469dfefb84582a16697d2b5d1d, type: 3}

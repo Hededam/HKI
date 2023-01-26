@@ -1,13 +1,16 @@
 using UnityEngine;
 
-public class Health : MonoBehaviour
+namespace BlazeAIDemo
 {
-    public float maxHealth = 50;
-    public float currentHealth { get; set; }
-
-
-    void Start()
+    public class Health : MonoBehaviour
     {
-        currentHealth = maxHealth;
+        public float maxHealth = 50;
+        public float currentHealth { get; set; }
+
+
+        void Start()
+        {
+            currentHealth = maxHealth;
+        }
     }
 }

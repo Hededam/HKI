@@ -4,21 +4,43 @@ namespace BlazeAISpace
 {
     public class DistractedStateBehaviour : MonoBehaviour
     {
-        [Tooltip("Time to pass (seconds) before turning to distraction location.")]
+        [Header("REACTION TIME"), Tooltip("Time to pass (seconds) before turning to distraction location.")]
         public float timeToReact = 0.2f;
-        [Tooltip("If enabled, will move to distraction location.")]
+
+
+        [Header("CHECKING LOCATION"), Tooltip("If enabled, AI will move to distraction location.")]
         public bool checkLocation = true;
         [Tooltip("Time to pass (seconds) before moving to check location.")]
         public float timeBeforeMovingToLocation = 1f;
-
         [Tooltip("Animation to play when reaches the distraction destination.")]
         public string checkAnim;
         public float checkAnimT = 0.25f;
         [Tooltip("Amount of time (seconds) to stay in distraction destination before going back to patrolling.")]
         public float timeToCheck = 5f;
-        [Tooltip("Set the audios to play on check location in the audio scriptable in the General tab in Blaze AI.")]
-        public bool playAudioOnCheckLocation;
 
+        
+        [Header("SEARCH RADIUS"), Tooltip("If enabled, the AI after checking the distraction location will randomly search points within the radius of the distraction location. The radius is the AI's NavMesh Agent Height x 2. Check Location must be enabled for this to work.")]
+        public bool searchLocationRadius;
+        [Range(1, 10), Tooltip("The amount of random points to search.")]
+        public int searchPoints = 3;
+        [Tooltip("The animation name to play on each search point.")]
+        public string searchPointAnim;
+        [Min(0), Tooltip("The amount of time to wait in each search point.")]
+        public float pointWaitTime = 3;
+        [Tooltip("Animation to play after going through all search points. This is the exiting animation.")]
+        public string endSearchAnim;
+        [Min(0), Tooltip("Set how long you want the end animation to be playing.")]
+        public float endSearchAnimTime = 3;
+        public float searchAnimsT = 0.25f;
+
+
+        [Tooltip("Play audio when AI reaches the distraction location.")]
+        public bool playAudioOnCheckLocation;
+        [Tooltip("Play an audio when AI begins searching.")]
+        public bool playAudioOnSearchStart;
+        [Tooltip("Play an audio when AI finishes searching.")]
+        public bool playAudioOnSearchEnd;
+        
 
         #region BEHAVIOUR VARS
 
@@ -37,11 +59,19 @@ namespace BlazeAISpace
         bool turnedToLocation;
         bool playedLocationAudio;
         bool isIdle;
+        bool isSearching;
 
         
         string moveAnim = "";
         string leftTurn = "";
         string rightTurn = "";
+
+
+        int searchIndex = 0;
+
+
+        Vector3 distractionPoint;
+        Vector3 searchPointLocation;
 
         #endregion
 
@@ -54,11 +84,11 @@ namespace BlazeAISpace
             alertStateBehaviour = GetComponent<AlertStateBehaviour>();
 
             if (normalStateBehaviour == null) {
-                print("Distracted State Behaviour tried to get Normal State Behaviour component but found nothing. It's important to set it manually to get the movement and turning animations and speeds.");
+                Debug.Log("Distracted State Behaviour tried to get Normal State Behaviour component but found nothing. It's important to set it manually to get the movement and turning animations and speeds.");
             }
 
             if (alertStateBehaviour == null) {
-                print("Distracted State Behaviour tried to get Alert State Behaviour component but found nothing. It's important to set it manually to get the movement and turning animations and speeds.");
+                Debug.Log("Distracted State Behaviour tried to get Alert State Behaviour component but found nothing. It's important to set it manually to get the movement and turning animations and speeds.");
             }
 
             // force shut if not the same state
@@ -76,11 +106,12 @@ namespace BlazeAISpace
                 return;
             }
 
+
             GetSpeedsAndTurns();
 
 
             // the end destination in Blaze is the location the agent wants to go to
-            Vector3 distractionPoint = blaze.endDestination;
+            distractionPoint = blaze.endDestination;
 
 
             // turn to distraction first
@@ -93,7 +124,8 @@ namespace BlazeAISpace
                         turnedToLocation = true;
                         _timeToReact = 0f;
                     }
-                }else{
+                }
+                else {
                     // play idle anim
                     blaze.animManager.Play(normalStateBehaviour.idleAnim[0], checkAnimT);
                 }
@@ -112,6 +144,30 @@ namespace BlazeAISpace
             }
 
 
+            // AI has reached distraction location and is now searching the radius
+            if (isSearching) {
+                if (blaze.MoveTo(searchPointLocation, moveSpeed, turnSpeed, moveAnim)) {
+                    // stay idle
+                    if (!IsSearchPointIdleFinished()) {
+                        return;
+                    }
+
+
+                    if (searchIndex < searchPoints) {
+                        SetSearchPoint();
+                        return;
+                    }
+
+
+                    // reaching this line means the AI has went through all search points and is time to exit
+                    EndSearchExit();
+                    return;
+                }
+
+                return;
+            }
+
+
             // if should check location
             if (checkLocation) {
                 // MoveTo() moves the agent to the destination and returns true when reaches destination
@@ -121,12 +177,14 @@ namespace BlazeAISpace
                 else {
                     isIdle = false;
                 }
-            }else{
+            }
+            else {
                 turnedToLocation = false;
-                _timeBeforeMovingToLocation = 0f;
                 isIdle = true;
+                _timeBeforeMovingToLocation = 0f;
                 blaze.SetState(blaze.previousState);
             }
+
 
             SetIdleState();
         }
@@ -139,7 +197,7 @@ namespace BlazeAISpace
 
         #endregion
 
-        #region BEHAVIOUR METHODS
+        #region CHECK LOCATION
 
         // get move & turn speeds/animations
         void GetSpeedsAndTurns()
@@ -151,6 +209,7 @@ namespace BlazeAISpace
                 leftTurn = blaze.waypoints.leftTurnAnimNormal;
                 rightTurn = blaze.waypoints.rightTurnAnimNormal;
             }
+
 
             if (blaze.previousState == BlazeAI.State.alert) {
                 moveSpeed = alertStateBehaviour.moveSpeed;
@@ -169,9 +228,11 @@ namespace BlazeAISpace
                 return;
             }
 
+
             if (blaze.IsAudioScriptableEmpty()) {
                 return;
             }
+
                 
             if (blaze.PlayAudio(blaze.audioScriptable.GetAudio(AudioScriptable.AudioType.DistractionCheckLocation))) {
                 playedLocationAudio = true;
@@ -179,20 +240,39 @@ namespace BlazeAISpace
         }
 
 
+        // exit method out of distracted state when reaching location
         void ReachedDistractionLocation()
         {
+            // play audio
             if (playAudioOnCheckLocation) {
                 PlayAudioOnCheckLocation();
             }
 
+
+            // play check location animation
             blaze.animManager.Play(checkAnim, checkAnimT);
+
+            // run the timer
             _timeToCheck += Time.deltaTime;
             
+
             if (_timeToCheck >= timeToCheck) {
+                if (searchLocationRadius) {
+                    PlaySearchStartAudio();
+                    SetSearchPoint();
+
+                    isSearching = true;
+                    return;
+                }
+
+                
                 ResetDistraction();
                 ResetStayIdle();
+                
+                
                 blaze.SetState(blaze.previousState);
             }
+
 
             isIdle = true;
         }
@@ -202,9 +282,12 @@ namespace BlazeAISpace
         {
             _timeToCheck = 0;
             _timeBeforeMovingToLocation = 0;
-            turnedToLocation = false;
             _timeToReact = 0;
+            searchIndex = 0;
+
+            turnedToLocation = false;
             playedLocationAudio = false;
+            isSearching = false;
         }
 
 
@@ -217,6 +300,93 @@ namespace BlazeAISpace
         void SetIdleState()
         {
             blaze.isIdle = isIdle;
+        }
+
+        #endregion
+
+        #region SEARCHING
+
+        // set the next search point
+        void SetSearchPoint()
+        {
+            searchPointLocation = blaze.RandomSpherePoint(distractionPoint, (blaze.navmeshAgent.height * 2) + 2);
+            
+            // make sure never returns 0
+            if (searchPointLocation == Vector3.zero) {
+                SetSearchPoint();
+                return;
+            }
+            
+            searchIndex++;
+            _timeToCheck = 0;
+        }
+
+
+        // play search point idle anim and return a bool whether the time has finished or not
+        bool IsSearchPointIdleFinished()
+        {
+            blaze.animManager.Play(searchPointAnim, searchAnimsT);
+            isIdle = true;
+            _timeToCheck += Time.deltaTime;
+            
+            
+            if (_timeToCheck >= pointWaitTime) {
+                return true;
+            }
+
+
+            return false;
+        }
+
+
+        // play start search audio
+        void PlaySearchStartAudio()
+        {
+            if (!playAudioOnSearchStart) {
+                return;
+            }
+
+
+            if (blaze.IsAudioScriptableEmpty()) {
+                return;
+            }
+
+
+            blaze.PlayAudio(blaze.audioScriptable.GetAudio(AudioScriptable.AudioType.SearchStart));
+        }
+
+
+        // play search end audio
+        void PlaySearchEndAudio()
+        {
+            if (!playAudioOnSearchEnd) {
+                return;
+            }
+
+
+            if (blaze.IsAudioScriptableEmpty()) {
+                return;
+            }
+
+
+            blaze.PlayAudio(blaze.audioScriptable.GetAudio(AudioScriptable.AudioType.SearchEnd));
+        }
+
+
+        // exit the search and distracted state
+        void EndSearchExit()
+        {
+            blaze.animManager.Play(endSearchAnim, searchAnimsT);
+            PlaySearchEndAudio();
+
+            _timeToCheck += Time.deltaTime;
+
+            if (_timeToCheck >= endSearchAnimTime) {
+                ResetDistraction();
+                ResetStayIdle();
+
+                blaze.SetState(blaze.previousState);
+            }
         }
 
         #endregion

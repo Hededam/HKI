@@ -4656,6 +4656,7 @@ GameObject:
   - component: {fileID: 948333426}
   - component: {fileID: 948333425}
   - component: {fileID: 948333424}
+  - component: {fileID: 948333432}
   m_Layer: 8
   m_Name: Guard (1)
   m_TagString: Enemy
@@ -4697,7 +4698,16 @@ MonoBehaviour:
   checkAnim: Looking Around
   checkAnimT: 0.25
   timeToCheck: 5
+  searchLocationRadius: 0
+  searchPoints: 3
+  searchPointAnim: 
+  pointWaitTime: 3
+  endSearchAnim: 
+  endSearchAnimTime: 3
+  searchAnimsT: 0.25
   playAudioOnCheckLocation: 1
+  playAudioOnSearchStart: 0
+  playAudioOnSearchEnd: 0
 --- !u!114 &948333426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4722,12 +4732,12 @@ MonoBehaviour:
     m_Bits: 4294967295
   attacks:
   - attackAnim: Punch
-    attackDuration: 1
+    attackDuration: 0.8
     animT: 0.25
     useAudio: 1
     audioIndex: 0
   - attackAnim: Kick
-    attackDuration: 1.2
+    attackDuration: 0.8
     animT: 0.25
     useAudio: 1
     audioIndex: 1
@@ -4752,24 +4762,35 @@ MonoBehaviour:
   moveBackwardsAnim: Jog Backwards
   moveBackwardsAnimT: 0.25
   turnToTarget: 1
-  turnSensitivity: 0.825
+  turnSensitivity: 0.8
   useTurnAnims: 1
   strafe: 1
   strafeDirection: 2
   strafeSpeed: 2.2
   strafeTime: {x: 1, y: 2}
-  strafeWaitTime: {x: 0.5, y: 2}
+  strafeWaitTime: {x: 0.3, y: 1}
   leftStrafeAnim: Left Strafe
   rightStrafeAnim: Right Strafe
   strafeAnimT: 0.25
   strafeLayersToAvoid:
     serializedVersion: 2
     m_Bits: 4294967295
-  onAttackRotate: 0
   onAttackRotateSpeed: 5
-  timeToReturnAlert: 3
-  returningToAlertAnim: Alert Idle
-  returningToAlertAnimT: 0.25
+  onAttackRotate: 0
+  searchEmptyLocation: 0
+  timeToStartSearch: 2
+  searchPoints: 3
+  searchPointAnim: 
+  pointWaitTime: 3
+  endSearchAnim: 
+  endSearchAnimTime: 0
+  searchAnimsT: 0.25
+  playAudioOnSearchStart: 0
+  playAudioOnSearchEnd: 0
+  returnPatrolAnim: 
+  returnPatrolAnimT: 0.25
+  returnPatrolTime: 3
+  playAudioOnReturnPatrol: 0
 --- !u!114 &948333427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4881,6 +4902,102 @@ CapsuleCollider:
   m_Height: 1.75
   m_Direction: 1
   m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!82 &948333432
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 948333423}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &948333433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4900,6 +5017,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8192
   audioScriptable: {fileID: 11400000, guid: 06e54b8716dee3c45a7e2e48238bf017, type: 2}
+  agentAudio: {fileID: 948333432}
   waypoints:
     waypoints:
     - {x: 5.9, y: -1.717624, z: -28.95}
@@ -4917,13 +5035,14 @@ MonoBehaviour:
     randomize: 0
     randomizeRadius: 20
     showRandomizeRadius: 0
+    useMovementTurning: 1
+    movementTurningSensitivity: 0.7
+    useTurnAnims: 1
     rightTurnAnimNormal: Right Turn
     leftTurnAnimNormal: Left Turn
     rightTurnAnimAlert: Right Turn
     leftTurnAnimAlert: Left Turn
     turningAnimT: 0.25
-    useMovementTurning: 1
-    movementTurningSensitivity: 0.6
   vision:
     layersToDetect:
       serializedVersion: 2
@@ -4967,16 +5086,31 @@ MonoBehaviour:
   canDistract: 1
   distractedStateBehaviour: {fileID: 948333425}
   priorityLevel: 50
+  turnAlertOnDistract: 0
   playDistractedAudios: 1
   hitStateBehaviour: {fileID: 0}
   deathAnim: 
   deathAnimT: 0.25
   playDeathAudio: 0
-  disableBlazeOnDeath: 0
+  deathCallRadius: 10
+  agentLayersToDeathCall:
+    serializedVersion: 2
+    m_Bits: 0
+  showDeathCallRadius: 0
+  deathEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  destroyOnDeath: 0
+  timeBeforeDestroy: 0
+  friendly: 0
+  distanceCull: 0
+  ignoreUnreachableEnemy: 0
+  fallBackPoints: []
+  showPoints: 0
   warnEmptyBehavioursOnStart: 1
 --- !u!95 &948333434
 Animator:
-  serializedVersion: 3
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -4989,10 +5123,11 @@ Animator:
   m_UpdateMode: 1
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!4 &948333435
 Transform:
   m_ObjectHideFlags: 0
@@ -6803,7 +6938,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1246575156}
-  m_LocalRotation: {x: 0.024841594, y: 0.73063916, z: -0.048205644, w: 0.6806067}
+  m_LocalRotation: {x: 0.024841603, y: 0.73063916, z: -0.048205663, w: 0.6806067}
   m_LocalPosition: {x: 0.030886218, y: 0.10365424, z: 0.0016340911}
   m_LocalScale: {x: 1.0000002, y: 1.0000004, z: 1.0000001}
   m_Children:
@@ -7722,6 +7857,7 @@ GameObject:
   - component: {fileID: 1423372234}
   - component: {fileID: 1423372233}
   - component: {fileID: 1423372232}
+  - component: {fileID: 1423372240}
   m_Layer: 8
   m_Name: Guard (3)
   m_TagString: Enemy
@@ -7763,7 +7899,16 @@ MonoBehaviour:
   checkAnim: Looking Around
   checkAnimT: 0.25
   timeToCheck: 5
+  searchLocationRadius: 0
+  searchPoints: 3
+  searchPointAnim: 
+  pointWaitTime: 3
+  endSearchAnim: 
+  endSearchAnimTime: 3
+  searchAnimsT: 0.25
   playAudioOnCheckLocation: 1
+  playAudioOnSearchStart: 0
+  playAudioOnSearchEnd: 0
 --- !u!114 &1423372234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7788,12 +7933,12 @@ MonoBehaviour:
     m_Bits: 4294967295
   attacks:
   - attackAnim: Punch
-    attackDuration: 1
+    attackDuration: 0.8
     animT: 0.25
     useAudio: 1
     audioIndex: 0
   - attackAnim: Kick
-    attackDuration: 1.2
+    attackDuration: 0.8
     animT: 0.25
     useAudio: 1
     audioIndex: 1
@@ -7818,24 +7963,35 @@ MonoBehaviour:
   moveBackwardsAnim: Jog Backwards
   moveBackwardsAnimT: 0.25
   turnToTarget: 1
-  turnSensitivity: 0.825
+  turnSensitivity: 0.8
   useTurnAnims: 1
   strafe: 1
   strafeDirection: 2
   strafeSpeed: 2.2
   strafeTime: {x: 1, y: 2}
-  strafeWaitTime: {x: 0.5, y: 2}
+  strafeWaitTime: {x: 0.3, y: 1}
   leftStrafeAnim: Left Strafe
   rightStrafeAnim: Right Strafe
   strafeAnimT: 0.25
   strafeLayersToAvoid:
     serializedVersion: 2
     m_Bits: 4294967295
-  onAttackRotate: 0
   onAttackRotateSpeed: 5
-  timeToReturnAlert: 3
-  returningToAlertAnim: Alert Idle
-  returningToAlertAnimT: 0.25
+  onAttackRotate: 0
+  searchEmptyLocation: 0
+  timeToStartSearch: 2
+  searchPoints: 3
+  searchPointAnim: 
+  pointWaitTime: 3
+  endSearchAnim: 
+  endSearchAnimTime: 0
+  searchAnimsT: 0.25
+  playAudioOnSearchStart: 0
+  playAudioOnSearchEnd: 0
+  returnPatrolAnim: 
+  returnPatrolAnimT: 0.25
+  returnPatrolTime: 3
+  playAudioOnReturnPatrol: 0
 --- !u!114 &1423372235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7947,6 +8103,102 @@ CapsuleCollider:
   m_Height: 1.75
   m_Direction: 1
   m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!82 &1423372240
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1423372231}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &1423372241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7966,6 +8218,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8192
   audioScriptable: {fileID: 11400000, guid: 06e54b8716dee3c45a7e2e48238bf017, type: 2}
+  agentAudio: {fileID: 1423372240}
   waypoints:
     waypoints: []
     waypointsRotation: []
@@ -7975,13 +8228,14 @@ MonoBehaviour:
     randomize: 1
     randomizeRadius: 10
     showRandomizeRadius: 0
+    useMovementTurning: 1
+    movementTurningSensitivity: 0.7
+    useTurnAnims: 1
     rightTurnAnimNormal: Right Turn
     leftTurnAnimNormal: Left Turn
     rightTurnAnimAlert: Right Turn
     leftTurnAnimAlert: Left Turn
     turningAnimT: 0.25
-    useMovementTurning: 1
-    movementTurningSensitivity: 0.6
   vision:
     layersToDetect:
       serializedVersion: 2
@@ -8025,16 +8279,31 @@ MonoBehaviour:
   canDistract: 1
   distractedStateBehaviour: {fileID: 1423372233}
   priorityLevel: 50
+  turnAlertOnDistract: 0
   playDistractedAudios: 1
   hitStateBehaviour: {fileID: 0}
   deathAnim: 
   deathAnimT: 0.25
   playDeathAudio: 0
-  disableBlazeOnDeath: 0
+  deathCallRadius: 10
+  agentLayersToDeathCall:
+    serializedVersion: 2
+    m_Bits: 0
+  showDeathCallRadius: 0
+  deathEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  destroyOnDeath: 0
+  timeBeforeDestroy: 0
+  friendly: 0
+  distanceCull: 0
+  ignoreUnreachableEnemy: 0
+  fallBackPoints: []
+  showPoints: 0
   warnEmptyBehavioursOnStart: 1
 --- !u!95 &1423372242
 Animator:
-  serializedVersion: 3
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -8047,10 +8316,11 @@ Animator:
   m_UpdateMode: 1
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!4 &1423372243
 Transform:
   m_ObjectHideFlags: 0
@@ -8458,6 +8728,7 @@ GameObject:
   - component: {fileID: 1476428936}
   - component: {fileID: 1476428935}
   - component: {fileID: 1476428934}
+  - component: {fileID: 1476428942}
   m_Layer: 8
   m_Name: Guard (2)
   m_TagString: Enemy
@@ -8499,7 +8770,16 @@ MonoBehaviour:
   checkAnim: Looking Around
   checkAnimT: 0.25
   timeToCheck: 5
+  searchLocationRadius: 0
+  searchPoints: 3
+  searchPointAnim: 
+  pointWaitTime: 3
+  endSearchAnim: 
+  endSearchAnimTime: 3
+  searchAnimsT: 0.25
   playAudioOnCheckLocation: 1
+  playAudioOnSearchStart: 0
+  playAudioOnSearchEnd: 0
 --- !u!114 &1476428936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8524,12 +8804,12 @@ MonoBehaviour:
     m_Bits: 4294967295
   attacks:
   - attackAnim: Punch
-    attackDuration: 1
+    attackDuration: 0.8
     animT: 0.25
     useAudio: 1
     audioIndex: 0
   - attackAnim: Kick
-    attackDuration: 1.2
+    attackDuration: 0.8
     animT: 0.25
     useAudio: 1
     audioIndex: 1
@@ -8554,24 +8834,35 @@ MonoBehaviour:
   moveBackwardsAnim: Jog Backwards
   moveBackwardsAnimT: 0.25
   turnToTarget: 1
-  turnSensitivity: 0.825
+  turnSensitivity: 0.8
   useTurnAnims: 1
   strafe: 1
   strafeDirection: 2
   strafeSpeed: 2.2
   strafeTime: {x: 1, y: 2}
-  strafeWaitTime: {x: 0.5, y: 2}
+  strafeWaitTime: {x: 0.3, y: 1}
   leftStrafeAnim: Left Strafe
   rightStrafeAnim: Right Strafe
   strafeAnimT: 0.25
   strafeLayersToAvoid:
     serializedVersion: 2
     m_Bits: 4294967295
-  onAttackRotate: 0
   onAttackRotateSpeed: 5
-  timeToReturnAlert: 3
-  returningToAlertAnim: Alert Idle
-  returningToAlertAnimT: 0.25
+  onAttackRotate: 0
+  searchEmptyLocation: 0
+  timeToStartSearch: 2
+  searchPoints: 3
+  searchPointAnim: 
+  pointWaitTime: 3
+  endSearchAnim: 
+  endSearchAnimTime: 0
+  searchAnimsT: 0.25
+  playAudioOnSearchStart: 0
+  playAudioOnSearchEnd: 0
+  returnPatrolAnim: 
+  returnPatrolAnimT: 0.25
+  returnPatrolTime: 3
+  playAudioOnReturnPatrol: 0
 --- !u!114 &1476428937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8683,6 +8974,102 @@ CapsuleCollider:
   m_Height: 1.75
   m_Direction: 1
   m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!82 &1476428942
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1476428933}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &1476428943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8702,6 +9089,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8192
   audioScriptable: {fileID: 11400000, guid: 06e54b8716dee3c45a7e2e48238bf017, type: 2}
+  agentAudio: {fileID: 1476428942}
   waypoints:
     waypoints: []
     waypointsRotation: []
@@ -8711,13 +9099,14 @@ MonoBehaviour:
     randomize: 1
     randomizeRadius: 10
     showRandomizeRadius: 1
+    useMovementTurning: 1
+    movementTurningSensitivity: 0.7
+    useTurnAnims: 1
     rightTurnAnimNormal: Right Turn
     leftTurnAnimNormal: Left Turn
     rightTurnAnimAlert: Right Turn
     leftTurnAnimAlert: Left Turn
     turningAnimT: 0.25
-    useMovementTurning: 1
-    movementTurningSensitivity: 0.6
   vision:
     layersToDetect:
       serializedVersion: 2
@@ -8761,16 +9150,31 @@ MonoBehaviour:
   canDistract: 1
   distractedStateBehaviour: {fileID: 1476428935}
   priorityLevel: 50
+  turnAlertOnDistract: 0
   playDistractedAudios: 1
   hitStateBehaviour: {fileID: 0}
   deathAnim: 
   deathAnimT: 0.25
   playDeathAudio: 0
-  disableBlazeOnDeath: 0
+  deathCallRadius: 10
+  agentLayersToDeathCall:
+    serializedVersion: 2
+    m_Bits: 0
+  showDeathCallRadius: 0
+  deathEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  destroyOnDeath: 0
+  timeBeforeDestroy: 0
+  friendly: 0
+  distanceCull: 0
+  ignoreUnreachableEnemy: 0
+  fallBackPoints: []
+  showPoints: 0
   warnEmptyBehavioursOnStart: 1
 --- !u!95 &1476428944
 Animator:
-  serializedVersion: 3
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -8783,10 +9187,11 @@ Animator:
   m_UpdateMode: 1
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!4 &1476428945
 Transform:
   m_ObjectHideFlags: 0
@@ -9793,7 +10198,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1691760778}
-  m_LocalRotation: {x: 0.024841594, y: 0.73063916, z: -0.048205644, w: 0.6806067}
+  m_LocalRotation: {x: 0.024841603, y: 0.73063916, z: -0.048205663, w: 0.6806067}
   m_LocalPosition: {x: 0.030886218, y: 0.10365424, z: 0.0016340911}
   m_LocalScale: {x: 1.0000002, y: 1.0000004, z: 1.0000001}
   m_Children:
@@ -10100,7 +10505,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1773227463}
-  m_LocalRotation: {x: 0.024841594, y: 0.73063916, z: -0.048205644, w: 0.6806067}
+  m_LocalRotation: {x: 0.024841603, y: 0.73063916, z: -0.048205663, w: 0.6806067}
   m_LocalPosition: {x: 0.030886218, y: 0.10365424, z: 0.0016340911}
   m_LocalScale: {x: 1.0000002, y: 1.0000004, z: 1.0000001}
   m_Children:
@@ -10875,6 +11280,7 @@ GameObject:
   - component: {fileID: 2023609411}
   - component: {fileID: 2023609410}
   - component: {fileID: 2023609412}
+  - component: {fileID: 2023609404}
   m_Layer: 8
   m_Name: Guard
   m_TagString: Enemy
@@ -10898,6 +11304,102 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &2023609404
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2023609402}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &2023609405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10946,6 +11448,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8192
   audioScriptable: {fileID: 11400000, guid: 06e54b8716dee3c45a7e2e48238bf017, type: 2}
+  agentAudio: {fileID: 2023609404}
   waypoints:
     waypoints:
     - {x: -10.61, y: -1, z: 7.15}
@@ -10961,13 +11464,14 @@ MonoBehaviour:
     randomize: 0
     randomizeRadius: 20
     showRandomizeRadius: 0
+    useMovementTurning: 1
+    movementTurningSensitivity: 0.7
+    useTurnAnims: 1
     rightTurnAnimNormal: Right Turn
     leftTurnAnimNormal: Left Turn
     rightTurnAnimAlert: Right Turn
     leftTurnAnimAlert: Left Turn
     turningAnimT: 0.25
-    useMovementTurning: 1
-    movementTurningSensitivity: 0.7
   vision:
     layersToDetect:
       serializedVersion: 2
@@ -11011,16 +11515,31 @@ MonoBehaviour:
   canDistract: 1
   distractedStateBehaviour: {fileID: 2023609410}
   priorityLevel: 50
+  turnAlertOnDistract: 0
   playDistractedAudios: 1
   hitStateBehaviour: {fileID: 0}
-  deathAnim: 
+  deathAnim: Death
   deathAnimT: 0.25
   playDeathAudio: 0
-  disableBlazeOnDeath: 0
+  deathCallRadius: 100
+  agentLayersToDeathCall:
+    serializedVersion: 2
+    m_Bits: 256
+  showDeathCallRadius: 0
+  deathEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  destroyOnDeath: 0
+  timeBeforeDestroy: 0
+  friendly: 0
+  distanceCull: 0
+  ignoreUnreachableEnemy: 0
+  fallBackPoints: []
+  showPoints: 0
   warnEmptyBehavioursOnStart: 1
 --- !u!95 &2023609407
 Animator:
-  serializedVersion: 3
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -11033,10 +11552,11 @@ Animator:
   m_UpdateMode: 1
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!114 &2023609408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11101,7 +11621,16 @@ MonoBehaviour:
   checkAnim: Looking Around
   checkAnimT: 0.25
   timeToCheck: 5
+  searchLocationRadius: 0
+  searchPoints: 3
+  searchPointAnim: Alert Idle
+  pointWaitTime: 3
+  endSearchAnim: Looking Around
+  endSearchAnimTime: 3
+  searchAnimsT: 0.25
   playAudioOnCheckLocation: 1
+  playAudioOnSearchStart: 0
+  playAudioOnSearchEnd: 0
 --- !u!114 &2023609411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11126,12 +11655,12 @@ MonoBehaviour:
     m_Bits: 4294967295
   attacks:
   - attackAnim: Punch
-    attackDuration: 1
+    attackDuration: 0.8
     animT: 0.25
     useAudio: 1
     audioIndex: 0
   - attackAnim: Kick
-    attackDuration: 1.2
+    attackDuration: 0.8
     animT: 0.25
     useAudio: 1
     audioIndex: 1
@@ -11162,18 +11691,29 @@ MonoBehaviour:
   strafeDirection: 2
   strafeSpeed: 2.2
   strafeTime: {x: 1, y: 2}
-  strafeWaitTime: {x: 0.5, y: 2}
+  strafeWaitTime: {x: 0.3, y: 1}
   leftStrafeAnim: Left Strafe
   rightStrafeAnim: Right Strafe
   strafeAnimT: 0.25
   strafeLayersToAvoid:
     serializedVersion: 2
     m_Bits: 4294967295
-  onAttackRotate: 0
   onAttackRotateSpeed: 5
-  timeToReturnAlert: 3
-  returningToAlertAnim: Alert Idle
-  returningToAlertAnimT: 0.25
+  onAttackRotate: 0
+  searchEmptyLocation: 0
+  timeToStartSearch: 2
+  searchPoints: 3
+  searchPointAnim: Alert Idle
+  pointWaitTime: 3
+  endSearchAnim: Looking Around
+  endSearchAnimTime: 0
+  searchAnimsT: 0.25
+  playAudioOnSearchStart: 1
+  playAudioOnSearchEnd: 1
+  returnPatrolAnim: 
+  returnPatrolAnimT: 0.25
+  returnPatrolTime: 3
+  playAudioOnReturnPatrol: 0
 --- !u!114 &2023609412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13347,7 +13887,7 @@ GameObject:
   m_IsActive: 1
 --- !u!95 &5866666020557792271
 Animator:
-  serializedVersion: 3
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -13360,10 +13900,11 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &6033740403676477977
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,9 +4,10 @@ using BlazeAISpace;
 
 [CanEditMultipleObjects]
 [CustomEditor(typeof(BlazeAI))]
+
 public class BlazeAIEditor : Editor
 {
-    string[] tabs = {"General", "States", "Surprised", "Distractions", "Hit", "Death"};
+    string[] tabs = {"General", "States", "Surprised", "Distract", "Hit", "Death", "Companion"};
     int tabSelected = 0;
     int tabIndex = -1;
 
@@ -17,6 +18,7 @@ public class BlazeAIEditor : Editor
     groundLayers,
 
     audioScriptable,
+    agentAudio,
     
     waypoints,
     vision,
@@ -42,6 +44,7 @@ public class BlazeAIEditor : Editor
     canDistract,
     distractedStateBehaviour,
     priorityLevel,
+    turnAlertOnDistract,
     playDistractedAudios,
 
     hitStateBehaviour,
@@ -49,61 +52,121 @@ public class BlazeAIEditor : Editor
     deathAnim,
     deathAnimT,
     playDeathAudio,
-    disableBlazeOnDeath,
+    deathCallRadius,
+    agentLayersToDeathCall,
+    showDeathCallRadius,
+    deathEvent,
+    destroyOnDeath,
+    timeBeforeDestroy,
 
-    warnEmptyBehavioursOnStart;
+    friendly,
+
+    distanceCull,
+
+    ignoreUnreachableEnemy,
+    fallBackPoints,
+    showPoints,
+    
+    warnEmptyBehavioursOnStart,
+
+    companionMode,
+    companionTo,
+    companionBehaviour;
 
 
     void OnEnable()
     {
         if (EditorPrefs.HasKey("TabSelected")) {
             tabSelected = EditorPrefs.GetInt("TabSelected");
-        }else{
+        }
+        else{
             tabSelected = 0;
         }   
+
 
         useRootMotion = serializedObject.FindProperty("useRootMotion");
         centerPosition = serializedObject.FindProperty("centerPosition");
         showCenterPosition = serializedObject.FindProperty("showCenterPosition");
         groundLayers = serializedObject.FindProperty("groundLayers");
 
+
         audioScriptable = serializedObject.FindProperty("audioScriptable");
+        agentAudio = serializedObject.FindProperty("agentAudio");
+
         
         waypoints = serializedObject.FindProperty("waypoints");
         vision = serializedObject.FindProperty("vision");
+
 
         checkEnemyContact = serializedObject.FindProperty("checkEnemyContact");
         enemyContactRadius = serializedObject.FindProperty("enemyContactRadius");
         showEnemyContactRadius = serializedObject.FindProperty("showEnemyContactRadius");
 
+
+        distanceCull = serializedObject.FindProperty("distanceCull");
+
+
+        friendly = serializedObject.FindProperty("friendly");
+
+
+        ignoreUnreachableEnemy = serializedObject.FindProperty("ignoreUnreachableEnemy");
+        fallBackPoints = serializedObject.FindProperty("fallBackPoints");
+        showPoints = serializedObject.FindProperty("showPoints");
+
+
         warnEmptyBehavioursOnStart = serializedObject.FindProperty("warnEmptyBehavioursOnStart");
 
+
+        // STATES TAB
         useNormalStateOnAwake = serializedObject.FindProperty("useNormalStateOnAwake");
         normalStateBehaviour = serializedObject.FindProperty("normalStateBehaviour");
 
+
         useAlertStateOnAwake = serializedObject.FindProperty("useAlertStateOnAwake");
         alertStateBehaviour = serializedObject.FindProperty("alertStateBehaviour");
+
 
         attackStateBehaviour = serializedObject.FindProperty("attackStateBehaviour");
         coverShooterMode = serializedObject.FindProperty("coverShooterMode");
         coverShooterBehaviour = serializedObject.FindProperty("coverShooterBehaviour");
         goingToCoverBehaviour = serializedObject.FindProperty("goingToCoverBehaviour");
 
+
+        // SURPRISED TAB
         useSurprisedState = serializedObject.FindProperty("useSurprisedState");
         surprisedStateBehaviour = serializedObject.FindProperty("surprisedStateBehaviour");
 
+
+        // DISTRACT TAB
         canDistract = serializedObject.FindProperty("canDistract");
         distractedStateBehaviour = serializedObject.FindProperty("distractedStateBehaviour");
         priorityLevel = serializedObject.FindProperty("priorityLevel");
+        turnAlertOnDistract = serializedObject.FindProperty("turnAlertOnDistract");
         playDistractedAudios = serializedObject.FindProperty("playDistractedAudios");
 
+
+        // HIT TAB
         hitStateBehaviour = serializedObject.FindProperty("hitStateBehaviour");
 
+
+        // DEATH TAB
         deathAnim = serializedObject.FindProperty("deathAnim");
         deathAnimT = serializedObject.FindProperty("deathAnimT");
         playDeathAudio = serializedObject.FindProperty("playDeathAudio");
-        disableBlazeOnDeath = serializedObject.FindProperty("disableBlazeOnDeath");
+        deathCallRadius = serializedObject.FindProperty("deathCallRadius");
+        agentLayersToDeathCall = serializedObject.FindProperty("agentLayersToDeathCall");
+        showDeathCallRadius = serializedObject.FindProperty("showDeathCallRadius");
+        deathEvent = serializedObject.FindProperty("deathEvent");
+        destroyOnDeath = serializedObject.FindProperty("destroyOnDeath");
+        timeBeforeDestroy = serializedObject.FindProperty("timeBeforeDestroy");
+
+
+        // COMPANION TAB
+        companionMode = serializedObject.FindProperty("companionMode");
+        companionTo = serializedObject.FindProperty("companionTo");
+        companionBehaviour = serializedObject.FindProperty("companionBehaviour");
     }
+
 
     public override void OnInspectorGUI () 
     {
@@ -111,16 +174,17 @@ public class BlazeAIEditor : Editor
         GUI.backgroundColor = new Color(0.55f, 0.55f, 0.55f, 1f);
         
         StyleToolbar();
-        EditorGUILayout.LabelField("There is a default behaviour script for every behaviour property with the same name.", EditorStyles.textField);
         EditorGUILayout.LabelField("Hover on any property below for insights", EditorStyles.helpBox);
 
         // reset the tabs
         tabIndex = -1;
 
+
         GUI.backgroundColor = oldColor;
         BlazeAI script = (BlazeAI)target;
         
 
+        // tab selection
         switch (tabSelected)
         {
             case 0:
@@ -130,64 +194,62 @@ public class BlazeAIEditor : Editor
                 StatesTab(script);
                 break;
             case 2:
-                SurprisedTab();
+                SurprisedTab(script);
                 break;
             case 3:
-                DistractionsTab();
+                DistractionsTab(script);
                 break;
             case 4:
-                HitTab();
+                HitTab(script);
                 break;
             case 5:
-                DeathTab();
+                DeathTab(script);
+                break;
+            case 6:
+                CompanionTab(script);
                 break;
         }
+
 
         EditorPrefs.SetInt("TabSelected", tabSelected);
         serializedObject.ApplyModifiedProperties();
     }
 
+    
     void StyleToolbar()
-    {
+    {   
         // unselected btns style
-        var unSelectedBtn = new GUIStyle(GUI.skin.button);
-        unSelectedBtn.fixedHeight = 45;
-        unSelectedBtn.normal.textColor = Color.red;
-        unSelectedBtn.fontSize = 13;
+        var unselectedStyle = new GUIStyle(GUI.skin.button);
+        unselectedStyle.normal.textColor = Color.red;
 
+        
         // selected btn style
-        var selectedBtn = new GUIStyle(GUI.skin.button);
-        selectedBtn.fixedHeight = 45;
-        selectedBtn.normal.textColor = Color.white;
-        selectedBtn.fontSize = 15;
-        selectedBtn.normal.background = MakeTex(0, 45, Color.gray);
+        var selectedStyle = new GUIStyle(GUI.skin.button);
+        selectedStyle.fontSize = 14;
+        
 
         // render the toolbar
-        GUILayout.BeginHorizontal("box");
+        GUILayout.BeginHorizontal(EditorStyles.helpBox);
+        
         foreach (var item in tabs) {
             tabIndex++;
+
             if (tabIndex == tabSelected) {
-                GUILayout.Button(item, selectedBtn);
-            }else{
-                if (GUILayout.Button(item, unSelectedBtn)) {
+                // selected button
+                GUILayout.Button(item, selectedStyle, GUILayout.MinWidth(70), GUILayout.Height(45));
+            }
+            else {
+                // unselected buttons
+                if (GUILayout.Button(item, unselectedStyle, GUILayout.MinWidth(70), GUILayout.Height(45))) {
+                    // this will trigger when a button is pressed
                     tabSelected = tabIndex;
                 }
             }
         }
+
         GUILayout.EndHorizontal();
     }
 
-    Texture2D MakeTex( int width, int height, Color col )
-    {
-        Color[] pix = new Color[width * height];
-        for( int i = 0; i < pix.Length; ++i )
-        {
-            pix[ i ] = col;
-        }
-        Texture2D result = new Texture2D( width, height );
-        result.SetPixels( pix );
-        return result;
-    }
 
     // render the general tab properties
     void GeneralTab(BlazeAI script)
@@ -196,16 +258,19 @@ public class BlazeAIEditor : Editor
         EditorGUILayout.PropertyField(centerPosition);
         EditorGUILayout.PropertyField(showCenterPosition);
         EditorGUILayout.PropertyField(groundLayers);
+
+        EditorGUILayout.Space(5);
         EditorGUILayout.PropertyField(audioScriptable);
+        EditorGUILayout.PropertyField(agentAudio);
         
-        EditorGUILayout.Space(7);
+        EditorGUILayout.Space(5);
         EditorGUILayout.PropertyField(waypoints);
         
-        EditorGUILayout.Space(7);
+        EditorGUILayout.Space(5);
         EditorGUILayout.PropertyField(vision);
 
 
-        EditorGUILayout.Space(7);
+        EditorGUILayout.Space(5);
         EditorGUILayout.PropertyField(checkEnemyContact);
         if (script.checkEnemyContact) {
             EditorGUILayout.PropertyField(enemyContactRadius);
@@ -213,11 +278,29 @@ public class BlazeAIEditor : Editor
         }
 
 
-        EditorGUILayout.Space(7);
+        EditorGUILayout.Space(5);
+        EditorGUILayout.PropertyField(friendly);
+
+
+        EditorGUILayout.Space(5);
+        EditorGUILayout.PropertyField(distanceCull);
+
+
+        EditorGUILayout.Space(5);
+        EditorGUILayout.PropertyField(ignoreUnreachableEnemy);
+        if (script.ignoreUnreachableEnemy) {
+            EditorGUILayout.PropertyField(fallBackPoints);
+            EditorGUILayout.PropertyField(showPoints);
+        }
+
+
+        EditorGUILayout.Space(5);
         EditorGUILayout.PropertyField(warnEmptyBehavioursOnStart);
+        
 
         EditorGUILayout.Space(10);
     }
+
 
     // render the states classes
     void StatesTab(BlazeAI script)
@@ -225,15 +308,19 @@ public class BlazeAIEditor : Editor
         EditorGUILayout.PropertyField(useNormalStateOnAwake);
         EditorGUILayout.PropertyField(normalStateBehaviour);
 
+        EditorGUILayout.Space(5);
         EditorGUILayout.PropertyField(useAlertStateOnAwake);
-        EditorGUILayout.PropertyField(alertStateBehaviour);     
+        EditorGUILayout.PropertyField(alertStateBehaviour);   
 
-        EditorGUILayout.Space(7);
+
+        EditorGUILayout.Space(18);
         EditorGUILayout.LabelField("ATTACK STATE", EditorStyles.boldLabel);
         EditorGUI.BeginDisabledGroup(script.coverShooterMode);
             EditorGUILayout.PropertyField(attackStateBehaviour);
         EditorGUI.EndDisabledGroup();
+
         
+        EditorGUILayout.Space(5);
         EditorGUILayout.PropertyField(coverShooterMode);
 
         EditorGUI.BeginDisabledGroup(!script.coverShooterMode);
@@ -243,42 +330,102 @@ public class BlazeAIEditor : Editor
 
 
         EditorGUILayout.Space(10);
+        if (GUILayout.Button("Add Behaviours", GUILayout.Height(40))) {
+            script.SetPrimeBehaviours();
+        }
+
+
+        EditorGUILayout.Space(10);
     }
 
-    void SurprisedTab()
+
+    void SurprisedTab(BlazeAI script)
     {
         EditorGUILayout.LabelField("Surprised State triggers when the AI finds a target in Normal State.", EditorStyles.textField);
         EditorGUILayout.PropertyField(useSurprisedState);
         EditorGUILayout.PropertyField(surprisedStateBehaviour);
+
+        EditorGUILayout.Space(10);
+        if (GUILayout.Button("Add Behaviour", GUILayout.Height(40))) {
+            script.SetSurprisedBehaviour();
+        }
+
+        EditorGUILayout.Space(10);
     }
 
+
     // render the distractions tab class
-    void DistractionsTab()
+    void DistractionsTab(BlazeAI script)
     {
         EditorGUILayout.PropertyField(canDistract);
         EditorGUILayout.PropertyField(distractedStateBehaviour);
         EditorGUILayout.PropertyField(priorityLevel);
 
+        EditorGUILayout.PropertyField(turnAlertOnDistract);
+
         EditorGUILayout.PropertyField(playDistractedAudios);
+
+        EditorGUILayout.Space(10);
+
+        if (GUILayout.Button("Add Behaviour", GUILayout.Height(40))) {
+            script.SetDistractedBehaviour();
+        }
         
         EditorGUILayout.Space(10);
     }
 
+
     // render the hits tab class
-    void HitTab()
+    void HitTab(BlazeAI script)
     {
         EditorGUILayout.PropertyField(hitStateBehaviour);
         EditorGUILayout.Space(10);
+
+        EditorGUILayout.Space(10);
+
+        if (GUILayout.Button("Add Behaviour", GUILayout.Height(40))) {
+            script.SetHitBehaviour();
+        }
     }
 
+
     // render the death tab class
-    void DeathTab()
+    void DeathTab(BlazeAI script)
     {
         EditorGUILayout.PropertyField(deathAnim);
         EditorGUILayout.PropertyField(deathAnimT);
         EditorGUILayout.PropertyField(playDeathAudio);
-        EditorGUILayout.PropertyField(disableBlazeOnDeath);
+
+    
+        EditorGUILayout.PropertyField(deathCallRadius);
+        EditorGUILayout.PropertyField(agentLayersToDeathCall);
+        EditorGUILayout.PropertyField(showDeathCallRadius);
+
+
+        EditorGUILayout.PropertyField(deathEvent);
+        EditorGUILayout.PropertyField(destroyOnDeath);
+
+
+        if (script.destroyOnDeath) {
+            EditorGUILayout.PropertyField(timeBeforeDestroy);
+        }
+
 
         EditorGUILayout.Space(10);
+    }
+
+
+    // render the companion tab
+    void CompanionTab(BlazeAI script)
+    {
+        EditorGUILayout.PropertyField(companionMode);
+        EditorGUILayout.PropertyField(companionTo);
+        EditorGUILayout.PropertyField(companionBehaviour);
+
+        EditorGUILayout.Space(10);
+
+        if (GUILayout.Button("Add Companion Behaviour", GUILayout.Height(40))) {
+            script.SetCompanionBehaviour();
+        }
     }
 }

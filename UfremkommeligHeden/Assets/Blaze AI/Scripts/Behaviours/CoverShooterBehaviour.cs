@@ -22,16 +22,16 @@ namespace BlazeAISpace
         [Tooltip("Set the animation name of the attack.")]
         public string shootingAnim;
         public float shootingAnimT = 0.1f;
-        [Tooltip("The event to trigger during attack.")]
-        public UnityEvent attackEvent;
-        [Min(0), Tooltip("The AI will attack every cycle in a randomized time (seconds) between the two inputs. For a constant value set the two inputs to the same value.")]
-        public Vector2 attackEvery = new Vector2(3, 5);
+        [Tooltip("The event to trigger during a shot. This should be your shoot method.")]
+        public UnityEvent shootEvent;
+        [Min(0), Tooltip("The AI will shoot every cycle in a randomized time (seconds) between the two inputs. For a constant value set the two inputs to the same value.")]
+        public Vector2 shootEvery = new Vector2(3, 5);
         [Min(0), Tooltip("The duration of the single shot.")] 
         public float singleShotDuration;
-        [Min(0), Tooltip("The attack event is triggered several times. Here you can set the time to pass between each shot until the total time of attack is finished.")]
+        [Min(0), Tooltip("The single shot event is triggered several times. Here you can set the time to pass between each shot until the total time of attack is finished.")]
         public float delayBetweenEachShot = 0.2f;
-        [Min(0), Tooltip("The total time you want the AI to be attacking.")]
-        public Vector2 totalAttackTime = new Vector2(1, 3);
+        [Min(0), Tooltip("The overall total time of shooting.")]
+        public Vector2 totalShootTime = new Vector2(1, 3);
 
 
         [Tooltip("The chance of attacking the enemy on first sight. If set to [Always Attack] the agent will always attack first. If set to [Take Cover] then the agent will always go to cover first. If set to [Randomize] there's a 50/50 chance either going to cover or attacking.")]
@@ -40,6 +40,10 @@ namespace BlazeAISpace
         public CoverBlownDecision coverBlownDecision = CoverBlownDecision.Randomize;
         [Tooltip("Should the AI open fire on the cover obstacle the enemy is hiding behind or only attack at the actual enemy. This property will only be taken to account if there's an actual cover the enemy is hiding behind.")]
         public AttackEnemyCover attackEnemyCover = AttackEnemyCover.Randomize;
+
+
+        [Range(0, 10), Tooltip("How brave do you want the AI? The higher the number, the lower the CHANCE for the AI to go to cover after shooting is done. If the AI is brave enough and finished shooting, it'll wait for it's next attack in the open without going to cover. If set to 0 the AI will always return to cover after every shooting cycle. If set to 10, it'll never go to cover.")]
+        public int braveMeter = 0;
 
 
         [Tooltip("The AIs have the ability to call other AIs for help when they see the target. Enabling this will call other agents to the location. If disabled, no AIs will be called.")]
@@ -85,11 +89,32 @@ namespace BlazeAISpace
         public LayerMask strafeLayersToAvoid;
 
 
-        [Min(0), Tooltip("The amount of time to pass (seconds) after target disappearance to return to alert patrolling.")]
-        public float timeToReturnAlert = 3f;
-        [Tooltip("The animation to play when returning to alert state (when there's no longer any hostile in view). If empty will play this state's idle animation.")]
-        public string returningToAlertAnim;
-        public float returningToAlertAnimT = 0.25f;
+        [Tooltip("When the AI moves to player location in attack state like in Hit or in a chase and finds no enemy the AI will search the radius.")]
+        public bool searchLocationRadius;
+        [Tooltip("The amount of time to pass in seconds before starting the search.")]
+        public float timeToStartSearch = 2;
+        [Range(1, 10), Tooltip("The number of points to randomly search.")]
+        public int searchPoints = 3;
+        [Tooltip("The animation name to play when reaching the search point.")]
+        public string searchPointAnim;
+        [Tooltip("The amount of time to wait in each search point.")]
+        public float pointWaitTime = 3;
+        [Tooltip("The animation to play when searching has finished.")]
+        public string endSearchAnim;
+        [Min(0), Tooltip("The amount of time (seconds) the animation should play for.")]
+        public float endSearchAnimTime = 3;
+        public float searchAnimsT = 0.25f;
+
+        public bool playAudioOnSearchStart;
+        public bool playAudioOnSearchEnd;
+
+
+        [Tooltip("When the AI is in attack state and there's no hostile at the end location, this animation will play and after the animation time passes the AI will return to alert patrolling. Only works if search empty location is disabled.")]
+        public string returnPatrolAnim;
+        public float returnPatrolAnimT = 0.25f;
+        [Min(0), Tooltip("The duration of the animation after target disappearance to return to alert patrolling.")]
+        public float returnPatrolTime = 3f;
+        public bool playAudioOnReturnPatrol;
 
 
 
@@ -118,6 +143,7 @@ namespace BlazeAISpace
         public Vector3 hitPoint { get; private set; }
         
         BlazeAI blaze;
+        AlertStateBehaviour alertStateBehaviour;
         BlazeAIEnemyManager enemyManager;
         GoingToCoverBehaviour gtcBehaviour;
         Transform previousEnemy;
@@ -134,25 +160,35 @@ namespace BlazeAISpace
         bool shouldAttackCover;
         bool isMovingBackwards;
         bool changeStrafeDir;
+        bool braveWait;
+        bool shootAnimTriggered;
+        bool calculatedLastEnemyPos;
+        bool isSearching;
+        bool returnPatrolAudioPlayed;
 
         float _callOthers = 0;
         float _timeToReturnAlert = 0;
-        float timeUntilAttackElapsed;
         float _timeUntilAttack;
+        float timeUntilAttackElapsed;
+        float _totalShootTime;
+        float _totalShootTimer = 0;
         float _strafeTime;
         float _strafeTimer;
         float _strafeWaitTime;
         float _strafeWaitTimer = 0;
         float _singleShotTimer = 0;
-        float _totalAttackTime;
-        float _totalAttackTimer = 0;
         float _shootAnimTCompleteTimer = 0;
+        float searchTimeElapsed = 0;
 
         int checkPathFrames = 5;
         int checkPathElapsed = 0;
         int strafingDir = 0;
         int strafeCheckPathElapsed = 0;
         int agentPriority;
+        int searchIndex = 0;
+
+        Vector3 lastEnemyPos;
+        Vector3 searchLocation;
 
         #endregion
         
@@ -161,6 +197,7 @@ namespace BlazeAISpace
         void Start()
         {
             blaze = GetComponent<BlazeAI>();
+            alertStateBehaviour = GetComponent<AlertStateBehaviour>();
             gtcBehaviour = GetComponent<GoingToCoverBehaviour>();
             agentPriority = blaze.navmeshAgent.avoidancePriority;
 
@@ -169,65 +206,6 @@ namespace BlazeAISpace
             if (blaze.state != BlazeAI.State.attack) {
                 enabled = false;
             }
-        }
-
-        void Update()
-        {
-            // call other agents to location
-            CallOthers();
-
-            // run timer to attack
-            TimeUntilAttack();
-            
-            // attack duration timers
-            AttackingTimers();
-
-            // force the strafing and moving backwards flags are always false if properties not enabled
-            ValidateFlags();
-
-
-            if (!singleShotPass) {
-                shootAnimTriggered = false;
-            }
-
-            
-            // if enemy exists -> engage
-            if (blaze.enemyToAttack) {
-                Engage(blaze.enemyToAttack.transform);
-                return;
-            }
-
-            
-            // REACHING THIS POINT MEANS ENEMY DOESN'T EXIST
-
-            NoTargetInView();
-            gtcBehaviour.RemoveCoverOccupation();
-
-
-            // check if called by another agent
-            if (blaze.checkEnemyPosition != Vector3.zero) {
-                GoToLocation(blaze.checkEnemyPosition);
-                return;
-            }
-
-
-            // check if target has changed the tag to something non-hostile
-            if (targetChangedTag) {
-                NoTarget();
-                return;
-            }
-
-            // if tag hasn't changed go check last enemy location
-            
-            // go to location if reachable
-            if (blaze.isPathReachable) {
-                GoToLocation(blaze.enemyColPoint);
-                return;
-            }
-
-            
-            // if not -> exit state
-            NoTarget();
         }
 
         void OnDrawGizmosSelected()
@@ -252,6 +230,117 @@ namespace BlazeAISpace
         {
             blaze.navmeshAgent.avoidancePriority = agentPriority;
             previousEnemy = null;
+            calculatedLastEnemyPos = false;
+            returnPatrolAudioPlayed = false;
+
+            ResetSearching();
+        }
+
+        void Update()
+        {
+            // this behaviour should always remove occupation from cover
+            gtcBehaviour.RemoveCoverOccupation();
+            
+            
+            if (blaze.friendly) {
+                NoTarget();
+                return;
+            }
+
+
+            // call other agents to location
+            CallOthers();
+
+            // run timer to attack
+            TimeUntilAttack();
+            
+            // attack duration timers
+            AttackingTimers();
+
+            // force the strafing and moving backwards flags are always false if properties not enabled
+            ValidateFlags();
+
+
+            if (!singleShotPass) {
+                shootAnimTriggered = false;
+            }
+
+            
+            // if enemy exists -> engage
+            if (blaze.enemyToAttack) {
+                calculatedLastEnemyPos = false;
+                Engage(blaze.enemyToAttack.transform, braveWait);
+                return;
+            }
+            
+            
+            // REACHING THIS POINT MEANS ENEMY DOESN'T EXIST
+
+            NoTargetInView();
+
+
+            // check if called by another agent
+            if (blaze.checkEnemyPosition != Vector3.zero) {
+                GoToLocation(blaze.checkEnemyPosition);
+                return;
+            }
+
+
+            // search within radius of empty location
+            if (isSearching) {
+                if (blaze.MoveTo(searchLocation, alertStateBehaviour.moveSpeed, alertStateBehaviour.turnSpeed, alertStateBehaviour.moveAnim)) {
+                    // stay idle
+                    if (!IsSearchPointIdleFinished()) {
+                        return;
+                    }
+
+
+                    if (searchIndex < searchPoints) {
+                        SetSearchPoint();
+                        return;
+                    }
+
+
+                    // reaching this line means the AI has went through all search points and is time to exit
+                    EndSearchExit();
+                    return;
+                }
+
+                return;
+            }
+
+
+            // check if target has changed the tag to something non-hostile
+            if (targetChangedTag) {
+                NoTarget();
+                return;
+            }
+
+
+            // if tag hasn't changed go check last enemy location
+            
+
+            // go to last location if reachable
+            if (blaze.isPathReachable) {
+                if (!calculatedLastEnemyPos) {
+                    calculatedLastEnemyPos = true;
+                    lastEnemyPos = blaze.RandomSpherePoint(blaze.enemyColPoint);
+                }
+
+
+                if (lastEnemyPos == Vector3.zero) {
+                    GoToLocation(blaze.enemyColPoint);
+                    return;
+                }
+                
+
+                GoToLocation(lastEnemyPos);
+                return;
+            }
+
+            
+            // if not -> exit state
+            NoTarget();
         }
 
         #endregion
@@ -263,19 +352,16 @@ namespace BlazeAISpace
             _timeToReturnAlert = 0;
 
 
-            // flag current cover (if was taking cover) that it's no longer occupied 
-            gtcBehaviour.RemoveCoverOccupation();
-
-
             // check target tag hasn't changed to something non-hostile
             if (System.Array.IndexOf(blaze.vision.hostileTags, target.tag) < 0) {
                 targetChangedTag = true;
                 return;
             }
+
             targetChangedTag = false;
 
 
-            // check if attack in intervals is enabled then start the timer here, add manager to target but don't add this AI to the scheduler
+            // add the enemy manager to the hostile
             AddEnemyManager(target, false);
 
 
@@ -293,11 +379,13 @@ namespace BlazeAISpace
 
             if (checkPathElapsed >= checkPathFrames) {
                 checkPathElapsed = 0;
+                
                 if (!blaze.IsPathReachable(target.position)) {
                     if (blaze.distanceToEnemySqrMag > minDistance * minDistance) {
                         blaze.isAttacking = false;
                         abortStrafe = true;
                         ReachDistance();
+
                         return;
                     }
                 }
@@ -346,7 +434,7 @@ namespace BlazeAISpace
 
 
             // STARTING FROM HERE MEANS THE AI SHOULD BACK AWAY
-
+            
 
             // only backup if seeing target
             if (!CanSeeTarget(blaze.isAttacking)) {
@@ -370,18 +458,46 @@ namespace BlazeAISpace
             
             ReachDistance();
         }
-
+        
+        // what to do when the AI is in good distance to it's enemy
         void ReachDistance()
         {
             if (sawEnemyOnce) {
-                blaze.SetState(BlazeAI.State.goingToCover);
-                return;
+                // if brave meter is less or equal to zero -> go to cover
+                if (braveMeter <= 0) {
+                    braveWait = false;
+                    blaze.SetState(BlazeAI.State.goingToCover);
+                    return;
+                }
+
+
+                // if braveness meter is at 10 -> go to brave wait no need to calculate chance
+                if (braveMeter >= 10) {
+                    braveWait = true;
+                    return;
+                }
+
+
+                // calculate the odds and chance of going to cover
+                int odds = 10 - braveMeter;
+                int chanceOfTakingCover = Random.Range(1, 10);
+
+                if (chanceOfTakingCover > odds) {
+                    braveWait = true;
+                    return;
+                }
+
+                if (chanceOfTakingCover <= odds) {
+                    braveWait = false;
+                    blaze.SetState(BlazeAI.State.goingToCover);
+                    return;
+                }
             }
             
 
             sawEnemyOnce = true;
             blaze.animManager.Play(idleAnim, idleMoveT);
-
+            
 
             // first sight decision making
             if (firstSightDecision == FirstSightDecision.AlwaysAttack) {
@@ -459,6 +575,7 @@ namespace BlazeAISpace
                 timeUntilAttackElapsed = 0;
                 return;
             }
+
             
             if (enemyManager) {
                 if (!enemyManager.callEnemies) {
@@ -466,14 +583,17 @@ namespace BlazeAISpace
                 }
             }
 
+
             // set the random time until attack to count up to
             if (!startTimeUntilAttack) {
-                _timeUntilAttack = Random.Range(attackEvery.x, attackEvery.y);
+                _timeUntilAttack = Random.Range(shootEvery.x, shootEvery.y);
                 startTimeUntilAttack = true;
             }
 
+
             // increment time to attack timer
             timeUntilAttackElapsed += Time.deltaTime;
+
             if (timeUntilAttackElapsed >= _timeUntilAttack) {
                 TurnToAttack();
             }
@@ -485,6 +605,7 @@ namespace BlazeAISpace
             startTimeUntilAttack = false;
             timeUntilAttackElapsed = 0;
 
+
             // attack cover or not
             if (attackEnemyCover == AttackEnemyCover.AlwaysAttackCover) {
                 shouldAttackCover = true;
@@ -494,13 +615,16 @@ namespace BlazeAISpace
             }
             else {
                 int rand = Random.Range(0, 2);
+                
                 if (rand == 0) {
                     shouldAttackCover = true;
-                }else {
+                }
+                else {
                     shouldAttackCover = false;
                 }
             }
-    
+
+
             blaze.Attack();
         }
         
@@ -538,7 +662,7 @@ namespace BlazeAISpace
             }
             else {
                 if (!isAttacking) {
-                    _totalAttackTime = Random.Range(totalAttackTime.x, totalAttackTime.y);
+                    _totalShootTime = Random.Range(totalShootTime.x, totalShootTime.y);
                 }
 
                 shootAnimTriggered = false;
@@ -546,11 +670,13 @@ namespace BlazeAISpace
 
 
             // invoke the selected attack functions
-            attackEvent.Invoke();
+            shootEvent.Invoke();
 
             
             // play shoot animation
-            ShootAnim();
+            if (!isStrafing) {
+                ShootAnim();
+            }
 
 
             // flags that we initiated the attack
@@ -568,7 +694,8 @@ namespace BlazeAISpace
                 return;
             }
 
-            // if not attacking return the priority level to default
+
+            // if not attacking return
             if (!blaze.isAttacking) {
                 AllAttackStopReset();
                 return;
@@ -580,10 +707,11 @@ namespace BlazeAISpace
 
 
             // total attack duration timer
-            _totalAttackTimer += Time.deltaTime;
-            if (_totalAttackTimer >= _totalAttackTime) {
+            _totalShootTimer += Time.deltaTime;
+            if (_totalShootTimer >= _totalShootTime) {
+                _totalShootTimer = 0;
                 StopAttack();
-                _totalAttackTimer = 0;
+                return;
             }
             
 
@@ -600,18 +728,23 @@ namespace BlazeAISpace
             }
         }
 
+        // stop the shooting cycle
         void StopAttack()
         {
             blaze.isAttacking = false;
             ResetAttackFlags();
+            braveWait = false;
         }
 
+        // reset all the attack flags back to normal
         void ResetAttackFlags()
         {
             isAttacking = false;
             singleShotPass = false;
+
             isStrafing = false;
             isStrafeWait = false;
+            
             _shootAnimTCompleteTimer = 0;
         }
 
@@ -619,8 +752,8 @@ namespace BlazeAISpace
         void AllAttackStopReset() 
         {
             ResetAttackFlags();
-            _totalAttackTimer = 0f;
             singleShotPass = false;
+            _totalShootTimer = 0f;
             _singleShotTimer = 0f;
             _shootAnimTCompleteTimer = 0;
         }
@@ -683,23 +816,25 @@ namespace BlazeAISpace
             RaycastHit hit;
             Vector3 targetDir = blaze.enemyToAttack.transform.position - transform.position;
 
+
             int layers;
 
             if (onAttacking) {
                 layers = layersCheckOnAttacking | blaze.vision.layersToDetect | blaze.vision.hostileAndAlertLayers | gtcBehaviour.coverLayers;
             }
             else {
-                layers = blaze.vision.layersToDetect | blaze.vision.hostileAndAlertLayers;
+                layers = blaze.vision.layersToDetect | blaze.vision.hostileAndAlertLayers | gtcBehaviour.coverLayers;
             }
 
 
             bool clearView = false;
 
-
             if (Physics.SphereCast(transform.position, blaze.navmeshAgent.radius/2, targetDir, out hit, Mathf.Infinity, layers)) {
+                // if sphere cast hits the same AI collider
                 if (transform.IsChildOf(hit.transform)) {
                     return true;
                 }
+
 
                 // check if target cover should be a target
                 if (shouldAttackCover) {
@@ -756,22 +891,31 @@ namespace BlazeAISpace
         {
             isMovingBackwards = false;
 
+
             if (strafe) {
                 if (enabled) {
                     // check if strafing has already been fired to avoid double trigger of movement
                     if (!isStrafing && !isStrafeWait) {
                         Strafe();
+                        return;
                     }
+                    
+                    if (braveWait) {
+                        Strafe();
+                        return;
+                    }
+
+                    return;
                 }
-                else {
-                    // IF THIS BLOCK FIRES MEANS GOING TO COVER BEHAVIOUR IS CALLING
-                    Strafe();
-                }
+                
+                // IF THIS BLOCK FIRES MEANS GOING TO COVER BEHAVIOUR IS CALLING
+                Strafe();
+                return;
             }
-            else {
-                blaze.RotateTo(blaze.enemyToAttack.transform.position, 7);
-                blaze.animManager.Play(idleAnim, idleMoveT);
-            }
+
+            
+            blaze.RotateTo(blaze.enemyToAttack.transform.position, 7);
+            blaze.animManager.Play(idleAnim, idleMoveT);
         }
 
         #endregion
@@ -813,10 +957,12 @@ namespace BlazeAISpace
             
             // IF REACHED THIS POINT THEN THIS IS THE FIRST RUN
 
+            
             // set the time of strafing
             if (strafeTime.x == -1 && strafeTime.y == -1) {
                 _strafeTime = Mathf.Infinity;
-            }else{
+            }
+            else {
                 _strafeTime = Random.Range(strafeTime.x, strafeTime.y);
             }
 
@@ -918,12 +1064,12 @@ namespace BlazeAISpace
                 }
 
             }
+
             strafeCheckPathElapsed++;
 
 
             // check if there's an obstacle in strafe direction
-            if (Physics.SphereCast(transform.position + blaze.centerPosition, 0.3f, transformDir, out hit, (blaze.navmeshAgent.radius * 2) + blaze.navmeshAgent.height/2, layersToHit))
-            {   
+            if (Physics.SphereCast(transform.position + blaze.centerPosition, 0.3f, transformDir, out hit, (blaze.navmeshAgent.radius * 2) + blaze.navmeshAgent.height/2, layersToHit)) {   
                 ChangeStrafeDirection();
                 return;
             }
@@ -972,6 +1118,7 @@ namespace BlazeAISpace
         void StrafeWait()
         {
             _strafeWaitTimer += Time.deltaTime;
+            
             if (_strafeWaitTimer >= _strafeWaitTime) {
                 isStrafing = true;
                 isStrafeWait = false;
@@ -984,6 +1131,7 @@ namespace BlazeAISpace
         {
             isStrafeWait = false;
             _strafeWaitTimer = 0f;
+
             isStrafing = false;
             _strafeTimer = 0f;
         }
@@ -1071,12 +1219,15 @@ namespace BlazeAISpace
                 return;
             }
 
+
             // time to pass before firing
             _callOthers += Time.deltaTime;
             if (_callOthers < callOthersTime) {
                 return;
             }
+
             _callOthers = 0;
+
 
             Collider[] callOthersColl = new Collider[20];
             int callOthersNum = Physics.OverlapSphereNonAlloc(transform.position, callRadius, callOthersColl, agentLayersToCall);
@@ -1086,15 +1237,22 @@ namespace BlazeAISpace
                 AttackStateBehaviour attackBehaviour = callOthersColl[i].GetComponent<AttackStateBehaviour>();
                 CoverShooterBehaviour coverShooterBehaviour = callOthersColl[i].GetComponent<CoverShooterBehaviour>();
 
+                if (callOthersColl[i].transform.IsChildOf(transform)) {
+                    continue;
+                }
+
+
                 // if doesn't have Blaze AI
                 if (!script) {
                     continue;
                 }
 
+
                 // if doesn't have this AttackStateBehaviour script
                 if (!attackBehaviour && !coverShooterBehaviour) {
                     continue;
                 }
+
 
                 // check if doesn't receive calls
                 if (attackBehaviour) {
@@ -1108,18 +1266,21 @@ namespace BlazeAISpace
                     }
                 }
 
+
                 // if agent already has a target then don't call
                 if (script.enemyToAttack) {
                     continue;
                 }
+
 
                 // if other agent has seen the target after this agent then don't call
                 if (script.captureEnemyTimeStamp > blaze.captureEnemyTimeStamp) {
                     continue;
                 }
                 
+                
                 // set the check enemy position of the other agents to target position
-                script.checkEnemyPosition = blaze.enemyColPoint;
+                script.checkEnemyPosition = blaze.RandomSpherePoint(blaze.enemyColPoint);
 
                 // turn the agents to attack state
                 script.TurnToAttackState();
@@ -1151,6 +1312,7 @@ namespace BlazeAISpace
             CallOthers();
         }
 
+        // show the call others radius in scene view
         void ShowCallRadius()
         {
             if (!callOthers) {
@@ -1164,7 +1326,7 @@ namespace BlazeAISpace
         void ResetTimers()
         {
             _callOthers = 0;
-            _totalAttackTimer = 0;
+            _totalShootTimer = 0;
             _singleShotTimer = 0;
             timeUntilAttackElapsed = 0;
         }
@@ -1183,17 +1345,20 @@ namespace BlazeAISpace
             timeUntilAttackElapsed = 0;
         }
 
+        // check if target is seen from a certain position
         public bool CheckIfTargetSeenFromPoint(Vector3 point)
         {
             Vector3 dir = blaze.enemyToAttack.transform.position - point;
             RaycastHit hit;
-            int layers = blaze.vision.hostileAndAlertLayers | gtcBehaviour.coverLayers;
+            int layers = blaze.vision.layersToDetect | blaze.vision.hostileAndAlertLayers | gtcBehaviour.coverLayers;
+
 
             if (Physics.SphereCast(point, 0.2f, dir, out hit, Mathf.Infinity, layers)) {
                 if (blaze.enemyToAttack.transform.IsChildOf(hit.transform)) {
                     return true;
                 }
             }
+
 
             return false;
         }
@@ -1211,17 +1376,26 @@ namespace BlazeAISpace
             }
         }
 
+        void ResetEnemyManager()
+        {
+            if (enemyManager) {
+                previousEnemy = null;
+                enemyManager.RemoveEnemy(blaze);
+            }
+        }
+
         #endregion
 
         #region ANIMATIONS
         
+        // idle animation
         void IdleAnim()
         {
             blaze.RotateTo(blaze.enemyToAttack.transform.position, 7);
             blaze.animManager.Play(idleAnim, idleMoveT);
         }
 
-        bool shootAnimTriggered;
+        // shoot animation
         void ShootAnim()
         {
             blaze.RotateTo(blaze.enemyToAttack.transform.position, 7);
@@ -1236,40 +1410,179 @@ namespace BlazeAISpace
         
         #endregion
 
-        #region RETURN ALERT
+        #region RETURN PATROL/ALERT && SEARCHING
         
+        // reached location and no hostile found
         void NoTarget()
         {
+            if (blaze.companionMode) {
+                ReturnToAlert();
+            }
+
+
+            // search empty location
+            if (searchLocationRadius) {
+                blaze.animManager.Play(idleAnim, returnPatrolAnimT);
+                searchTimeElapsed += Time.deltaTime;
+
+                if (searchTimeElapsed >= timeToStartSearch) {
+                    PlaySearchStartAudio();
+                    SetSearchPoint();
+                    
+                    isSearching = true;
+                    return;
+                }
+
+                return;
+            }
+
+
+            PlayReturnPatrolAudio();
             ReturnToAlertIdle();
             ResetTimers();
+
             
             _timeToReturnAlert += Time.deltaTime;
-            if (_timeToReturnAlert >= timeToReturnAlert) {
+            if (_timeToReturnAlert >= returnPatrolTime) {
                 ReturnToAlert();
             }
         }
 
+
+        // play return animation
         void ReturnToAlertIdle()
         {
             blaze.SetState(BlazeAI.State.returningToAlert);
             
-            if (returningToAlertAnim.Length == 0) {
-                blaze.animManager.Play(idleAnim, returningToAlertAnimT);
+            
+            if (returnPatrolAnim.Length == 0) {
+                blaze.animManager.Play(idleAnim, returnPatrolAnimT);
             }
             else {
-                blaze.animManager.Play(returningToAlertAnim, returningToAlertAnimT);
+                blaze.animManager.Play(returnPatrolAnim, returnPatrolAnimT);
             }
             
-            // remove from enemy manager
-            if (enemyManager != null) {
-                enemyManager.RemoveEnemy(blaze);
-            }
-        }
 
+            ResetEnemyManager();
+        }
+        
+
+        // exit attack state and return to alert
         void ReturnToAlert()
         {
             _timeToReturnAlert = 0;
             blaze.SetState(BlazeAI.State.alert);
+        }
+
+
+        // play start search audio
+        void PlayReturnPatrolAudio()
+        {
+            // if audio already played -> return
+            if (returnPatrolAudioPlayed) {
+                return;
+            }
+
+
+            if (!playAudioOnReturnPatrol) {
+                return;
+            }
+
+
+            if (blaze.IsAudioScriptableEmpty()) {
+                return;
+            }
+
+
+            blaze.PlayAudio(blaze.audioScriptable.GetAudio(AudioScriptable.AudioType.ReturnPatrol));
+            returnPatrolAudioPlayed = true;
+        }
+
+
+        // set the next search point
+        void SetSearchPoint()
+        {
+            searchLocation = blaze.RandomSpherePoint(transform.position, (blaze.navmeshAgent.height * 2) + 2);
+            
+            // make sure never returns 0
+            if (searchLocation == Vector3.zero) {
+                SetSearchPoint();
+                return;
+            }
+            
+            searchIndex++;
+            searchTimeElapsed = 0;
+        }
+
+
+        // returns whether the idle time has finished in the search point or not
+        bool IsSearchPointIdleFinished()
+        {
+            blaze.animManager.Play(searchPointAnim, searchAnimsT);
+
+            searchTimeElapsed += Time.deltaTime;
+            if (searchTimeElapsed >= pointWaitTime) {
+                return true;
+            }
+
+            return false;
+        }
+
+
+        // play start search audio
+        void PlaySearchStartAudio()
+        {
+            if (!playAudioOnSearchStart) {
+                return;
+            }
+
+
+            if (blaze.IsAudioScriptableEmpty()) {
+                return;
+            }
+
+
+            blaze.PlayAudio(blaze.audioScriptable.GetAudio(AudioScriptable.AudioType.SearchStart));
+        }
+
+
+        // play search end audio
+        void PlaySearchEndAudio()
+        {
+            if (!playAudioOnSearchEnd) {
+                return;
+            }
+
+
+            if (blaze.IsAudioScriptableEmpty()) {
+                return;
+            }
+
+
+            blaze.PlayAudio(blaze.audioScriptable.GetAudio(AudioScriptable.AudioType.SearchEnd));
+        }
+
+
+        // exit the search and distracted state
+        void EndSearchExit()
+        {
+            blaze.animManager.Play(endSearchAnim, searchAnimsT);
+            PlaySearchEndAudio();
+
+            searchTimeElapsed += Time.deltaTime;
+
+            if (searchTimeElapsed >= endSearchAnimTime) {
+                ResetEnemyManager();
+                ReturnToAlert();
+            }
+        }
+
+
+        void ResetSearching()
+        {
+            searchIndex = 0;
+            isSearching = false;
+            searchTimeElapsed = 0f;
         }
         
         #endregion

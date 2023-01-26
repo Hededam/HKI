@@ -53,6 +53,17 @@ namespace BlazeAISpace
         void Start() 
         {
             blaze = GetComponent<BlazeAI>();
+
+            // cache the idle anim for quick access & use in other systems
+            if (blaze.useNormalStateOnAwake) {
+                if (idleAnim.Length > 0) {
+                    blaze.defaultNormalIdleAnim = idleAnim[0];
+                }
+                else {
+                    blaze.defaultNormalIdleAnim = "";
+                }
+            }
+
             _audioTime = Random.Range(audioTime.x, audioTime.y);
 
 

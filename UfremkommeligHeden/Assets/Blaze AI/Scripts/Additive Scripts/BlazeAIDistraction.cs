@@ -7,7 +7,7 @@ public class BlazeAIDistraction : MonoBehaviour {
     public bool distractOnAwake;
     [Tooltip("The layers of the Blaze AI agents.")]
     public LayerMask agentLayers = Physics.AllLayers;
-    [Tooltip("The radius of the distraction.")]
+    [Min(0), Tooltip("The radius of the distraction.")]
     public float distractionRadius;
     [Tooltip("Do you want the distraction to pass through obstacles with colliders?")]
     public bool passThroughColliders;

@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 2664f222f7b81d04999f8018fe475b2f
 ModelImporter:
-  serializedVersion: 20200
+  serializedVersion: 20300
   internalIDToNameTable:
   - first:
       1: 100000
@@ -226,7 +226,7 @@ ModelImporter:
         intParameter: 0
         messageOptions: 0
       - time: 0.5078125
-        functionName: StopAttack
+        functionName: MeleeHitFinished
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
@@ -632,6 +632,7 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 2
   addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

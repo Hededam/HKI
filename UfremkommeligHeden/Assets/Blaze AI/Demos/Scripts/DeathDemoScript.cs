@@ -1,18 +1,19 @@
 using UnityEngine;
 using BlazeAISpace;
+using BlazeAIDemo;
 
 
 public class DeathDemoScript : MonoBehaviour
 {
     public BlazeAI blazeAI;
     HitStateBehaviour hitState;
-    Health blazeHealth;
+    BlazeAIDemo.Health blazeHealth;
 
     
     void Start()
     {
         hitState = blazeAI.transform.GetComponent<HitStateBehaviour>();
-        blazeHealth = blazeAI.GetComponent<Health>();
+        blazeHealth = blazeAI.GetComponent<BlazeAIDemo.Health>();
     }
 
 
@@ -20,7 +21,7 @@ public class DeathDemoScript : MonoBehaviour
     {
         // hit the AI
         if (Input.GetKeyDown(KeyCode.E)) {
-            hitState.hitAnim = "";
+            hitState.hitAnim = "Hit";
             hitState.hitDuration = 0.7f;
             blazeAI.Hit();
 

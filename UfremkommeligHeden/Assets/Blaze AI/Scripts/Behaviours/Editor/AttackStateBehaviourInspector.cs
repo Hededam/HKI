@@ -4,6 +4,7 @@ namespace BlazeAISpace
 {
     [CanEditMultipleObjects]
     [CustomEditor(typeof(AttackStateBehaviour))]
+
     public class AttackStateBehaviourInspector : Editor
     {
         SerializedProperty moveSpeed,
@@ -55,9 +56,21 @@ namespace BlazeAISpace
         onAttackRotate,
         onAttackRotateSpeed,
 
-        timeToReturnAlert,
-        returningToAlertAnim,
-        returningToAlertAnimT;
+        searchLocationRadius,
+        timeToStartSearch,
+        searchPoints,
+        searchPointAnim,
+        pointWaitTime,
+        endSearchAnim,
+        endSearchAnimTime,
+        searchAnimsT,
+        playAudioOnSearchStart,
+        playAudioOnSearchEnd,
+
+        returnPatrolAnim,
+        returnPatrolAnimT,
+        returnPatrolTime,
+        playAudioOnReturnPatrol;
 
 
         bool displayAttackEvents = true;
@@ -114,10 +127,23 @@ namespace BlazeAISpace
             onAttackRotate = serializedObject.FindProperty("onAttackRotate");
             onAttackRotateSpeed = serializedObject.FindProperty("onAttackRotateSpeed");
 
-            timeToReturnAlert = serializedObject.FindProperty("timeToReturnAlert");
-            returningToAlertAnim = serializedObject.FindProperty("returningToAlertAnim");
-            returningToAlertAnimT = serializedObject.FindProperty("returningToAlertAnimT");
+            searchLocationRadius = serializedObject.FindProperty("searchLocationRadius");
+            timeToStartSearch = serializedObject.FindProperty("timeToStartSearch");
+            searchPoints = serializedObject.FindProperty("searchPoints");
+            searchPointAnim = serializedObject.FindProperty("searchPointAnim");
+            pointWaitTime = serializedObject.FindProperty("pointWaitTime");
+            endSearchAnim = serializedObject.FindProperty("endSearchAnim");
+            endSearchAnimTime = serializedObject.FindProperty("endSearchAnimTime");
+            searchAnimsT = serializedObject.FindProperty("searchAnimsT");
+            playAudioOnSearchStart = serializedObject.FindProperty("playAudioOnSearchStart");
+            playAudioOnSearchEnd = serializedObject.FindProperty("playAudioOnSearchEnd");
+
+            returnPatrolAnim = serializedObject.FindProperty("returnPatrolAnim");
+            returnPatrolAnimT = serializedObject.FindProperty("returnPatrolAnimT");
+            returnPatrolTime = serializedObject.FindProperty("returnPatrolTime");
+            playAudioOnReturnPatrol = serializedObject.FindProperty("playAudioOnReturnPatrol");
         }
+
 
         public override void OnInspectorGUI () 
         {
@@ -216,17 +242,34 @@ namespace BlazeAISpace
 
             EditorGUILayout.Space(spaceBetween);
             EditorGUILayout.LabelField("ATTACK ROTATE", EditorStyles.boldLabel);
+            EditorGUILayout.PropertyField(onAttackRotateSpeed);
             EditorGUILayout.PropertyField(onAttackRotate);
-            if (script.onAttackRotate) {
-                EditorGUILayout.PropertyField(onAttackRotateSpeed);
-            }
 
 
             EditorGUILayout.Space(spaceBetween);
-            EditorGUILayout.LabelField("RETURNING TO ALERT", EditorStyles.boldLabel);
-            EditorGUILayout.PropertyField(timeToReturnAlert);
-            EditorGUILayout.PropertyField(returningToAlertAnim);
-            EditorGUILayout.PropertyField(returningToAlertAnimT);
+            EditorGUILayout.LabelField("SEARCHING LOCATION", EditorStyles.boldLabel);
+            EditorGUILayout.PropertyField(searchLocationRadius);
+            if (script.searchLocationRadius) {
+                EditorGUILayout.PropertyField(timeToStartSearch);
+                EditorGUILayout.PropertyField(searchPoints);
+                EditorGUILayout.PropertyField(searchPointAnim);
+                EditorGUILayout.PropertyField(pointWaitTime);
+                EditorGUILayout.PropertyField(endSearchAnim);
+                EditorGUILayout.PropertyField(endSearchAnimTime);
+                EditorGUILayout.PropertyField(searchAnimsT);
+                EditorGUILayout.PropertyField(playAudioOnSearchStart);
+                EditorGUILayout.PropertyField(playAudioOnSearchEnd);
+            }
+
+
+            if (!script.searchLocationRadius) {
+                EditorGUILayout.Space(spaceBetween);
+                EditorGUILayout.LabelField("RETURNING TO PATROL", EditorStyles.boldLabel);
+                EditorGUILayout.PropertyField(returnPatrolAnim);
+                EditorGUILayout.PropertyField(returnPatrolAnimT);
+                EditorGUILayout.PropertyField(returnPatrolTime);
+                EditorGUILayout.PropertyField(playAudioOnReturnPatrol);
+            }
 
 
             serializedObject.ApplyModifiedProperties();

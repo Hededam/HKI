@@ -17,15 +17,17 @@ namespace BlazeAISpace
         layersCheckOnAttacking,
         shootingAnim,
         shootingAnimT,
-        attackEvent,
-        attackEvery,
+        shootEvent,
+        shootEvery,
         singleShotDuration,
         delayBetweenEachShot,
-        totalAttackTime,
+        totalShootTime,
 
         firstSightDecision,
         coverBlownDecision,
         attackEnemyCover,
+
+        braveMeter,
 
         callOthers,
         callRadius,
@@ -50,12 +52,24 @@ namespace BlazeAISpace
         strafeAnimT,
         strafeLayersToAvoid,
 
-        timeToReturnAlert,
-        returningToAlertAnim,
-        returningToAlertAnimT;
+        searchLocationRadius,
+        timeToStartSearch,
+        searchPoints,
+        searchPointAnim,
+        pointWaitTime,
+        endSearchAnim,
+        endSearchAnimTime,
+        searchAnimsT,
+        playAudioOnSearchStart,
+        playAudioOnSearchEnd,
+
+        returnPatrolAnim,
+        returnPatrolAnimT,
+        returnPatrolTime,
+        playAudioOnReturnPatrol;
 
 
-        bool displayAttackEvents = true;
+        bool displayshootEvents = true;
 
 
         void OnEnable()
@@ -72,16 +86,19 @@ namespace BlazeAISpace
             layersCheckOnAttacking = serializedObject.FindProperty("layersCheckOnAttacking");
             shootingAnim = serializedObject.FindProperty("shootingAnim");
             shootingAnimT = serializedObject.FindProperty("shootingAnimT");
-            attackEvent = serializedObject.FindProperty("attackEvent");
-            attackEvery = serializedObject.FindProperty("attackEvery");
+            shootEvent = serializedObject.FindProperty("shootEvent");
+            shootEvery = serializedObject.FindProperty("shootEvery");
             singleShotDuration = serializedObject.FindProperty("singleShotDuration");
             delayBetweenEachShot = serializedObject.FindProperty("delayBetweenEachShot");
-            totalAttackTime = serializedObject.FindProperty("totalAttackTime");
+            totalShootTime = serializedObject.FindProperty("totalShootTime");
 
 
             firstSightDecision = serializedObject.FindProperty("firstSightDecision");
             coverBlownDecision = serializedObject.FindProperty("coverBlownDecision");
             attackEnemyCover = serializedObject.FindProperty("attackEnemyCover");
+
+
+            braveMeter = serializedObject.FindProperty("braveMeter");
 
 
             callOthers = serializedObject.FindProperty("callOthers");
@@ -110,9 +127,21 @@ namespace BlazeAISpace
             strafeLayersToAvoid = serializedObject.FindProperty("strafeLayersToAvoid");
 
 
-            timeToReturnAlert = serializedObject.FindProperty("timeToReturnAlert");
-            returningToAlertAnim = serializedObject.FindProperty("returningToAlertAnim");
-            returningToAlertAnimT = serializedObject.FindProperty("returningToAlertAnimT");
+            searchLocationRadius = serializedObject.FindProperty("searchLocationRadius");
+            timeToStartSearch = serializedObject.FindProperty("timeToStartSearch");
+            searchPoints = serializedObject.FindProperty("searchPoints");
+            searchPointAnim = serializedObject.FindProperty("searchPointAnim");
+            pointWaitTime = serializedObject.FindProperty("pointWaitTime");
+            endSearchAnim = serializedObject.FindProperty("endSearchAnim");
+            endSearchAnimTime = serializedObject.FindProperty("endSearchAnimTime");
+            searchAnimsT = serializedObject.FindProperty("searchAnimsT");
+            playAudioOnSearchStart = serializedObject.FindProperty("playAudioOnSearchStart");
+            playAudioOnSearchEnd = serializedObject.FindProperty("playAudioOnSearchEnd");
+
+            returnPatrolAnim = serializedObject.FindProperty("returnPatrolAnim");
+            returnPatrolAnimT = serializedObject.FindProperty("returnPatrolAnimT");
+            returnPatrolTime = serializedObject.FindProperty("returnPatrolTime");
+            playAudioOnReturnPatrol = serializedObject.FindProperty("playAudioOnReturnPatrol");
         }
         
         public override void OnInspectorGUI () 
@@ -138,14 +167,14 @@ namespace BlazeAISpace
             EditorGUILayout.PropertyField(shootingAnim);
             EditorGUILayout.PropertyField(shootingAnimT);
             EditorGUILayout.Space(5);
-            EditorGUILayout.PropertyField(attackEvery);
+            EditorGUILayout.PropertyField(shootEvery);
             EditorGUILayout.PropertyField(singleShotDuration);
             EditorGUILayout.PropertyField(delayBetweenEachShot);
-            EditorGUILayout.PropertyField(totalAttackTime);
+            EditorGUILayout.PropertyField(totalShootTime);
             EditorGUILayout.Space(5);
-            displayAttackEvents = EditorGUILayout.Toggle("Display Attack Events", displayAttackEvents);
-            if (displayAttackEvents) {
-                EditorGUILayout.PropertyField(attackEvent);
+            displayshootEvents = EditorGUILayout.Toggle("Display Attack Events", displayshootEvents);
+            if (displayshootEvents) {
+                EditorGUILayout.PropertyField(shootEvent);
             }
 
 
@@ -154,6 +183,11 @@ namespace BlazeAISpace
             EditorGUILayout.PropertyField(firstSightDecision);
             EditorGUILayout.PropertyField(coverBlownDecision);
             EditorGUILayout.PropertyField(attackEnemyCover);
+
+
+            EditorGUILayout.Space(spaceBetween);
+            EditorGUILayout.LabelField("BRAVENESS", EditorStyles.boldLabel);
+            EditorGUILayout.PropertyField(braveMeter);
 
 
             EditorGUILayout.Space(spaceBetween);
@@ -195,10 +229,29 @@ namespace BlazeAISpace
 
 
             EditorGUILayout.Space(spaceBetween);
-            EditorGUILayout.LabelField("RETURNING TO ALERT", EditorStyles.boldLabel);
-            EditorGUILayout.PropertyField(timeToReturnAlert);
-            EditorGUILayout.PropertyField(returningToAlertAnim);
-            EditorGUILayout.PropertyField(returningToAlertAnimT);
+            EditorGUILayout.LabelField("SEARCHING LOCATION", EditorStyles.boldLabel);
+            EditorGUILayout.PropertyField(searchLocationRadius);
+            if (script.searchLocationRadius) {
+                EditorGUILayout.PropertyField(timeToStartSearch);
+                EditorGUILayout.PropertyField(searchPoints);
+                EditorGUILayout.PropertyField(searchPointAnim);
+                EditorGUILayout.PropertyField(pointWaitTime);
+                EditorGUILayout.PropertyField(endSearchAnim);
+                EditorGUILayout.PropertyField(endSearchAnimTime);
+                EditorGUILayout.PropertyField(searchAnimsT);
+                EditorGUILayout.PropertyField(playAudioOnSearchStart);
+                EditorGUILayout.PropertyField(playAudioOnSearchEnd);
+            }
+
+
+            if (!script.searchLocationRadius) {
+                EditorGUILayout.Space(spaceBetween);
+                EditorGUILayout.LabelField("RETURNING TO PATROL", EditorStyles.boldLabel);
+                EditorGUILayout.PropertyField(returnPatrolAnim);
+                EditorGUILayout.PropertyField(returnPatrolAnimT);
+                EditorGUILayout.PropertyField(returnPatrolTime);
+                EditorGUILayout.PropertyField(playAudioOnReturnPatrol);
+            }
 
 
             serializedObject.ApplyModifiedProperties();

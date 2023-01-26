@@ -75,12 +75,14 @@ public class BlazeAIEnemyManager : MonoBehaviour
         enemiesScheduled.Remove(enemy);
     }
 
+
     // add an enemy to the scheduled list
     public void AddEnemy(BlazeAI enemy)
     {
         if (enemiesScheduled.IndexOf(enemy) >= 0) return;
         enemiesScheduled.Add(enemy);
     }
+
 
     // shuffle the enemiesScheduled list to choose a random one
     void Shuffle()

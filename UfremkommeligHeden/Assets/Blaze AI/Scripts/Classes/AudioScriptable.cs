@@ -8,35 +8,70 @@ namespace BlazeAISpace
         [Tooltip("Audios to play when patrolling in normal state.")]
         public AudioClip[] normalState;
 
+        [Space(5)]
         [Tooltip("Audios to play when patrolling in alert state.")]
         public AudioClip[] alertState;
 
+        [Space(5)]
         [Tooltip("Audios to play on surprised state. (seeing enemy when in normal state)")]
         public AudioClip[] surprisedState;
 
+        [Space(5)]
         [Tooltip("Audios to play on attacking target.")]
         public AudioClip[] attacks;
 
+        [Space(5)]
         [Tooltip("Audios to play when AI is in attack state waiting for it's turn to attack the player.")]
         public AudioClip[] attackIdle;
 
+        [Space(5)]
         [Tooltip("Audios to play when in alert state and returning to normal state.")]
         public AudioClip[] returningToNormalState;
 
+        [Space(5)]
         [Tooltip("Audios to play on getting distracted.")]
         public AudioClip[] distracted;
 
+        [Space(5)]
         [Tooltip("Audios to play when checking distraction location.")]
         public AudioClip[] distractionCheckLocation;
 
+        [Space(5)]
+        [Tooltip("Audios to play when beginning to search.")]
+        public AudioClip[] searchStart;
+
+        [Space(5)]
+        [Tooltip("Audios to play when search ends.")]
+        public AudioClip[] searchEnd;
+
+        [Space(5)]
+        [Tooltip("Audios to play when in attack state and is returning to patrol in alert state.")]
+        public AudioClip[] returnPatrol;
+
+        [Space(5)]
         [Tooltip("Audios to play when hit.")]
         public AudioClip[] hit;
 
+        [Space(5)]
         [Tooltip("Audios to play on death.")]
         public AudioClip[] death;
 
+        [Space(5)]
         [Tooltip("Audios to play when vision catches an alert tag game object.")]
         public AudioClip[] alertTags;
+
+        [Space(5)]
+        [Tooltip("Audios to play when companion AI has reached the target distance and is either idle or wandering.")]
+        public AudioClip[] companionIdleAndWander;
+
+        [Space(5)]
+        [Tooltip("Audios to play when companion AI is commanded to follow.")]
+        public AudioClip[] companionOnFollow;
+
+        [Space(5)]
+        [Tooltip("Audios to play when companion AI is commanded to not follow.")]
+        public AudioClip[] companionOnStop;
+
 
 
         public enum AudioType : int {
@@ -48,9 +83,15 @@ namespace BlazeAISpace
             ReturningToNormalState,
             Distracted,
             DistractionCheckLocation,
+            SearchStart,
+            SearchEnd,
+            ReturnPatrol,
             Hit,
             Death,
-            AlertTags
+            AlertTags,
+            CompanionIdleAndWander,
+            CompanionOnFollow,
+            CompanionOnStop
         }
 
 
@@ -69,9 +110,15 @@ namespace BlazeAISpace
             audios.Add((int)AudioType.ReturningToNormalState, returningToNormalState);
             audios.Add((int)AudioType.Distracted, distracted);
             audios.Add((int)AudioType.DistractionCheckLocation, distractionCheckLocation);
+            audios.Add((int)AudioType.SearchStart, searchStart);
+            audios.Add((int)AudioType.SearchEnd, searchEnd);
+            audios.Add((int)AudioType.ReturnPatrol, returnPatrol);
             audios.Add((int)AudioType.Hit, hit);
             audios.Add((int)AudioType.Death, death);
             audios.Add((int)AudioType.AlertTags, alertTags);
+            audios.Add((int)AudioType.CompanionIdleAndWander, companionIdleAndWander);
+            audios.Add((int)AudioType.CompanionOnFollow, companionOnFollow);
+            audios.Add((int)AudioType.CompanionOnStop, companionOnStop);
         }
 
 
@@ -119,7 +166,6 @@ namespace BlazeAISpace
             if (audios[(int)type].Length <= 0) {
                 return null;
             }
-            
             
             return audios[(int)type];
         }

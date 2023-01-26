@@ -7,22 +7,27 @@ namespace BlazeAISpace
     public class AlertTagBehaviourInspector : Editor
     {
         SerializedProperty checkLocation,
-        finishedAnim,
-        finishedDuration,
+        onSightAnim,
+        onSightDuration,
+        reachedLocationAnim,
+        reachedLocationDuration,
         animT,
         playAudio,
         audioIndex,
         callOtherAgents,
         callRange,
         showCallRange,
-        otherAgentsLayers;
+        otherAgentsLayers,
+        randomizeCallPosition;
 
 
         void OnEnable()
         {
             checkLocation = serializedObject.FindProperty("checkLocation");
-            finishedAnim = serializedObject.FindProperty("finishedAnim");
-            finishedDuration = serializedObject.FindProperty("finishedDuration");
+            onSightAnim = serializedObject.FindProperty("onSightAnim");
+            onSightDuration = serializedObject.FindProperty("onSightDuration");
+            reachedLocationAnim = serializedObject.FindProperty("reachedLocationAnim");
+            reachedLocationDuration = serializedObject.FindProperty("reachedLocationDuration");
             animT = serializedObject.FindProperty("animT");
             playAudio = serializedObject.FindProperty("playAudio");
             audioIndex = serializedObject.FindProperty("audioIndex");
@@ -30,6 +35,7 @@ namespace BlazeAISpace
             callRange = serializedObject.FindProperty("callRange");
             showCallRange = serializedObject.FindProperty("showCallRange");
             otherAgentsLayers = serializedObject.FindProperty("otherAgentsLayers");
+            randomizeCallPosition = serializedObject.FindProperty("randomizeCallPosition");
         }
 
         public override void OnInspectorGUI()
@@ -43,8 +49,13 @@ namespace BlazeAISpace
             EditorGUILayout.Space(spaceBetween);
 
             EditorGUILayout.LabelField("ANIMATIONS", EditorStyles.boldLabel);
-            EditorGUILayout.PropertyField(finishedAnim);
-            EditorGUILayout.PropertyField(finishedDuration);
+            EditorGUILayout.PropertyField(onSightAnim);
+            EditorGUILayout.PropertyField(onSightDuration);
+            EditorGUILayout.Space(5);
+            if (script.checkLocation) {
+                EditorGUILayout.PropertyField(reachedLocationAnim);
+                EditorGUILayout.PropertyField(reachedLocationDuration);
+            }
             EditorGUILayout.PropertyField(animT);
 
             EditorGUILayout.Space(spaceBetween);
@@ -63,7 +74,9 @@ namespace BlazeAISpace
                 EditorGUILayout.PropertyField(callRange);
                 EditorGUILayout.PropertyField(showCallRange);
                 EditorGUILayout.PropertyField(otherAgentsLayers);
+                EditorGUILayout.PropertyField(randomizeCallPosition);
             }
+
 
             serializedObject.ApplyModifiedProperties();
         }

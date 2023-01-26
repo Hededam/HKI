@@ -4676,7 +4676,6 @@ GameObject:
   - component: {fileID: 803026987}
   - component: {fileID: 803026986}
   - component: {fileID: 803026985}
-  - component: {fileID: 803026984}
   - component: {fileID: 803026983}
   - component: {fileID: 803026982}
   - component: {fileID: 803026981}
@@ -4827,7 +4826,16 @@ MonoBehaviour:
   checkAnim: Looking Around
   checkAnimT: 0.25
   timeToCheck: 5
+  searchLocationRadius: 0
+  searchPoints: 3
+  searchPointAnim: 
+  pointWaitTime: 3
+  endSearchAnim: 
+  endSearchAnimTime: 3
+  searchAnimsT: 0.25
   playAudioOnCheckLocation: 1
+  playAudioOnSearchStart: 0
+  playAudioOnSearchEnd: 0
 --- !u!114 &803026976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4876,10 +4884,10 @@ MonoBehaviour:
   attackDistance: 20
   layersCheckOnAttacking:
     serializedVersion: 2
-    m_Bits: 12608
+    m_Bits: 256
   shootingAnim: Shoot
   shootingAnimT: 0.1
-  attackEvent:
+  shootEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 803026973}
@@ -4894,13 +4902,14 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  attackEvery: {x: 3, y: 3}
+  shootEvery: {x: 3, y: 5}
   singleShotDuration: 0.5
   delayBetweenEachShot: 0
-  totalAttackTime: {x: 2, y: 4}
+  totalShootTime: {x: 2, y: 4}
   firstSightDecision: 2
   coverBlownDecision: 2
   attackEnemyCover: 2
+  braveMeter: 0
   callOthers: 1
   callRadius: 70
   showCallRadius: 1
@@ -4925,9 +4934,20 @@ MonoBehaviour:
   strafeLayersToAvoid:
     serializedVersion: 2
     m_Bits: 4294967295
-  timeToReturnAlert: 3
-  returningToAlertAnim: Alert Idle
-  returningToAlertAnimT: 0.25
+  searchLocationRadius: 0
+  timeToStartSearch: 2
+  searchPoints: 3
+  searchPointAnim: 
+  pointWaitTime: 3
+  endSearchAnim: 
+  endSearchAnimTime: 3
+  searchAnimsT: 0.25
+  playAudioOnSearchStart: 0
+  playAudioOnSearchEnd: 0
+  returnPatrolAnim: 
+  returnPatrolAnimT: 0.25
+  returnPatrolTime: 3
+  playAudioOnReturnPatrol: 0
 --- !u!114 &803026978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5137,24 +5157,6 @@ CapsuleCollider:
   m_Height: 1.75
   m_Direction: 1
   m_Center: {x: 0, y: 0.9, z: 0}
---- !u!143 &803026984
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 803026971}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 1.75
-  m_Radius: 0.3
-  m_SlopeLimit: 180
-  m_StepOffset: 0.1
-  m_SkinWidth: 0.03
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!114 &803026985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5174,6 +5176,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8192
   audioScriptable: {fileID: 11400000, guid: 06e54b8716dee3c45a7e2e48238bf017, type: 2}
+  agentAudio: {fileID: 803026972}
   waypoints:
     waypoints:
     - {x: -25.9, y: -1.7576239, z: 8}
@@ -5187,13 +5190,14 @@ MonoBehaviour:
     randomize: 0
     randomizeRadius: 20
     showRandomizeRadius: 0
+    useMovementTurning: 1
+    movementTurningSensitivity: 0.7
+    useTurnAnims: 1
     rightTurnAnimNormal: Right Turn
     leftTurnAnimNormal: Left Turn
     rightTurnAnimAlert: Pistol Right Turn
     leftTurnAnimAlert: Pistol Left Turn
     turningAnimT: 0.25
-    useMovementTurning: 1
-    movementTurningSensitivity: 0.6
   vision:
     layersToDetect:
       serializedVersion: 2
@@ -5237,16 +5241,31 @@ MonoBehaviour:
   canDistract: 1
   distractedStateBehaviour: {fileID: 803026974}
   priorityLevel: 50
+  turnAlertOnDistract: 0
   playDistractedAudios: 1
   hitStateBehaviour: {fileID: 0}
   deathAnim: 
   deathAnimT: 0.25
   playDeathAudio: 0
-  disableBlazeOnDeath: 0
+  deathCallRadius: 10
+  agentLayersToDeathCall:
+    serializedVersion: 2
+    m_Bits: 0
+  showDeathCallRadius: 0
+  deathEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  destroyOnDeath: 0
+  timeBeforeDestroy: 0
+  friendly: 0
+  distanceCull: 0
+  ignoreUnreachableEnemy: 0
+  fallBackPoints: []
+  showPoints: 0
   warnEmptyBehavioursOnStart: 1
 --- !u!95 &803026986
 Animator:
-  serializedVersion: 3
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5259,10 +5278,11 @@ Animator:
   m_UpdateMode: 1
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!4 &803026987
 Transform:
   m_ObjectHideFlags: 0
@@ -6001,7 +6021,6 @@ GameObject:
   - component: {fileID: 911314610}
   - component: {fileID: 911314609}
   - component: {fileID: 911314608}
-  - component: {fileID: 911314607}
   - component: {fileID: 911314606}
   - component: {fileID: 911314605}
   - component: {fileID: 911314604}
@@ -6152,7 +6171,16 @@ MonoBehaviour:
   checkAnim: Looking Around
   checkAnimT: 0.25
   timeToCheck: 5
+  searchLocationRadius: 0
+  searchPoints: 3
+  searchPointAnim: 
+  pointWaitTime: 3
+  endSearchAnim: 
+  endSearchAnimTime: 3
+  searchAnimsT: 0.25
   playAudioOnCheckLocation: 1
+  playAudioOnSearchStart: 0
+  playAudioOnSearchEnd: 0
 --- !u!114 &911314599
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6201,10 +6229,10 @@ MonoBehaviour:
   attackDistance: 20
   layersCheckOnAttacking:
     serializedVersion: 2
-    m_Bits: 12608
+    m_Bits: 256
   shootingAnim: Shoot
   shootingAnimT: 0.1
-  attackEvent:
+  shootEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 911314596}
@@ -6219,13 +6247,14 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  attackEvery: {x: 3, y: 3}
+  shootEvery: {x: 3, y: 5}
   singleShotDuration: 0.5
   delayBetweenEachShot: 0
-  totalAttackTime: {x: 2, y: 4}
+  totalShootTime: {x: 2, y: 4}
   firstSightDecision: 2
   coverBlownDecision: 2
   attackEnemyCover: 2
+  braveMeter: 0
   callOthers: 1
   callRadius: 70
   showCallRadius: 1
@@ -6250,9 +6279,20 @@ MonoBehaviour:
   strafeLayersToAvoid:
     serializedVersion: 2
     m_Bits: 4294967295
-  timeToReturnAlert: 3
-  returningToAlertAnim: Alert Idle
-  returningToAlertAnimT: 0.25
+  searchLocationRadius: 0
+  timeToStartSearch: 2
+  searchPoints: 3
+  searchPointAnim: 
+  pointWaitTime: 3
+  endSearchAnim: 
+  endSearchAnimTime: 3
+  searchAnimsT: 0.25
+  playAudioOnSearchStart: 0
+  playAudioOnSearchEnd: 0
+  returnPatrolAnim: 
+  returnPatrolAnimT: 0.25
+  returnPatrolTime: 3
+  playAudioOnReturnPatrol: 0
 --- !u!114 &911314601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6462,24 +6502,6 @@ CapsuleCollider:
   m_Height: 1.75
   m_Direction: 1
   m_Center: {x: 0, y: 0.9, z: 0}
---- !u!143 &911314607
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 911314594}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 1.75
-  m_Radius: 0.3
-  m_SlopeLimit: 180
-  m_StepOffset: 0.1
-  m_SkinWidth: 0.03
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!114 &911314608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6499,6 +6521,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8192
   audioScriptable: {fileID: 11400000, guid: 06e54b8716dee3c45a7e2e48238bf017, type: 2}
+  agentAudio: {fileID: 911314595}
   waypoints:
     waypoints:
     - {x: -19.1, y: -1.7576239, z: -34.7}
@@ -6512,13 +6535,14 @@ MonoBehaviour:
     randomize: 0
     randomizeRadius: 20
     showRandomizeRadius: 0
+    useMovementTurning: 1
+    movementTurningSensitivity: 0.7
+    useTurnAnims: 1
     rightTurnAnimNormal: Right Turn
     leftTurnAnimNormal: Left Turn
     rightTurnAnimAlert: Pistol Right Turn
     leftTurnAnimAlert: Pistol Left Turn
     turningAnimT: 0.25
-    useMovementTurning: 1
-    movementTurningSensitivity: 0.6
   vision:
     layersToDetect:
       serializedVersion: 2
@@ -6562,16 +6586,31 @@ MonoBehaviour:
   canDistract: 1
   distractedStateBehaviour: {fileID: 911314597}
   priorityLevel: 50
+  turnAlertOnDistract: 0
   playDistractedAudios: 1
   hitStateBehaviour: {fileID: 0}
   deathAnim: 
   deathAnimT: 0.25
   playDeathAudio: 0
-  disableBlazeOnDeath: 0
+  deathCallRadius: 10
+  agentLayersToDeathCall:
+    serializedVersion: 2
+    m_Bits: 0
+  showDeathCallRadius: 0
+  deathEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  destroyOnDeath: 0
+  timeBeforeDestroy: 0
+  friendly: 0
+  distanceCull: 0
+  ignoreUnreachableEnemy: 0
+  fallBackPoints: []
+  showPoints: 0
   warnEmptyBehavioursOnStart: 1
 --- !u!95 &911314609
 Animator:
-  serializedVersion: 3
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -6584,10 +6623,11 @@ Animator:
   m_UpdateMode: 1
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!4 &911314610
 Transform:
   m_ObjectHideFlags: 0
@@ -10423,7 +10463,6 @@ GameObject:
   - component: {fileID: 1757999703}
   - component: {fileID: 1757999702}
   - component: {fileID: 1757999701}
-  - component: {fileID: 1757999700}
   - component: {fileID: 1757999699}
   - component: {fileID: 1757999698}
   - component: {fileID: 1757999697}
@@ -10574,7 +10613,16 @@ MonoBehaviour:
   checkAnim: Looking Around
   checkAnimT: 0.25
   timeToCheck: 5
+  searchLocationRadius: 0
+  searchPoints: 3
+  searchPointAnim: 
+  pointWaitTime: 3
+  endSearchAnim: 
+  endSearchAnimTime: 3
+  searchAnimsT: 0.25
   playAudioOnCheckLocation: 1
+  playAudioOnSearchStart: 0
+  playAudioOnSearchEnd: 0
 --- !u!114 &1757999692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10623,10 +10671,10 @@ MonoBehaviour:
   attackDistance: 20
   layersCheckOnAttacking:
     serializedVersion: 2
-    m_Bits: 12608
+    m_Bits: 256
   shootingAnim: Shoot
   shootingAnimT: 0.1
-  attackEvent:
+  shootEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1757999689}
@@ -10641,13 +10689,14 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  attackEvery: {x: 3, y: 3}
+  shootEvery: {x: 3, y: 5}
   singleShotDuration: 0.5
   delayBetweenEachShot: 0
-  totalAttackTime: {x: 2, y: 4}
+  totalShootTime: {x: 2, y: 4}
   firstSightDecision: 2
   coverBlownDecision: 2
   attackEnemyCover: 2
+  braveMeter: 0
   callOthers: 1
   callRadius: 70
   showCallRadius: 1
@@ -10672,9 +10721,20 @@ MonoBehaviour:
   strafeLayersToAvoid:
     serializedVersion: 2
     m_Bits: 4294967295
-  timeToReturnAlert: 3
-  returningToAlertAnim: Alert Idle
-  returningToAlertAnimT: 0.25
+  searchLocationRadius: 0
+  timeToStartSearch: 2
+  searchPoints: 3
+  searchPointAnim: 
+  pointWaitTime: 3
+  endSearchAnim: 
+  endSearchAnimTime: 3
+  searchAnimsT: 0.25
+  playAudioOnSearchStart: 0
+  playAudioOnSearchEnd: 0
+  returnPatrolAnim: 
+  returnPatrolAnimT: 0.25
+  returnPatrolTime: 3
+  playAudioOnReturnPatrol: 0
 --- !u!114 &1757999694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10884,24 +10944,6 @@ CapsuleCollider:
   m_Height: 1.75
   m_Direction: 1
   m_Center: {x: 0, y: 0.9, z: 0}
---- !u!143 &1757999700
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1757999687}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 1.75
-  m_Radius: 0.3
-  m_SlopeLimit: 180
-  m_StepOffset: 0.1
-  m_SkinWidth: 0.03
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!114 &1757999701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10921,6 +10963,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8192
   audioScriptable: {fileID: 11400000, guid: 06e54b8716dee3c45a7e2e48238bf017, type: 2}
+  agentAudio: {fileID: 1757999688}
   waypoints:
     waypoints: []
     waypointsRotation: []
@@ -10930,13 +10973,14 @@ MonoBehaviour:
     randomize: 1
     randomizeRadius: 20
     showRandomizeRadius: 0
+    useMovementTurning: 1
+    movementTurningSensitivity: 0.7
+    useTurnAnims: 1
     rightTurnAnimNormal: Right Turn
     leftTurnAnimNormal: Left Turn
     rightTurnAnimAlert: Pistol Right Turn
     leftTurnAnimAlert: Pistol Left Turn
     turningAnimT: 0.25
-    useMovementTurning: 1
-    movementTurningSensitivity: 0.6
   vision:
     layersToDetect:
       serializedVersion: 2
@@ -10980,16 +11024,31 @@ MonoBehaviour:
   canDistract: 1
   distractedStateBehaviour: {fileID: 1757999690}
   priorityLevel: 50
+  turnAlertOnDistract: 0
   playDistractedAudios: 1
   hitStateBehaviour: {fileID: 0}
   deathAnim: 
   deathAnimT: 0.25
   playDeathAudio: 0
-  disableBlazeOnDeath: 0
+  deathCallRadius: 10
+  agentLayersToDeathCall:
+    serializedVersion: 2
+    m_Bits: 0
+  showDeathCallRadius: 0
+  deathEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  destroyOnDeath: 0
+  timeBeforeDestroy: 0
+  friendly: 0
+  distanceCull: 0
+  ignoreUnreachableEnemy: 0
+  fallBackPoints: []
+  showPoints: 0
   warnEmptyBehavioursOnStart: 1
 --- !u!95 &1757999702
 Animator:
-  serializedVersion: 3
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -11002,10 +11061,11 @@ Animator:
   m_UpdateMode: 1
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!4 &1757999703
 Transform:
   m_ObjectHideFlags: 0
@@ -12323,6 +12383,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8192
   audioScriptable: {fileID: 11400000, guid: 06e54b8716dee3c45a7e2e48238bf017, type: 2}
+  agentAudio: {fileID: 2023609410}
   waypoints:
     waypoints:
     - {x: -10.61, y: -1, z: 7}
@@ -12336,13 +12397,14 @@ MonoBehaviour:
     randomize: 0
     randomizeRadius: 20
     showRandomizeRadius: 0
+    useMovementTurning: 1
+    movementTurningSensitivity: 0.7
+    useTurnAnims: 1
     rightTurnAnimNormal: Right Turn
     leftTurnAnimNormal: Left Turn
     rightTurnAnimAlert: Pistol Right Turn
     leftTurnAnimAlert: Pistol Left Turn
     turningAnimT: 0.25
-    useMovementTurning: 1
-    movementTurningSensitivity: 0.6
   vision:
     layersToDetect:
       serializedVersion: 2
@@ -12386,16 +12448,31 @@ MonoBehaviour:
   canDistract: 1
   distractedStateBehaviour: {fileID: 2023609411}
   priorityLevel: 50
+  turnAlertOnDistract: 0
   playDistractedAudios: 1
   hitStateBehaviour: {fileID: 0}
   deathAnim: 
   deathAnimT: 0.25
   playDeathAudio: 0
-  disableBlazeOnDeath: 0
+  deathCallRadius: 10
+  agentLayersToDeathCall:
+    serializedVersion: 2
+    m_Bits: 0
+  showDeathCallRadius: 0
+  deathEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  destroyOnDeath: 0
+  timeBeforeDestroy: 0
+  friendly: 0
+  distanceCull: 0
+  ignoreUnreachableEnemy: 0
+  fallBackPoints: []
+  showPoints: 0
   warnEmptyBehavioursOnStart: 1
 --- !u!95 &2023609407
 Animator:
-  serializedVersion: 3
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -12408,10 +12485,11 @@ Animator:
   m_UpdateMode: 1
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!114 &2023609408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12636,7 +12714,16 @@ MonoBehaviour:
   checkAnim: Looking Around
   checkAnimT: 0.25
   timeToCheck: 5
+  searchLocationRadius: 0
+  searchPoints: 3
+  searchPointAnim: 
+  pointWaitTime: 3
+  endSearchAnim: 
+  endSearchAnimTime: 3
+  searchAnimsT: 0.25
   playAudioOnCheckLocation: 1
+  playAudioOnSearchStart: 0
+  playAudioOnSearchEnd: 0
 --- !u!114 &2023609413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12658,10 +12745,10 @@ MonoBehaviour:
   attackDistance: 20
   layersCheckOnAttacking:
     serializedVersion: 2
-    m_Bits: 12608
+    m_Bits: 256
   shootingAnim: Shoot
   shootingAnimT: 0.1
-  attackEvent:
+  shootEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2023609416}
@@ -12676,13 +12763,14 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  attackEvery: {x: 3, y: 3}
+  shootEvery: {x: 3, y: 5}
   singleShotDuration: 0.5
   delayBetweenEachShot: 0
-  totalAttackTime: {x: 2, y: 4}
+  totalShootTime: {x: 2, y: 4}
   firstSightDecision: 2
   coverBlownDecision: 2
   attackEnemyCover: 2
+  braveMeter: 0
   callOthers: 1
   callRadius: 70
   showCallRadius: 1
@@ -12707,9 +12795,20 @@ MonoBehaviour:
   strafeLayersToAvoid:
     serializedVersion: 2
     m_Bits: 4294967295
-  timeToReturnAlert: 3
-  returningToAlertAnim: Alert Idle
-  returningToAlertAnimT: 0.25
+  searchLocationRadius: 0
+  timeToStartSearch: 2
+  searchPoints: 3
+  searchPointAnim: 
+  pointWaitTime: 3
+  endSearchAnim: 
+  endSearchAnimTime: 3
+  searchAnimsT: 0.25
+  playAudioOnSearchStart: 0
+  playAudioOnSearchEnd: 0
+  returnPatrolAnim: 
+  returnPatrolAnimT: 0.25
+  returnPatrolTime: 3
+  playAudioOnReturnPatrol: 0
 --- !u!114 &2023609414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13445,7 +13544,6 @@ GameObject:
   - component: {fileID: 919132148365927638}
   - component: {fileID: 919132148365927639}
   - component: {fileID: 919132148365927637}
-  - component: {fileID: 919132148365927640}
   - component: {fileID: 919132148365927641}
   m_Layer: 3
   m_Name: Player
@@ -13815,28 +13913,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!195 &919132148365927640
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 919132148365927631}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 0
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!114 &919132148365927641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15009,7 +15085,7 @@ GameObject:
   m_IsActive: 1
 --- !u!95 &5866666020557792271
 Animator:
-  serializedVersion: 3
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -15022,10 +15098,11 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &6033740403676477977
 GameObject:
   m_ObjectHideFlags: 0
