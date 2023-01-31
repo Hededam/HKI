@@ -12,9 +12,6 @@ EditorBuildSettings:
     path: "Assets/Scenes/HKI Demo Low poly Den flyvende \xF8.unity"
     guid: 1bb99f43eaf27a64186db07bc1c2da7a
   - enabled: 1
-    path: Assets/Scenes/Hedes Nye edderkoppeland.unity
-    guid: fbc8367db64bc284d81e92df34c20797
-  - enabled: 1
     path: Assets/Scenes/Ring World.unity
     guid: c97255011e1d1134dbcfb1bbecd5ad99
   - enabled: 1
