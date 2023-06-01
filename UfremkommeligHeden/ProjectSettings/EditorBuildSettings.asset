@@ -21,7 +21,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Ring World.unity
     guid: c97255011e1d1134dbcfb1bbecd5ad99
   - enabled: 0
-    path: Assets/Scenes/Den jeg bruger til nye.unity
+    path: Assets/Scenes/Simons verden-.unity
     guid: 5cb2cf773e437834aa28c207d47cbca7
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 6b5777c8442c2a543bc8ce750ba6ffcc,
