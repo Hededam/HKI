@@ -81,3 +81,4 @@ QualitySettings:
   m_PerPlatformDefaultQuality:
     Android: 1
     Standalone: 1
+    Windows Store Apps: 0
