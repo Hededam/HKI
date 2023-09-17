@@ -24,11 +24,11 @@ EditorBuildSettings:
     path: Assets/Scenes/Simons verden-.unity
     guid: 5cb2cf773e437834aa28c207d47cbca7
   - enabled: 1
+    path: Assets/Scenes/HKIMinuteIsland.unity
+    guid: 85018371ce29ecc4a9d0d32d243c5867
+  - enabled: 0
     path: Assets/MapMagic/Demo/MinuteIsland.unity
     guid: 67076575d24bac343b201a761e1cc1b6
-  - enabled: 1
-    path: Assets/MapMagic/Demo/Tutorial.unity
-    guid: 0db8cb5e6a8383441a7af65407762310
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 6b5777c8442c2a543bc8ce750ba6ffcc,
       type: 2}
