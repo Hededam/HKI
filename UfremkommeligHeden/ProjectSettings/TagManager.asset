@@ -21,6 +21,9 @@ TagManager:
   - RedEnemy
   - Enemy1
   - Enemy2
+  - Hand
+  - StartRing
+  - "M\xE5lRing"
   layers:
   - Default
   - TransparentFX
