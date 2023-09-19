@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-using UnityEngine;
 using UnityEngine.UI;
 
 public class Tidsmåling : MonoBehaviour
@@ -36,6 +34,16 @@ public class Tidsmåling : MonoBehaviour
             string formattedTime = string.Format("{0:0.00}", endTime);
             tidTekst.text = "Tid: " + formattedTime + " sekunder";
             raceFinished = true;
+        }
+    }
+
+    void Update()
+    {
+        if (raceStarted && !raceFinished)
+        {
+            float currentTime = Time.time - startTime;
+            string formattedTime = string.Format("{0:0.00}", currentTime);
+            tidTekst.text = "Tid: " + formattedTime + " sekunder";
         }
     }
 }

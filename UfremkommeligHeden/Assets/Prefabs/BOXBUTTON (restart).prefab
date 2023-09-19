@@ -486,7 +486,6 @@ GameObject:
   - component: {fileID: 8840620633896871844}
   - component: {fileID: 8840620633896871847}
   - component: {fileID: 8840620633896871846}
-  - component: {fileID: 8840620633896871841}
   - component: {fileID: 8840620633896871840}
   m_Layer: 0
   m_Name: BOXBUTTON (restart)
@@ -757,19 +756,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.11146328, y: 0.044358462, z: 0.020195127}
   m_Center: {x: -0.00047172606, y: -0.00038839877, z: -0.06463927}
---- !u!114 &8840620633896871841
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8840620633896871843}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1529582b5564c81418dabc67ac5a2e62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SeneToLoad: 4
 --- !u!114 &8840620633896871840
 MonoBehaviour:
   m_ObjectHideFlags: 0
