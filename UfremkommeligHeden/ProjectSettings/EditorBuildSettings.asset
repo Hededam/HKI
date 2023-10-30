@@ -18,7 +18,7 @@ EditorBuildSettings:
     path: Assets/Scenes/HKI Demo edderkoppeland.unity
     guid: 0f21b4eaae95dab4992f2b3101dc168d
   - enabled: 1
-    path: Assets/Scenes/HKIMinuteIsland.unity
+    path: Assets/Scenes/HKI Ludus Island.unity
     guid: 85018371ce29ecc4a9d0d32d243c5867
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 6b5777c8442c2a543bc8ce750ba6ffcc,
