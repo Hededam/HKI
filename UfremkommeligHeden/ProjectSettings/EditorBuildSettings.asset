@@ -21,10 +21,10 @@ EditorBuildSettings:
     path: Assets/Scenes/HKI Ludus Island (Ring world).unity
     guid: 85018371ce29ecc4a9d0d32d243c5867
   - enabled: 1
-    path: Assets/Scenes/Glostrup.unity
+    path: Assets/Scenes/Glostrup scene.unity
     guid: 08b7272f705cc484f929934d12cd7554
   - enabled: 1
-    path: Assets/Scenes/Start scenen Jonas.unity
+    path: Assets/Scenes/Jonas scene.unity
     guid: b94019c0ca8d2934c8a5d719385d2fee
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 6b5777c8442c2a543bc8ce750ba6ffcc,
