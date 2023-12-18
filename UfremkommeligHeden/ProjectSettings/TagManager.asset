@@ -24,6 +24,7 @@ TagManager:
   - Hand
   - StartRing
   - "M\xE5lRing"
+  - Player_col_ignore
   layers:
   - Default
   - TransparentFX
@@ -32,7 +33,7 @@ TagManager:
   - Water
   - UI
   - Cover
-  - 
+  - Player_col_ignore
   - Enemy
   - 
   - 

@@ -26,6 +26,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Jonas scene.unity
     guid: b94019c0ca8d2934c8a5d719385d2fee
+  - enabled: 1
+    path: Assets/Scenes/En mand sidder ved en computer.unity
+    guid: 99b72e75301858f49a9d07ff4fa022aa
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 6b5777c8442c2a543bc8ce750ba6ffcc,
       type: 2}
