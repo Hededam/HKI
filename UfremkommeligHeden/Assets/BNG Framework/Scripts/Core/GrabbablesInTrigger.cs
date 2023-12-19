@@ -27,7 +27,7 @@ namespace BNG {
         /// <summary>
         /// All grabbables in trigger that are considered valid
         /// </summary>
-        public Dictionary<Collider, Grabbable> ValidRemoteGrabbables;
+        public Dictionary<Collider, Grabbable> ValidRemoteGrabbables = new Dictionary<Collider, Grabbable>();
 
         /// <summary>
         /// Closest Valid Remote Grabbable may be highlighted
@@ -71,8 +71,7 @@ namespace BNG {
 
         void Start() {
             NearbyGrabbables = new Dictionary<Collider, Grabbable>();
-            ValidGrabbables = new Dictionary<Collider, Grabbable>();
-            ValidRemoteGrabbables = new Dictionary<Collider, Grabbable>();
+            ValidGrabbables = new Dictionary<Collider, Grabbable>();            
 
             // Used to check if an object is between the eye and this object if RemoteGrabbablesMustBeVisible is true
             if (Camera.main != null) {
@@ -284,21 +283,10 @@ namespace BNG {
             // Sanity check
             if(col == null || grabObject == null) {
                 return;
-            }
+            }            
 
-            // Ensure our collection has been initialized
-            if (ValidRemoteGrabbables == null) {
-                ValidRemoteGrabbables = new Dictionary<Collider, Grabbable>();
-            }
-
-            try {
-                if (grabObject != null && grabObject.RemoteGrabbable && col != null && !ValidRemoteGrabbables.ContainsKey(col)) {
-                    
-                    ValidRemoteGrabbables.Add(col, grabObject);
-                }
-            }
-            catch(System.Exception e) {
-                Debug.Log("Could not add Collider " + col.transform.name + " " + e.Message);
+            if (grabObject != null && grabObject.RemoteGrabbable && col != null && !ValidRemoteGrabbables.ContainsKey(col)) {
+                ValidRemoteGrabbables.Add(col, grabObject);
             }
         }
 
@@ -308,17 +296,20 @@ namespace BNG {
             }
         }
 
+        Grabbable g;
+        GrabbableChild gc;
+
         void OnTriggerEnter(Collider other) {
 
             // Check for standard Grabbables first
-            Grabbable g = other.GetComponent<Grabbable>();
+            g= other.GetComponent<Grabbable>();
             if (g != null) {
                 AddNearbyGrabbable(other, g);
                 return;
             }
 
             // Check for Child Grabbables that reference a parent
-            GrabbableChild gc = other.GetComponent<GrabbableChild>();
+            gc = other.GetComponent<GrabbableChild>();
             if (gc != null && gc.ParentGrabbable != null) {
                 AddNearbyGrabbable(other, gc.ParentGrabbable);
                 return;
@@ -326,13 +317,13 @@ namespace BNG {
         }
 
         void OnTriggerExit(Collider other) {
-            Grabbable g = other.GetComponent<Grabbable>();
+            g = other.GetComponent<Grabbable>();
             if (g != null) {
                 RemoveNearbyGrabbable(other, g);
                 return;
             }
 
-            GrabbableChild gc = other.GetComponent<GrabbableChild>();
+            gc = other.GetComponent<GrabbableChild>();
             if (gc != null) {
                 RemoveNearbyGrabbable(other, gc.ParentGrabbable);
                 return;

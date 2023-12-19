@@ -90,7 +90,7 @@ namespace BNG {
                     textLine.verticalOverflow = VerticalWrapMode.Overflow;
                     textLine.color = logColor;
                     textLine.fontSize = 32;
-                    textLine.font = Resources.GetBuiltinResource(typeof(Font), "Arial.ttf") as Font;
+                    textLine.font = Resources.GetBuiltinResource(typeof(Font), "LegacyRuntime.ttf") as Font;
                     textLine.raycastTarget = false;
 
                     RectTransform rect = go.GetComponent<RectTransform>();

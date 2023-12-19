@@ -107,6 +107,9 @@ namespace BNG {
             _lastColliderHit = null;
         }
 
+        Grabbable grabObject;
+        GrabbableChild gc;
+
         void OnTriggerEnter(Collider other) {
             
             // Skip check for other PhysicsCheckTypes
@@ -119,15 +122,20 @@ namespace BNG {
                 return;
             }
 
+            // Ignore static objects
+            if(other.gameObject.isStatic) {
+                return;
+            }
+
             //  We will let this grabber know we have remote objects available           
-            Grabbable grabObject = other.GetComponent<Grabbable>();
+            grabObject = other.GetComponent<Grabbable>();
             if(grabObject != null && ParentGrabber != null) {
                 ParentGrabber.AddValidRemoteGrabbable(other, grabObject);
                 return;
             }
 
             // Check for Grabbable Child Object Last
-            GrabbableChild gc = other.GetComponent<GrabbableChild>();
+            gc = other.GetComponent<GrabbableChild>();
             if (gc != null && ParentGrabber != null) {
                 ParentGrabber.AddValidRemoteGrabbable(other, gc.ParentGrabbable);
                 return;
@@ -141,14 +149,14 @@ namespace BNG {
                 return;
             }
 
-            Grabbable grabObject = other.GetComponent<Grabbable>();
+            grabObject = other.GetComponent<Grabbable>();
             if (grabObject != null && ParentGrabber != null) {
                 ParentGrabber.RemoveValidRemoteGrabbable(other, grabObject);
                 return;
             }
 
             // Check for Grabbable Child Object Last
-            GrabbableChild gc = other.GetComponent<GrabbableChild>();
+            gc = other.GetComponent<GrabbableChild>();
             if (gc != null && ParentGrabber != null) {
                 ParentGrabber.RemoveValidRemoteGrabbable(other, gc.ParentGrabbable);
                 return;

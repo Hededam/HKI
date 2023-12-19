@@ -106,7 +106,10 @@ namespace BNG {
 
             // Should we snap the door closed?
             if (angle < 1 && AngularVelocity <= AngularVelocitySnapDoor) {
-                rigid.angularVelocity = Vector3.zero;
+                // Reset angular velocity so door doesn't swing infinitely
+                if(!rigid.isKinematic) {
+                    rigid.angularVelocity = Vector3.zero;
+                }
             }
 
             // Play Close Sound

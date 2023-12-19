@@ -92,6 +92,12 @@ namespace BNG {
                 return _velocity;
             }
 
+#if UNITY_WEBGL
+        // use manual tracking in WebXR, since XRInput isn't supported
+    return _velocity;
+#else 
+
+#endif
             // Try XR Input Velocity First
             Vector3 vel = InputBridge.Instance.GetControllerVelocity(controllerHand);
 

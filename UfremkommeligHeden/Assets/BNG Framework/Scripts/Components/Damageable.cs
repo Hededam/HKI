@@ -15,6 +15,12 @@ namespace BNG {
         public float Health = 100;
         private float _startingHealth;
 
+        [Tooltip("Set to true if you want to destroy this object when it is spawned / enabled in the scene")]
+        public bool SelfDestruct = false;
+
+        [Tooltip("If SelfDestruct is true this object will destroy itself in this many seconds")]
+        public float SelfDestructDelay = 0.1f;
+
         [Tooltip("If specified, this GameObject will be instantiated at this transform's position on death.")]
         public GameObject SpawnOnDeath;
 
@@ -87,6 +93,12 @@ namespace BNG {
             rigid = GetComponent<Rigidbody>();
             if (rigid) {
                 initialWasKinematic = rigid.isKinematic;
+            }
+        }
+
+        void OnEnable() {
+            if(SelfDestruct) {
+                Invoke("DestroyThis", SelfDestructDelay);
             }
         }
 

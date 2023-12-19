@@ -42,6 +42,9 @@ namespace BNG {
                     line.useWorldSpace = false;
                     line.SetPosition(0, transform.localPosition);
                     line.SetPosition(1, new Vector3(0, 0, MaxRange));
+
+                    LaserEnd.localPosition = new Vector3(0, 0, MaxRange);
+
                     LaserEnd.gameObject.SetActive(false);
                 }
             }

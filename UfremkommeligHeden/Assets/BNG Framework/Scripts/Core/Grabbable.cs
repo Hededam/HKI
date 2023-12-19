@@ -509,7 +509,7 @@ namespace BNG {
 
             // Set Original Scale based in World coordinates if available
             if (transform.parent != null) {
-                OriginalScale = transform.parent.TransformVector(transform.localScale);
+                OriginalScale = transform.lossyScale; // OriginalScale = transform.parent.TransformVector(transform.localScale);
             }
             else {
                 OriginalScale = transform.localScale;
@@ -743,9 +743,7 @@ namespace BNG {
                 movePosition(grabberPosition);
                 moveRotation(grabTransform.rotation);
 
-                if (rigid) {
-                    rigid.velocity = Vector3.zero;
-                }
+                SetRigidVelocity(Vector3.zero);
 
                 if (flyingTo != null) {
                     flyingTo.GrabGrabbable(this);
@@ -784,9 +782,7 @@ namespace BNG {
                     movePosition(grabberPosition);
                     moveRotation(grabTransform.rotation);
 
-                    if (rigid) {
-                        rigid.velocity = Vector3.zero;
-                    }
+                    SetRigidVelocity(Vector3.zero);
 
                     if (flyingTo != null) {
                         flyingTo.GrabGrabbable(this);
@@ -797,7 +793,7 @@ namespace BNG {
                     Vector3 positionDelta = grabberPosition - transform.position;
 
                     // Move towards hand using velocity
-                    rigid.velocity = Vector3.MoveTowards(rigid.velocity, (positionDelta * MoveVelocityForce) * Time.fixedDeltaTime, 1f);
+                    SetRigidVelocity(Vector3.MoveTowards(rigid.velocity, (positionDelta * MoveVelocityForce) * Time.fixedDeltaTime, 1f));
 
                     rigid.MoveRotation(Quaternion.Slerp(rigid.rotation, GetGrabbersAveragedRotation(), Time.fixedDeltaTime * GrabSpeed));
                     //rigid.angularVelocity = Vector3.zero;
@@ -838,8 +834,7 @@ namespace BNG {
             }
 
             Vector3 vel = GetVelocityToHitTargetByTime(transform.position, grabberPosition, Physics.gravity * 1.1f, timeToGrab);
-
-            rigid.velocity = vel;
+            SetRigidVelocity(vel);
             // rigid.AddForce(vel, ForceMode.VelocityChange);
 
             // No longer initiated flick
@@ -1054,6 +1049,24 @@ namespace BNG {
             }
         }
 
+        public virtual void SetRigidVelocity(Vector3 newVelocity) {
+            if (rigid == null || rigid.isKinematic) {
+                return;
+            }
+            else {
+                rigid.velocity = newVelocity;
+            }
+        }
+
+        public virtual void SetRigidAngularVelocity(Vector3 newVelocity) {
+            if (rigid == null || rigid.isKinematic) {
+                return;
+            }
+            else {
+                rigid.angularVelocity = newVelocity;
+            }
+        }
+
         /// <summary>
         /// Apply a velocity on our Grabbable towards our Grabber
         /// </summary>
@@ -1069,12 +1082,12 @@ namespace BNG {
                 Vector3 positionDelta = destination - transform.position;
 
                 // Move towards hand using velocity
-                rigid.velocity = Vector3.MoveTowards(rigid.velocity, (positionDelta * MoveVelocityForce) * Time.fixedDeltaTime, 1f);
+                SetRigidVelocity(Vector3.MoveTowards(rigid.velocity, (positionDelta * MoveVelocityForce) * Time.fixedDeltaTime, 1f));
             }
             else {
                 // Very close - just move object right where it needs to be and set velocity to 0 so it doesn't overshoot
                 rigid.MovePosition(destination);
-                rigid.velocity = Vector3.zero;
+                SetRigidVelocity(Vector3.zero);
             }            
         }
 
@@ -1521,11 +1534,12 @@ namespace BNG {
                 }
 
                 // Stop our object on initial grab
-                if(rigid) {
-                    rigid.velocity = Vector3.zero;
-                    rigid.angularVelocity = Vector3.zero;
+                if(rigid && !rigid.isKinematic) {
+
+
+                    SetRigidVelocity(Vector3.zero);
+                    SetRigidAngularVelocity(Vector3.zero);
                 }
-                
 
                 // Let events know we were grabbed
                 for (int x = 0; x < events.Count; x++) {
@@ -2064,8 +2078,8 @@ namespace BNG {
                 return;
             }
 
-            rigid.velocity = releaseVelocity;
-            rigid.angularVelocity = angularVelocity;
+            SetRigidVelocity(releaseVelocity);
+            SetRigidAngularVelocity(angularVelocity);
         }
 
         public virtual bool IsValidCollision(Collision collision) {

@@ -63,7 +63,7 @@ namespace BNG {
 
             grabPoint = (GrabPoint)target;
             bool inPrefabMode = false;
-#if UNITY_EDITOR
+#if UNITY_EDITOR && (UNITY_2019 || UNITY_2020)
             inPrefabMode = UnityEditor.Experimental.SceneManagement.PrefabStageUtility.GetCurrentPrefabStage() != null;
 #endif
 
@@ -294,9 +294,9 @@ namespace BNG {
                 anim.SetInteger("Pose", handPose);
                 anim.Update(Time.deltaTime);
 
-#if UNITY_EDITOR
+#if UNITY_EDITOR && (UNITY_2019 || UNITY_2020)
                 // Only set dirty if not in prefab mode
-                if(UnityEditor.Experimental.SceneManagement.PrefabStageUtility.GetCurrentPrefabStage() == null) {
+                if (UnityEditor.Experimental.SceneManagement.PrefabStageUtility.GetCurrentPrefabStage() == null) {
                     UnityEditor.EditorUtility.SetDirty(anim.gameObject);
                 }
 #endif
