@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags: []
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - Pacman
+  - Ghost
+  - Pellet
+  - GameObject
+  - Node
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: GameObject
+    uniqueID: 548797893
+    locked: 0
+  - name: Pacman
+    uniqueID: 3253210441
+    locked: 0
+  - name: Ghost
+    uniqueID: 3797656915
+    locked: 0
+  - name: Pellet
+    uniqueID: 932175817
+    locked: 0
+  - name: Node
+    uniqueID: 3643210359
+    locked: 0
