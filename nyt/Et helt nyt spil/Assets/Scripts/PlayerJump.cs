@@ -22,7 +22,8 @@ public class PlayerJump : MonoBehaviour
     {
         if (Input.GetButtonUp("Jump")) 
         {
-           Debug.Log("jump was pressed");
+           
+            Debug.Log("jump was pressed");
 
             //Apply a force to this Rigidbody in direction of this GameObjects up axis
            player_Rigidbody.AddForce(transform.up * jumpForce);
