@@ -33,10 +33,10 @@ EditorBuildSettings:
     path: Assets/Scenes/En mand sidder ved en computer.unity
     guid: 99b72e75301858f49a9d07ff4fa022aa
   - enabled: 1
-    path: Assets/Scenes/Jonas scene.unity
-    guid: b94019c0ca8d2934c8a5d719385d2fee
+    path: Assets/Scenes/Aksels verden.unity
+    guid: 0064ade0dab959b4abff91a2dcc55deb
   - enabled: 1
-    path: Assets/Scenes/HKI Ludus Island (Ring world).unity
+    path: Assets/Scenes/Gaia.unity
     guid: 85018371ce29ecc4a9d0d32d243c5867
   - enabled: 1
     path: Assets/Scenes/HKI Demo edderkoppeland.unity
