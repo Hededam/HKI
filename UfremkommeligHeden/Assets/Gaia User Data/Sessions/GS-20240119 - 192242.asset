@@ -41,6 +41,17 @@ MonoBehaviour:
     sessionPlaybackState: 1
     m_terrainsFoldedOut: 0
     m_serializedExternalAction: 
+  - m_description: Clearing -, AllTerrains, AnySource
+    m_operationType: 3
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Main Terrain
+    m_operationDateTime: 21-01-2024 18:00:15
+    scriptableObjectAssetGUID: 65a6cb5dd5ca4c447adbe5cb302a0ebc
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
   m_terrainMinMaxCache:
   - guid: 
     isWorldmap: 0
