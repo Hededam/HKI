@@ -23,7 +23,7 @@ MonoBehaviour:
   m_terrainWidth: 1000
   m_terrainDepth: 1000
   m_terrainHeight: 250
-  m_seaLevel: 6.1035156
+  m_seaLevel: 50.1
   m_spawnDensity: 1
   m_isLocked: 0
   m_previewImageBytes: 
@@ -49,7 +49,7 @@ MonoBehaviour:
     m_operationDateTime: 21-01-2024 18:00:15
     scriptableObjectAssetGUID: 65a6cb5dd5ca4c447adbe5cb302a0ebc
     m_isFoldedOut: 0
-    sessionPlaybackState: 1
+    sessionPlaybackState: 0
     m_terrainsFoldedOut: 0
     m_serializedExternalAction: 
   m_terrainMinMaxCache:
@@ -57,6 +57,12 @@ MonoBehaviour:
     isWorldmap: 0
     recalculate: 0
     min: 8.3085375
-    max: 166.06393
-  m_bakedMaskCacheEntries: []
+    max: 171.65637
+  m_bakedMaskCacheEntries:
+  - fileName: Main Terrain_LayerGameObject_917504_5
+    assetPath: Assets/Procedural Worlds/Gaia/TerrainCollisionData/Main Terrain/Main
+      Terrain_LayerGameObject_917504_5
+    fullPath: D:/GitHub/HKI/UfremkommeligHeden/Assets/Procedural Worlds/Gaia/TerrainCollisionData/Main
+      Terrain/Main Terrain_LayerGameObject_917504_5
+    texture: {fileID: 0}
   m_worldBiomeMaskSettings: {fileID: 0}
