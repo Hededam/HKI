@@ -13,7 +13,9 @@ namespace BNG {
         ThumbstickDown,
         // Hold BButton to teleport, release to teleport
         BButton,
-        None
+        None,
+        // Hold Thumbstick Upwards to initiate teleport
+        ThumbstickUp
     }
 
     /// <summary>
@@ -666,6 +668,17 @@ namespace BNG {
                 }
                 // In dead zone
                 else if (_reachThumbThreshold && (Math.Abs(handedThumbstickAxis.x) > 0.25 || Math.Abs(handedThumbstickAxis.y) > 0.25)) {
+                    return true;
+                }
+            }
+            // Press stick in upwards direction to initiate teleport
+            if (ControlType == TeleportControls.ThumbstickUp) {
+                if (handedThumbstickAxis.y >= 0.75f) {
+                    _reachThumbThreshold = true;
+                    return true;
+                }
+                // In dead zone
+                else if (_reachThumbThreshold && handedThumbstickAxis.y > 0.25f) {
                     return true;
                 }
             }

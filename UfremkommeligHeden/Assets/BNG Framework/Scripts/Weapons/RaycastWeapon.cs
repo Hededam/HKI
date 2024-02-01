@@ -83,6 +83,14 @@ namespace BNG {
         [Tooltip("Amount of force to apply to the BulletCasingPrefab object")]
         public float BulletCasingForce = 3f;
 
+        [Header("Laser Guided Projectile : ")]
+
+        [Tooltip("If true the projectile will be marked as Laser Guided and will follow a point from the ejection point")]
+        public bool LaserGuided = false;
+
+        [Tooltip("If specified the projectile will try to turn towards this object in world space. Otherwise will use a point from the muzzle of the raycast object")]
+        public Transform LaserPoint;
+
         [Header("Recoil : ")]
         /// <summary>
         /// How much force to apply to the tip of the barrel
@@ -385,6 +393,14 @@ namespace BNG {
                 // Convert back to raycast if Time reverts
                 if (proj && !AlwaysFireProjectile) {
                     proj.MarkAsRaycastBullet();
+                }
+
+                if(proj && LaserGuided) {
+                    if(LaserPoint == null) {
+                        LaserPoint = MuzzlePointTransform;
+                    }
+
+                    proj.MarkAsLaserGuided(MuzzlePointTransform);
                 }
 
                 // Make sure we clean up this projectile

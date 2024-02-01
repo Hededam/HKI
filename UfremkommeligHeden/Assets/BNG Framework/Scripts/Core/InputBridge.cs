@@ -93,7 +93,8 @@ namespace BNG {
     public enum GrabButton {
         Grip,
         Trigger,
-        Inherit
+        Inherit, // Inherit from Grabber
+        GripOrTrigger // Either Grip or Trigger will work
     }
 
     public enum HoldType {
@@ -107,7 +108,9 @@ namespace BNG {
         OVRInput,
         SteamVR,
         Pico,
-        UnityInput
+        UnityInput,
+        WebXR,
+        None
     }
 
     public enum SDKProvider {
@@ -447,15 +450,20 @@ namespace BNG {
             _instance = this;
 
             // Update all device properties
-            List<InputDevice> devices = new List<InputDevice>();
-            InputDevices.GetDevices(devices);
+            if(GetSupportsXRInput()) {
+                List<InputDevice> devices = new List<InputDevice>();
+                InputDevices.GetDevices(devices);
 
-            setDeviceProperties();
-        }
+                setDeviceProperties();
+            }
+        }       
 
         void Start() {
 
-            SetTrackingOriginMode(TrackingOrigin);
+            // Set tracking mode to floor, device, etc. on Start
+            if(GetSupportsXRInput()) {
+                SetTrackingOriginMode(TrackingOrigin);
+            }
 
 #if STEAM_VR_SDK
             SteamVRSupport = true;
@@ -478,7 +486,15 @@ namespace BNG {
         }
 
         void OnEnable() {
-#if UNITY_2019_3_OR_NEWER
+#if UNITY_WEBGL
+            if(Application.isEditor) {
+                // Update in editor device changed
+                InputDevices.deviceConfigChanged += onDeviceChanged;
+                InputDevices.deviceConnected += onDeviceChanged;
+                InputDevices.deviceDisconnected += onDeviceChanged;
+            }
+
+#elif UNITY_2019_3_OR_NEWER
             InputDevices.deviceConfigChanged += onDeviceChanged;
             InputDevices.deviceConnected += onDeviceChanged;
             InputDevices.deviceDisconnected += onDeviceChanged;
@@ -1026,21 +1042,24 @@ namespace BNG {
 
         public virtual void UpdateDeviceActive() {
 
-            InputDevice hmd = GetHMD();
+            // Check XR Input to see if we can get active status
+            if(GetSupportsXRInput()) {
+                InputDevice hmd = GetHMD();
 
-            // Check if hmd is valid from XRInput
-            if (hmd.isValid == false) {
-                HMDActive = false;
-            }
+                // Check if hmd is valid from XRInput
+                if (hmd.isValid == false) {
+                    HMDActive = false;
+                }
 
-            // Make sure the device supports the presence feature
-            bool userPresent = false;
-            bool presenceFeatureSupported = hmd.TryGetFeatureValue(CommonUsages.userPresence, out userPresent);
-            if (presenceFeatureSupported) {
-                HMDActive = userPresent;
-            }
-            else {
-                HMDActive = XRSettings.isDeviceActive;
+                // Make sure the device supports the presence feature
+                bool userPresent = false;
+                bool presenceFeatureSupported = hmd.TryGetFeatureValue(CommonUsages.userPresence, out userPresent);
+                if (presenceFeatureSupported) {
+                    HMDActive = userPresent;
+                }
+                else {
+                    HMDActive = XRSettings.isDeviceActive;
+                }
             }
 
 #if STEAM_VR_SDK
@@ -1179,6 +1198,25 @@ namespace BNG {
             }
         }
 
+        public virtual bool GetSupportsXRInput() {
+
+#if UNITY_WEBGL
+            // WebGL cannot handle calls to XRInput
+            return false;
+#endif
+            // Most Input Sources support XRInput in some form. Skip for WebXR since it will throw errors
+            if (InputSource == XRInputSource.WebXR) {
+                return false;
+            }
+
+            // Let the user call any XRInput related functions in their own input provider
+            if (InputSource == XRInputSource.None) {
+                return false;
+            }
+
+            return true;
+        }
+
         /// <summary>
         /// Returns true if the controllers support the 'indexTouch' XR input mapping.Currently only Oculus devices on the Oculus SDK support index touch. OpenVR is not supported.
         /// </summary>
@@ -1286,6 +1324,7 @@ namespace BNG {
         }
 
         public InputDevice GetHMD() {
+
             InputDevices.GetDevices(devices);
 
             var hmds = new List<InputDevice>();
@@ -1386,13 +1425,23 @@ namespace BNG {
         }
 
         public Vector3 GetControllerVelocity(ControllerHand hand) {
+#if UNITY_WEBGL
+            return Vector3.zero;
+#else
             InputDevice inputDevice = hand == ControllerHand.Left ? GetLeftController() : GetRightController();
             return getFeatureUsage(inputDevice, CommonUsages.deviceVelocity);
+#endif
+
+
         }
 
         public Vector3 GetControllerAngularVelocity(ControllerHand hand) {
+#if UNITY_WEBGL
+            return Vector3.zero;
+#else
             InputDevice inputDevice = hand == ControllerHand.Left ? GetLeftController() : GetRightController();
             return getFeatureUsage(inputDevice, CommonUsages.deviceAngularVelocity);
+#endif
         }
 
         /// <summary>
@@ -1536,6 +1585,9 @@ namespace BNG {
                     }
                 }                
 #endif
+            }
+            else if (InputSource == XRInputSource.WebXR && !Application.isEditor) {
+                // No haptics in WebXR currently
             }
             // Default / Fallback to XRInput
             else {

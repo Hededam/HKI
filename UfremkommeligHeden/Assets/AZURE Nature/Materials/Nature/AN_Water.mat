@@ -87,8 +87,9 @@ Material:
     m_Colors:
     - _Color0: {r: 0.4245283, g: 0.4245283, b: 0.4245283, a: 0}
     - _Color1: {r: 0.049739826, g: 0.322, b: 0.30629268, a: 0}
-    - _Color2: {r: 0.09011214, g: 0.6285934, b: 0.7075472, a: 0}
+    - _Color2: {r: 0.15160431, g: 0, b: 0.24705882, a: 0}
     - _DepthColor: {r: 0, g: 1, b: 0.9725489, a: 0}
     - _NormalScale: {r: 2, g: 2, b: 0, a: 0}
     - _Vector0: {r: 1, g: 1, b: 1, a: 0}
     - _WaterColor: {r: 1, g: 1, b: 1, a: 0}
+  m_BuildTextureStacks: []
