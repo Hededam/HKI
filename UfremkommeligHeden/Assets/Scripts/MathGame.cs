@@ -1,12 +1,16 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class MathGame : MonoBehaviour
 {
     public TextMeshProUGUI problemText;
-    public TMP_InputField answerInput; // Skiftet til TextMeshPro InputField
+    public TMP_InputField answerInput;
     public AudioClip correctAnswerSound;
     public GameObject newGameObjectPrefab;
+
+    public TextMeshProUGUI[] numberButtons;
+    public Button checkAnswerButton;
 
     private int num1;
     private int num2;
@@ -15,6 +19,18 @@ public class MathGame : MonoBehaviour
     void Start()
     {
         GenerateProblem();
+
+        // Tilføj OnClick-events til knapperne
+        for (int i = 0; i < numberButtons.Length; i++)
+        {
+            int buttonValue = i + 1;
+            numberButtons[i].text = buttonValue.ToString();
+            int index = i; // Gem variabel i lokalt omfang for at undgå lukninger
+            numberButtons[i].gameObject.GetComponent<Button>().onClick.AddListener(() => OnNumberButtonClick(buttonValue));
+        }
+
+        // Tilføj OnClick-event til tjek svaret-knappen
+        checkAnswerButton.onClick.AddListener(CheckAnswer);
     }
 
     void GenerateProblem()
@@ -24,6 +40,11 @@ public class MathGame : MonoBehaviour
         correctAnswer = num1 + num2;
 
         problemText.text = $"{num1} + {num2} = ?";
+    }
+
+    void OnNumberButtonClick(int buttonValue)
+    {
+        answerInput.text += buttonValue.ToString();
     }
 
     public void CheckAnswer()
