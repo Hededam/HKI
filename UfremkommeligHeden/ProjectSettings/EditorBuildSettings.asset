@@ -38,9 +38,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/HKI Demo edderkoppeland.unity
     guid: 0f21b4eaae95dab4992f2b3101dc168d
-  - enabled: 1
-    path: Assets/Scenes/verden Ludus Island (Ring world) 1.unity
-    guid: cf3331783b1fdd94a82ed0bbad919158
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 6b5777c8442c2a543bc8ce750ba6ffcc,
       type: 2}
