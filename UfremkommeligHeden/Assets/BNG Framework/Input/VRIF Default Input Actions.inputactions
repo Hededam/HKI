@@ -878,7 +878,7 @@
                     "name": "",
                     "id": "f213fee6-8604-4051-9c24-1226e0401216",
                     "path": "<XRController>{RightHand}/{PrimaryButton}",
-                    "interactions": "Press",
+                    "interactions": "Press(behavior=2)",
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
