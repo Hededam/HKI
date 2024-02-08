@@ -6,15 +6,16 @@ public class MathGame : MonoBehaviour
     public TextMeshProUGUI problemText;
     public TMP_InputField answerInput;
     public AudioClip correctAnswerSound;
-    public AudioClip increaseDifficultySound;
     public GameObject newGameObjectPrefab;
     public TextMeshProUGUI correctAnswersCountText;
 
     public int correctAnswersCount { get; private set; }
+    public int correctAnswersBeforeIncrease = 3; // Antal korrekte svar før sværhedsgraden øges
     private int num1;
     private int num2;
     private int correctAnswer;
     private int difficultyLevel;
+    private int correctAnswersSinceIncrease; // Antal korrekte svar siden sidste sværhedsgradsstigning
     private AudioSource audioSource;
 
     void Start()
@@ -40,10 +41,6 @@ public class MathGame : MonoBehaviour
                 num1 = Random.Range(20, 30);
                 num2 = Random.Range(20, 30);
                 break;
-            case 3:
-                num1 = Random.Range(30, 40);
-                num2 = Random.Range(30, 40);
-                break;
             default:
                 num1 = Random.Range(1, 10);
                 num2 = Random.Range(1, 10);
@@ -58,7 +55,6 @@ public class MathGame : MonoBehaviour
                 problemText.text = $"{num1} + {num2} = ?";
                 break;
             case 1:
-                // Swap num1 and num2 for subtraction operation
                 if (num1 < num2)
                 {
                     int temp = num1;
@@ -105,16 +101,16 @@ public class MathGame : MonoBehaviour
                 }
 
                 correctAnswersCount++;
+                correctAnswersSinceIncrease++; // Øg antallet af korrekte svar siden sidste sværhedsgradsstigning
                 UpdateCorrectAnswersCountText();
-                if (correctAnswersCount >= 3)
+
+                if (correctAnswersSinceIncrease >= correctAnswersBeforeIncrease)
                 {
                     IncreaseDifficulty();
-                    correctAnswersCount = 0;
+                    correctAnswersSinceIncrease = 0; // Nulstil tælleren for korrekte svar siden sidste sværhedsgradsstigning
                 }
-                else
-                {
-                    GenerateProblem(); // Flyt opgavegenereringslogikken her
-                }
+
+                GenerateProblem();
             }
             else
             {
@@ -130,24 +126,7 @@ public class MathGame : MonoBehaviour
         difficultyLevel++;
         Debug.Log($"Difficulty increased to level {difficultyLevel}");
 
-        // Tjek om lydeffekten er tildelt korrekt
-        if (increaseDifficultySound != null)
-        {
-            Debug.Log("Attempting to play increaseDifficultySound...");
-            if (audioSource == null)
-            {
-                Debug.LogError("AudioSource is not assigned!");
-            }
-            else
-            {
-                audioSource.PlayOneShot(increaseDifficultySound);
-                Debug.Log("increaseDifficultySound played successfully!");
-            }
-        }
-        else
-        {
-            Debug.LogWarning("increaseDifficultySound is not assigned!");
-        }
+        GenerateProblem(); // Sørg for at generere en ny opgave efter at sværhedsgraden er blevet øget
     }
 
     void UpdateCorrectAnswersCountText()
