@@ -9,6 +9,7 @@ public class MathGame : MonoBehaviour
     public AudioClip correctAnswerSound;
     public GameObject newGameObjectPrefab;
 
+
     public TextMeshProUGUI[] numberButtons;
     public Button checkAnswerButton;
 
@@ -35,11 +36,37 @@ public class MathGame : MonoBehaviour
 
     void GenerateProblem()
     {
-        num1 = Random.Range(1, 10);
-        num2 = Random.Range(1, 10);
-        correctAnswer = num1 + num2;
-
-        problemText.text = $"{num1} + {num2} = ?";
+        int operation = Random.Range(0, 4); // 0: Addition, 1: Subtraktion, 2: Multiplikation, 3: Division
+        switch (operation)
+        {
+            case 0: // Addition
+                num1 = Random.Range(1, 20);
+                num2 = Random.Range(1, 20);
+                correctAnswer = num1 + num2;
+                problemText.text = $"{num1} + {num2} = ?";
+                break;
+            case 1: // Subtraktion
+                num1 = Random.Range(10, 20);
+                num2 = Random.Range(1, 10);
+                correctAnswer = num1 - num2;
+                problemText.text = $"{num1} - {num2} = ?";
+                break;
+            case 2: // Multiplikation
+                num1 = Random.Range(2, 100);
+                num2 = Random.Range(2, 100);
+                correctAnswer = num1 * num2;
+                problemText.text = $"{num1} * {num2} = ?";
+                break;
+            case 3: // Division
+                correctAnswer = Random.Range(2, 10); // Tallet, vi skal dividere med
+                num2 = Random.Range(2, 10); // Divisoren
+                num1 = correctAnswer * num2; // Resultatet
+                problemText.text = $"{num1} ÷ {num2} = ?";
+                break;
+            default:
+                Debug.LogError("Invalid operation!");
+                break;
+        }
     }
 
     void OnNumberButtonClick(int buttonValue)
