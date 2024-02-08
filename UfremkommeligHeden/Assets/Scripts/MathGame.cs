@@ -1,77 +1,87 @@
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
 
 public class MathGame : MonoBehaviour
 {
     public TextMeshProUGUI problemText;
     public TMP_InputField answerInput;
     public AudioClip correctAnswerSound;
+    public AudioClip increaseDifficultySound;
     public GameObject newGameObjectPrefab;
+    public TextMeshProUGUI correctAnswersCountText;
 
-
-    public TextMeshProUGUI[] numberButtons;
-    public Button checkAnswerButton;
-
+    public int correctAnswersCount { get; private set; }
     private int num1;
     private int num2;
     private int correctAnswer;
+    private int difficultyLevel;
+    private AudioSource audioSource;
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         GenerateProblem();
-
-        // Tilføj OnClick-events til knapperne
-        for (int i = 0; i < numberButtons.Length; i++)
-        {
-            int buttonValue = i + 1;
-            numberButtons[i].text = buttonValue.ToString();
-            int index = i; // Gem variabel i lokalt omfang for at undgå lukninger
-            numberButtons[i].gameObject.GetComponent<Button>().onClick.AddListener(() => OnNumberButtonClick(buttonValue));
-        }
-
-        // Tilføj OnClick-event til tjek svaret-knappen
-        checkAnswerButton.onClick.AddListener(CheckAnswer);
+        UpdateCorrectAnswersCountText();
     }
 
     void GenerateProblem()
     {
-        int operation = Random.Range(0, 4); // 0: Addition, 1: Subtraktion, 2: Multiplikation, 3: Division
+        switch (difficultyLevel)
+        {
+            case 0:
+                num1 = Random.Range(1, 10);
+                num2 = Random.Range(1, 10);
+                break;
+            case 1:
+                num1 = Random.Range(10, 20);
+                num2 = Random.Range(10, 20);
+                break;
+            case 2:
+                num1 = Random.Range(20, 30);
+                num2 = Random.Range(20, 30);
+                break;
+            case 3:
+                num1 = Random.Range(30, 40);
+                num2 = Random.Range(30, 40);
+                break;
+            default:
+                num1 = Random.Range(1, 10);
+                num2 = Random.Range(1, 10);
+                break;
+        }
+
+        int operation = Random.Range(0, 4);
         switch (operation)
         {
-            case 0: // Addition
-                num1 = Random.Range(1, 20);
-                num2 = Random.Range(1, 20);
+            case 0:
                 correctAnswer = num1 + num2;
                 problemText.text = $"{num1} + {num2} = ?";
                 break;
-            case 1: // Subtraktion
-                num1 = Random.Range(10, 20);
-                num2 = Random.Range(1, 10);
+            case 1:
+                // Swap num1 and num2 for subtraction operation
+                if (num1 < num2)
+                {
+                    int temp = num1;
+                    num1 = num2;
+                    num2 = temp;
+                }
                 correctAnswer = num1 - num2;
                 problemText.text = $"{num1} - {num2} = ?";
                 break;
-            case 2: // Multiplikation
-                num1 = Random.Range(2, 100);
-                num2 = Random.Range(2, 100);
+            case 2:
                 correctAnswer = num1 * num2;
                 problemText.text = $"{num1} * {num2} = ?";
                 break;
-            case 3: // Division
-                correctAnswer = Random.Range(2, 10); // Tallet, vi skal dividere med
-                num2 = Random.Range(2, 10); // Divisoren
-                num1 = correctAnswer * num2; // Resultatet
+            case 3:
+                correctAnswer = Random.Range(2, 10);
+                num2 = Random.Range(2, 10);
+                num1 = correctAnswer * num2;
                 problemText.text = $"{num1} ÷ {num2} = ?";
                 break;
             default:
                 Debug.LogError("Invalid operation!");
                 break;
         }
-    }
-
-    void OnNumberButtonClick(int buttonValue)
-    {
-        answerInput.text += buttonValue.ToString();
     }
 
     public void CheckAnswer()
@@ -94,7 +104,17 @@ public class MathGame : MonoBehaviour
                     Instantiate(newGameObjectPrefab, transform.position, Quaternion.identity);
                 }
 
-                GenerateProblem();
+                correctAnswersCount++;
+                UpdateCorrectAnswersCountText();
+                if (correctAnswersCount >= 3)
+                {
+                    IncreaseDifficulty();
+                    correctAnswersCount = 0;
+                }
+                else
+                {
+                    GenerateProblem(); // Flyt opgavegenereringslogikken her
+                }
             }
             else
             {
@@ -103,5 +123,35 @@ public class MathGame : MonoBehaviour
 
             answerInput.text = "";
         }
+    }
+
+    void IncreaseDifficulty()
+    {
+        difficultyLevel++;
+        Debug.Log($"Difficulty increased to level {difficultyLevel}");
+
+        // Tjek om lydeffekten er tildelt korrekt
+        if (increaseDifficultySound != null)
+        {
+            Debug.Log("Attempting to play increaseDifficultySound...");
+            if (audioSource == null)
+            {
+                Debug.LogError("AudioSource is not assigned!");
+            }
+            else
+            {
+                audioSource.PlayOneShot(increaseDifficultySound);
+                Debug.Log("increaseDifficultySound played successfully!");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("increaseDifficultySound is not assigned!");
+        }
+    }
+
+    void UpdateCorrectAnswersCountText()
+    {
+        correctAnswersCountText.text = $"Correct Answers: {correctAnswersCount}";
     }
 }
