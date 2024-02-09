@@ -121,6 +121,11 @@ public class MathGame : MonoBehaviour
         }
     }
 
+    public void ClearAnswerInput()
+{
+    answerInput.text = ""; // Ryd inputfeltet
+}
+
     void IncreaseDifficulty()
     {
         difficultyLevel++;
