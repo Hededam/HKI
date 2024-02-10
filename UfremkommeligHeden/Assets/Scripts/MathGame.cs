@@ -8,13 +8,14 @@ public class MathGame : MonoBehaviour
     public AudioClip correctAnswerSound;
     public GameObject newGameObjectPrefab;
     public TextMeshProUGUI correctAnswersCountText;
+    public TextMeshProUGUI difficultyLevelText; // Referencen til TMP text feltet
 
     public int correctAnswersCount { get; private set; }
     public int correctAnswersBeforeIncrease = 3; // Antal korrekte svar før sværhedsgraden øges
+    public int difficultyLevel = 0; // Offentlig variabel for sværhedsgrad
     private int num1;
     private int num2;
     private int correctAnswer;
-    private int difficultyLevel;
     private int correctAnswersSinceIncrease; // Antal korrekte svar siden sidste sværhedsgradsstigning
     private AudioSource audioSource;
 
@@ -23,6 +24,7 @@ public class MathGame : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         GenerateProblem();
         UpdateCorrectAnswersCountText();
+        UpdateDifficultyLevelText(); // Opdater TMP text feltet for sværhedsgrad ved start
     }
 
     void GenerateProblem()
@@ -41,6 +43,7 @@ public class MathGame : MonoBehaviour
                 num1 = Random.Range(20, 30);
                 num2 = Random.Range(20, 30);
                 break;
+            // Tilføj flere niveauer efter behov
             default:
                 num1 = Random.Range(1, 10);
                 num2 = Random.Range(1, 10);
@@ -122,9 +125,9 @@ public class MathGame : MonoBehaviour
     }
 
     public void ClearAnswerInput()
-{
-    answerInput.text = ""; // Ryd inputfeltet
-}
+    {
+        answerInput.text = ""; // Ryd inputfeltet
+    }
 
     void IncreaseDifficulty()
     {
@@ -132,10 +135,16 @@ public class MathGame : MonoBehaviour
         Debug.Log($"Difficulty increased to level {difficultyLevel}");
 
         GenerateProblem(); // Sørg for at generere en ny opgave efter at sværhedsgraden er blevet øget
+        UpdateDifficultyLevelText(); // Opdater TMP text feltet for sværhedsgrad
     }
+
 
     void UpdateCorrectAnswersCountText()
     {
         correctAnswersCountText.text = $"Correct Answers: {correctAnswersCount}";
+    }
+    void UpdateDifficultyLevelText()
+    {
+        difficultyLevelText.text = $"Difficulty Level: {difficultyLevel}"; // Opdater TMP text feltet med sværhedsgraden
     }
 }
