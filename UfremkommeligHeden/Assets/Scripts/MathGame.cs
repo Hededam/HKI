@@ -43,6 +43,22 @@ public class MathGame : MonoBehaviour
                 num1 = Random.Range(20, 30);
                 num2 = Random.Range(20, 30);
                 break;
+            case 3:
+                num1 = Random.Range(30, 40);
+                num2 = Random.Range(30, 40);
+                break;
+            case 4:
+                num1 = Random.Range(40, 50);
+                num2 = Random.Range(40, 50);
+                break;
+            case 5:
+                num1 = Random.Range(50, 60);
+                num2 = Random.Range(50, 60);
+                break;
+            case 6:
+                num1 = Random.Range(100, 1000000);
+                num2 = Random.Range(100, 1000000);
+                break;
             // Tilføj flere niveauer efter behov
             default:
                 num1 = Random.Range(1, 10);
