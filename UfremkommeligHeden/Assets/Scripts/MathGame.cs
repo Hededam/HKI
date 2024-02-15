@@ -1,5 +1,12 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using TMPro;
+using System.Collections.Generic;
+
+public class WordProblem
+{
+    public string Text { get; set; }
+    public int Answer { get; set; }
+}
 
 public class MathGame : MonoBehaviour
 {
@@ -8,96 +15,126 @@ public class MathGame : MonoBehaviour
     public AudioClip correctAnswerSound;
     public GameObject newGameObjectPrefab;
     public TextMeshProUGUI correctAnswersCountText;
-    public TextMeshProUGUI difficultyLevelText; // Referencen til TMP text feltet
-
+    public TextMeshProUGUI wrongAnswersCountText;
+    public TextMeshProUGUI difficultyLevelText;
     public int correctAnswersCount { get; private set; }
-    public int correctAnswersBeforeIncrease = 3; // Antal korrekte svar før sværhedsgraden øges
-    public int difficultyLevel = 0; // Offentlig variabel for sværhedsgrad
+    public int wrongAnswersCount { get; private set; }
+    public int correctAnswersBeforeIncrease = 3;
+    public int difficultyLevel = 0;
     private int num1;
     private int num2;
     private int correctAnswer;
-    private int correctAnswersSinceIncrease; // Antal korrekte svar siden sidste sværhedsgradsstigning
+    private int wrongAnswer;
+    private int correctAnswersSinceIncrease;
     private AudioSource audioSource;
+
+    public bool isAdditionEnabled = true;
+    public bool isSubtractionEnabled = true;
+    public bool isMultiplicationEnabled = true;
+    public bool isDivisionEnabled = true;
+    public bool isSquareRootEnabled = true;
+    public bool isWordProblemEnabled = true;
+
+    public List<WordProblem> wordProblems = new List<WordProblem>
+    {
+        new WordProblem { Text = "Hvis en bil kÃ¸rer med en hastighed pÃ¥ 60 km/t, " +
+            "Hvor lang tid vil det tage at kÃ¸re 240 km?", Answer = 4 },
+       
+    };
 
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
         GenerateProblem();
         UpdateCorrectAnswersCountText();
-        UpdateDifficultyLevelText(); // Opdater TMP text feltet for sværhedsgrad ved start
+        UpdateDifficultyLevelText();
     }
 
     void GenerateProblem()
     {
-        switch (difficultyLevel)
+        // Tjek om alle operationer er deaktiveret
+        if (!isAdditionEnabled && !isSubtractionEnabled && !isMultiplicationEnabled && !isDivisionEnabled && !isSquareRootEnabled && !isWordProblemEnabled)
         {
-            case 0:
-                num1 = Random.Range(1, 10);
-                num2 = Random.Range(1, 10);
-                break;
-            case 1:
-                num1 = Random.Range(10, 20);
-                num2 = Random.Range(10, 20);
-                break;
-            case 2:
-                num1 = Random.Range(20, 30);
-                num2 = Random.Range(20, 30);
-                break;
-            case 3:
-                num1 = Random.Range(30, 40);
-                num2 = Random.Range(30, 40);
-                break;
-            case 4:
-                num1 = Random.Range(40, 50);
-                num2 = Random.Range(40, 50);
-                break;
-            case 5:
-                num1 = Random.Range(50, 60);
-                num2 = Random.Range(50, 60);
-                break;
-            case 6:
-                num1 = Random.Range(100, 1000000);
-                num2 = Random.Range(100, 1000000);
-                break;
-            // Tilføj flere niveauer efter behov
-            default:
-                num1 = Random.Range(1, 10);
-                num2 = Random.Range(1, 10);
-                break;
+            problemText.text = "Ingen opgave typer er aktiverede. Er man lidt doven? AktivÃ©r mindst Ã©n operation for at fortsÃ¦tte.";
+            return;
         }
 
-        int operation = Random.Range(0, 4);
-        switch (operation)
+        if (isWordProblemEnabled && Random.Range(0, 2) == 0) // TilfÃ¦ldigt vÃ¦lg mellem en WordProblem og en normal matematisk operation
         {
-            case 0:
-                correctAnswer = num1 + num2;
-                problemText.text = $"{num1} + {num2} = ?";
-                break;
-            case 1:
-                if (num1 < num2)
-                {
-                    int temp = num1;
-                    num1 = num2;
-                    num2 = temp;
-                }
-                correctAnswer = num1 - num2;
-                problemText.text = $"{num1} - {num2} = ?";
-                break;
-            case 2:
-                correctAnswer = num1 * num2;
-                problemText.text = $"{num1} * {num2} = ?";
-                break;
-            case 3:
-                correctAnswer = Random.Range(2, 10);
-                num2 = Random.Range(2, 10);
-                num1 = correctAnswer * num2;
-                problemText.text = $"{num1} ÷ {num2} = ?";
-                break;
-            default:
-                Debug.LogError("Invalid operation!");
-                break;
+            var problem = wordProblems[Random.Range(0, wordProblems.Count)];
+            problemText.text = problem.Text;
+            correctAnswer = problem.Answer;
+        }
+        else
+        {
+            switch (difficultyLevel)
+            {
+                case 0:
+                    num1 = Random.Range(1, 10);
+                    num2 = Random.Range(1, 10);
+                    break;
+                case 1:
+                    num1 = Random.Range(10, 20);
+                    num2 = Random.Range(10, 20);
+                    break;
+                case 2:
+                    num1 = Random.Range(20, 30);
+                    num2 = Random.Range(20, 30);
+                    break;
+                default:
+                    num1 = Random.Range(1, 10);
+                    num2 = Random.Range(1, 10);
+                    break;
+            }
+
+            int operation = Random.Range(0, 5);
+            while ((operation == 0 && !isAdditionEnabled) ||
+                   (operation == 1 && !isSubtractionEnabled) ||
+                   (operation == 2 && !isMultiplicationEnabled) ||
+                   (operation == 3 && !isDivisionEnabled) ||
+                   (operation == 4 && !isSquareRootEnabled))
+            {
+                operation = Random.Range(0, 5);
+            }
+
+            switch (operation)
+            {
+                case 0:
+                    correctAnswer = num1 + num2;
+                    problemText.text = $"{num1} + {num2} = ?";
+                    break;
+                case 1:
+                    if (num1 < num2)
+                    {
+                        int temp = num1;
+                        num1 = num2;
+                        num2 = temp;
+                    }
+                    correctAnswer = num1 - num2;
+                    problemText.text = $"{num1} - {num2} = ?";
+                    break;
+                case 2:
+                    correctAnswer = num1 * num2;
+                    problemText.text = $"{num1} * {num2} = ?";
+                    break;
+                case 3:
+                    correctAnswer = Random.Range(2, 10);
+                    num2 = Random.Range(2, 10);
+                    num1 = correctAnswer * num2;
+                    problemText.text = $"{num1} Ã· {num2} = ?";
+                    break;
+                case 4:
+                    num1 = Random.Range(2, 10);
+                    correctAnswer = num1 * num1;
+                    problemText.text = $"âˆš{correctAnswer} = ?";
+                    break;
+                default:
+                    Debug.LogError("Invalid operation!");
+                    break;
+            }
         }
     }
+
 
     public void CheckAnswer()
     {
@@ -120,19 +157,21 @@ public class MathGame : MonoBehaviour
                 }
 
                 correctAnswersCount++;
-                correctAnswersSinceIncrease++; // Øg antallet af korrekte svar siden sidste sværhedsgradsstigning
+                correctAnswersSinceIncrease++;
                 UpdateCorrectAnswersCountText();
 
                 if (correctAnswersSinceIncrease >= correctAnswersBeforeIncrease)
                 {
                     IncreaseDifficulty();
-                    correctAnswersSinceIncrease = 0; // Nulstil tælleren for korrekte svar siden sidste sværhedsgradsstigning
+                    correctAnswersSinceIncrease = 0;
                 }
 
                 GenerateProblem();
             }
             else
             {
+                wrongAnswersCount++;
+                UpdateWrongAnswersCountText();
                 Debug.Log("Wrong answer. Try again!");
             }
 
@@ -142,7 +181,7 @@ public class MathGame : MonoBehaviour
 
     public void ClearAnswerInput()
     {
-        answerInput.text = ""; // Ryd inputfeltet
+        answerInput.text = "";
     }
 
     void IncreaseDifficulty()
@@ -150,17 +189,51 @@ public class MathGame : MonoBehaviour
         difficultyLevel++;
         Debug.Log($"Difficulty increased to level {difficultyLevel}");
 
-        GenerateProblem(); // Sørg for at generere en ny opgave efter at sværhedsgraden er blevet øget
-        UpdateDifficultyLevelText(); // Opdater TMP text feltet for sværhedsgrad
+        GenerateProblem();
+        UpdateDifficultyLevelText();
     }
-
 
     void UpdateCorrectAnswersCountText()
     {
         correctAnswersCountText.text = $"Correct Answers: {correctAnswersCount}";
     }
+
+    void UpdateWrongAnswersCountText()
+    {
+        wrongAnswersCountText.text = $"Wrong Answers: {wrongAnswersCount}";
+    }
+
     void UpdateDifficultyLevelText()
     {
-        difficultyLevelText.text = $"Difficulty Level: {difficultyLevel}"; // Opdater TMP text feltet med sværhedsgraden
+        difficultyLevelText.text = $"Difficulty Level: {difficultyLevel}";
+    }
+
+    public void ToggleAddition()
+    {
+        isAdditionEnabled = !isAdditionEnabled;
+    }
+
+    public void ToggleSubtraction()
+    {
+        isSubtractionEnabled = !isSubtractionEnabled;
+    }
+
+    public void ToggleMultiplication()
+    {
+        isMultiplicationEnabled = !isMultiplicationEnabled;
+    }
+
+    public void ToggleDivision()
+    {
+        isDivisionEnabled = !isDivisionEnabled;
+    }
+
+    public void ToggleSquareRoot()
+    {
+        isSquareRootEnabled = !isSquareRootEnabled;
+    }
+    public void ToggleWordProblem()
+    {
+        isWordProblemEnabled = !isWordProblemEnabled;
     }
 }
