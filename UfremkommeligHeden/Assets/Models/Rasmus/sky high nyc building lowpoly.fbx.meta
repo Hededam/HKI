@@ -3,32 +3,7 @@ guid: b1ea868baf48f18429cc21f56724c314
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Inder-vindue
-    second: {fileID: 2100000, guid: 6dfbbd9d5fddd0846a4ec2932fde6a01, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: "Rasmus_h\xF8jhus"
-    second: {fileID: 2100000, guid: c12206ef121c70a47ad95f5eaa099f80, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: karm
-    second: {fileID: 2100000, guid: e17b15e1768aa07439421562211cc810, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: vindue
-    second: {fileID: 2100000, guid: 97840e730a67c124894002c5457983b1, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: vindue-ramme
-    second: {fileID: 2100000, guid: d2832179574631e47bf55beca72d7a9e, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
