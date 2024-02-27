@@ -24,13 +24,16 @@ EditorBuildSettings:
     path: Assets/BNG Framework/Scenes/Quest Demo.unity
     guid: eac0312c32df12949a47d07747a9d1cd
   - enabled: 1
-    path: Assets/Scenes/Start scenen.unity
+    path: "Assets/Scenes/\xC5bningsScenen.unity"
+    guid: f0117d66c0ae05b468a61b075deecc60
+  - enabled: 1
+    path: Assets/Scenes/TutorialScenen.unity
     guid: 0486b4b59e9b9e841a25337894cb0faa
   - enabled: 1
-    path: "Assets/Scenes/HKI Demo Low poly Den flyvende \xF8.unity"
+    path: Assets/Scenes/LowPolyLand.unity
     guid: 1bb99f43eaf27a64186db07bc1c2da7a
   - enabled: 1
-    path: Assets/Scenes/En mand sidder ved en computer.unity
+    path: Assets/Scenes/MatematikLand.unity
     guid: 99b72e75301858f49a9d07ff4fa022aa
   - enabled: 1
     path: Assets/Scenes/HKI Ludus Island (AKsels verden).unity
