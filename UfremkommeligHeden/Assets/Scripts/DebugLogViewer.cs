@@ -1,9 +1,9 @@
 using UnityEngine;
-using TMPro;
+using UnityEngine.UI; // Tilføj denne linje
 
 public class DebugLogViewer : MonoBehaviour
 {
-    public TMP_Text debugTextField;
+    public Text debugTextField; // Ændret fra TextMeshProUGUI til Text
 
     void OnEnable()
     {
