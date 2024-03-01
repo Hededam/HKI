@@ -1,48 +1,41 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections;
 
 public class SceneLoaderHede : MonoBehaviour
 {
-    public string newSceneName; // Navnet på den nye scene, der skal loades
-    public string oldSceneName; // Navnet på den scene, der skal unloades
-
-    // Referencer til GameObjects
-    public GameObject player; // Sæt dette i inspektøren
-    public GameObject teleportLocation; // Sæt dette i inspektøren
-
-    public string sceneToUnloadNext; // Variabel til at gemme navnet på den næste scene, der skal unloades
+    public string newSceneName;
+    public string oldSceneName;
+    public GameObject player;
+    public GameObject teleportLocation;
+    public string sceneToUnloadNext;
 
     public void OnButtonClick()
     {
-        // Tjek om scene-navnet er gyldigt
         if (!string.IsNullOrEmpty(newSceneName))
         {
-            // Load den nye scene additivt
+            Debug.Log("Loading scene: " + newSceneName); // Debug meddelelse for at indikere at scenen indlæses
             SceneManager.LoadScene(newSceneName, LoadSceneMode.Additive);
 
-            // Flyt spilleren til den nye placering
             if (player != null && teleportLocation != null)
             {
+                Debug.Log("Teleporting player to: " + teleportLocation.name); // Debug meddelelse for at indikere spillerens teleportering
                 player.transform.position = teleportLocation.transform.position;
             }
 
-            // Gem navnet på den næste scene, der skal unloades
             sceneToUnloadNext = newSceneName;
+            UnloadNextScene();
         }
     }
 
-    // Kald denne metode fra et andet sted i dit script, når du ønsker at unload'e den næste scene
     public void UnloadNextScene()
     {
         string sceneToUnload = string.IsNullOrEmpty(oldSceneName) ? sceneToUnloadNext : oldSceneName;
 
         if (!string.IsNullOrEmpty(sceneToUnload))
         {
-            // Unload den næste scene ved hjælp af det gemte navn
+            Debug.Log("Unloading scene: " + sceneToUnload); // Debug meddelelse for at indikere at scenen unloades
             SceneManager.UnloadSceneAsync(sceneToUnload);
 
-            // Nulstil oldSceneName
             oldSceneName = string.Empty;
         }
     }
