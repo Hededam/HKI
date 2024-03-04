@@ -1,42 +1,36 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class SceneLoaderHede : MonoBehaviour
 {
-    public string newSceneName;
-    public string oldSceneName;
-    public GameObject player;
-    public GameObject teleportLocation;
-    public string sceneToUnloadNext;
+    public string newSceneName; // Den scene der skal loades
+    public string TheBackgroundScene; // Den scene der altid skal være aktiv
+    public string[] scenesToUnload; // Array til at specificere scener, der skal unloades
 
     public void OnButtonClick()
     {
         if (!string.IsNullOrEmpty(newSceneName))
         {
-            Debug.Log("Loading scene: " + newSceneName); // Debug meddelelse for at indikere at scenen indlæses
+            Debug.Log("Loading scene: " + newSceneName);
             SceneManager.LoadScene(newSceneName, LoadSceneMode.Additive);
 
-            if (player != null && teleportLocation != null)
-            {
-                Debug.Log("Teleporting player to: " + teleportLocation.name); // Debug meddelelse for at indikere spillerens teleportering
-                player.transform.position = teleportLocation.transform.position;
-            }
-
-            sceneToUnloadNext = newSceneName;
-            UnloadNextScene();
+            UnloadScenesExcept(scenesToUnload);
         }
     }
 
-    public void UnloadNextScene()
+    private void UnloadScenesExcept(string[] scenesToUnload)
     {
-        string sceneToUnload = string.IsNullOrEmpty(oldSceneName) ? sceneToUnloadNext : oldSceneName;
-
-        if (!string.IsNullOrEmpty(sceneToUnload))
+        int sceneCount = SceneManager.sceneCount;
+        for (int i = 0; i < sceneCount; i++)
         {
-            Debug.Log("Unloading scene: " + sceneToUnload); // Debug meddelelse for at indikere at scenen unloades
-            SceneManager.UnloadSceneAsync(sceneToUnload);
-
-            oldSceneName = string.Empty;
+            Scene scene = SceneManager.GetSceneAt(i);
+            if (scenesToUnload.Contains(scene.name) && scene.name != TheBackgroundScene)
+            {
+                Debug.Log("Unloading scene: " + scene.name);
+                SceneManager.UnloadSceneAsync(scene);
+            }
         }
     }
 }
+
