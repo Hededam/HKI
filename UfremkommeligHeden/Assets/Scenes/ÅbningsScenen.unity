@@ -143,7 +143,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &41364094
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1740,13 +1740,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1099809493}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.13525745, y: -0.0046178396, z: 0.20524913, w: 0.9693074}
-  m_LocalPosition: {x: -298.00018, y: 25.000423, z: -427.0001}
+  m_LocalRotation: {x: 0.0041677053, y: -0.100663215, z: 0.055239744, w: 0.9933772}
+  m_LocalPosition: {x: -379, y: -21, z: -87}
   m_LocalScale: {x: 4000, y: 4000, z: 4000}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6441154541796291819}
-  m_LocalEulerAnglesHint: {x: 15.314, y: 2.768, z: 24.284}
+  m_LocalEulerAnglesHint: {x: 1.112, y: -11.512, z: 6.254}
 --- !u!108 &1099809495
 Light:
   m_ObjectHideFlags: 0
@@ -1759,9 +1759,9 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.67237675, g: 0.9622642, b: 0.6036846, a: 1}
-  m_Intensity: 1
-  m_Range: 10
-  m_SpotAngle: 101
+  m_Intensity: 10
+  m_Range: 0.04
+  m_SpotAngle: 106.9
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
@@ -6706,6 +6706,7 @@ GameObject:
   - component: {fileID: 1498296028726970594}
   - component: {fileID: 7816079057508780503}
   - component: {fileID: 636343815517925719}
+  - component: {fileID: 8700595157853115513}
   m_Layer: 2
   m_Name: HolsterRight
   m_TagString: Untagged
@@ -7543,7 +7544,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OnGrabEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3680151846424100982}
+        m_TargetAssemblyTypeName: BNG.SnapZone, Assembly-CSharp
+        m_MethodName: GrabEquipped
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &641635163828932380
 Transform:
   m_ObjectHideFlags: 0
@@ -35195,6 +35208,7 @@ GameObject:
   - component: {fileID: 2362615703899499051}
   - component: {fileID: 6614255558334441279}
   - component: {fileID: 1640800144538336363}
+  - component: {fileID: 6614255558334441280}
   m_Layer: 2
   m_Name: LeftShoulder
   m_TagString: Untagged
@@ -38726,7 +38740,19 @@ MonoBehaviour:
       m_Calls: []
   OnDetachEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8700595157853115513}
+        m_TargetAssemblyTypeName: BNG.DestroyOnSceneSwitch, Assembly-CSharp
+        m_MethodName: OnDetached
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   ClosestGrabbable: {fileID: 0}
 --- !u!4 &3682405249728022326
 Transform:
@@ -43490,7 +43516,19 @@ MonoBehaviour:
       m_Calls: []
   OnDetachEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5076860294060987464}
+        m_TargetAssemblyTypeName: BNG.DestroyOnSceneSwitch, Assembly-CSharp
+        m_MethodName: OnDetached
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   ClosestGrabbable: {fileID: 0}
 --- !u!224 &4081585996169005695
 RectTransform:
@@ -53670,6 +53708,7 @@ GameObject:
   - component: {fileID: 2367395195263567936}
   - component: {fileID: 2595846475729296133}
   - component: {fileID: 4309985752037161061}
+  - component: {fileID: 5076860294060987464}
   m_Layer: 2
   m_Name: RightShoulder
   m_TagString: Untagged
@@ -53677,6 +53716,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &5076860294060987464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5076860294060987463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0b347a43952e314693fd670ac84b5a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5077553871754989511
 Transform:
   m_ObjectHideFlags: 0
@@ -58934,7 +58985,19 @@ MonoBehaviour:
       m_Calls: []
   OnDetachEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6614255558334441280}
+        m_TargetAssemblyTypeName: BNG.DestroyOnSceneSwitch, Assembly-CSharp
+        m_MethodName: OnDetached
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   ClosestGrabbable: {fileID: 0}
 --- !u!4 &5677414139114617596
 Transform:
@@ -67351,6 +67414,18 @@ MonoBehaviour:
   UseCustomInspector: 1
   lastFlickTime: 0
   FlickForce: 1
+--- !u!114 &6614255558334441280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3249916905653176165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0b347a43952e314693fd670ac84b5a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6614546872207377541
 GameObject:
   m_ObjectHideFlags: 0
@@ -69102,10 +69177,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1930528017095854051}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 650, y: -48}
-  m_SizeDelta: {x: 1260, y: 56}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &6790488307301061866
 GameObject:
@@ -71289,6 +71364,7 @@ GameObject:
   - component: {fileID: 527827470383226314}
   - component: {fileID: 8718197146141407374}
   - component: {fileID: 2073268586633629431}
+  - component: {fileID: 8718197146141407375}
   m_Layer: 2
   m_Name: HolsterLeft
   m_TagString: Untagged
@@ -79272,7 +79348,19 @@ MonoBehaviour:
       m_Calls: []
   OnDetachEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8718197146141407375}
+        m_TargetAssemblyTypeName: BNG.DestroyOnSceneSwitch, Assembly-CSharp
+        m_MethodName: OnDetached
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   ClosestGrabbable: {fileID: 0}
 --- !u!1 &7861728881963130359
 GameObject:
@@ -86967,6 +87055,18 @@ Transform:
   - {fileID: 1981207029700013908}
   m_Father: {fileID: 6335570156115651487}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8700595157853115513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 528486293418183433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0b347a43952e314693fd670ac84b5a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &8702241278862914803
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -87250,6 +87350,18 @@ MonoBehaviour:
   UseCustomInspector: 1
   lastFlickTime: 0
   FlickForce: 1
+--- !u!114 &8718197146141407375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7012791719281513539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0b347a43952e314693fd670ac84b5a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &8718609507045705304
 Transform:
   m_ObjectHideFlags: 0

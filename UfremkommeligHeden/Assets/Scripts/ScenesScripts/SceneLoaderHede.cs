@@ -35,7 +35,7 @@ public class SceneLoaderHede : MonoBehaviour
         UnloadScenes(scenesToUnload);
 
         // Vent et kvart sekund
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.05f);
 
         // Indlæs den nye scene
         Debug.Log("Loading scene: " + newSceneName);
