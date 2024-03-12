@@ -44,6 +44,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/JumpingScene.unity
     guid: 8d2ff0c240c8c7040befc9e811cd91d5
+  - enabled: 1
+    path: Assets/Scenes/Swarm.unity
+    guid: dc1a534b3bf2e9941b99f981534dad8b
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 6b5777c8442c2a543bc8ce750ba6ffcc,
       type: 2}
