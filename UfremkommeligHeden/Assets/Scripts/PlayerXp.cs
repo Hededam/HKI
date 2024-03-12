@@ -34,5 +34,6 @@ public class PlayerXp : MonoBehaviour
     private void Die()
     {
         // Handle player death here
+        Debug.Log("Player has died!"); // Example: You can add more logic or effects here
     }
 }
