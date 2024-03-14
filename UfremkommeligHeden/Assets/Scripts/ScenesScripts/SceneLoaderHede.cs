@@ -10,7 +10,9 @@ public class SceneLoaderHede : MonoBehaviour
     public string[] scenesToUnload; // Array med navne på scener, der skal afmelde
     public string newSceneName; // Navnet på scenen, der skal indlæses
     public static string lastLoadedScene = "TutorialScenen"; // Navnet på den seneste indlæste scene
-    public Transform emptyTeleportLocation; // Tilføj denne linje
+
+    // Tilføj denne linje
+    public Transform AltTPSpot; // Alternativ teleporteringsposition
 
     // Reference til dit TMP textfelt (til at vise den seneste indlæste scene)
     public TMP_Text sceneNameText;
@@ -34,9 +36,6 @@ public class SceneLoaderHede : MonoBehaviour
         // Aflæs den gamle scene
         UnloadScenes(scenesToUnload);
 
-        // Vent et kvart sekund
-        yield return new WaitForSeconds(0.05f);
-
         // Indlæs den nye scene
         Debug.Log("Loading scene: " + newSceneName);
         SceneManager.LoadSceneAsync(newSceneName, LoadSceneMode.Additive).completed += SceneLoadCompleted;
@@ -46,16 +45,27 @@ public class SceneLoaderHede : MonoBehaviour
         // Opdater tekstfeltet med den seneste indlæste scene
         sceneNameText.text = lastLoadedScene;
 
-        // Find EmptyTeleportLocation
-        if (emptyTeleportLocation != null)
+        // Find AltTPSpot eller EmptyTeleportLocation
+        if (AltTPSpot != null)
         {
-            // Teleportér spilleren til EmptyTeleportLocation
-            PlayerTeleport(emptyTeleportLocation.position);
+            // Teleportér spilleren til AltTPSpot
+            PlayerTeleport(AltTPSpot.position);
         }
         else
         {
-            Debug.LogError("EmptyTeleportLocation not set in the inspector!");
+            GameObject emptyTeleportLocation = GameObject.Find("EmptyTeleportLocation");
+            if (emptyTeleportLocation != null)
+            {
+                // Hvis AltTPSpot ikke er sat, men EmptyTeleportLocation findes, teleportér spilleren til EmptyTeleportLocation
+                PlayerTeleport(emptyTeleportLocation.transform.position);
+            }
+            else
+            {
+                Debug.LogError("Neither AltTPSpot nor EmptyTeleportLocation were found in the scene!");
+            }
         }
+
+        yield return null;
     }
 
     private void SceneLoadCompleted(AsyncOperation operation)
