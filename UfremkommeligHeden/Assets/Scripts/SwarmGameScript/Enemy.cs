@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        playerTransform = GameObject.Find("PlayerController").transform;
     }
 
     private void Update()
@@ -37,7 +37,7 @@ public class Enemy : MonoBehaviour
     {
         // Håndter fjendens ødelæggelse (f.eks. afspil partikeleffekt, fjern fra scenen)
         // Beløn spilleren med XP
-        PlayerXp playerXp = FindObjectOfType<PlayerXp>();
+        PlayerXp playerXp = GameObject.Find("PlayerController").GetComponent<PlayerXp>();
         if (playerXp != null)
         {
             playerXp.GainXP(xpReward);
