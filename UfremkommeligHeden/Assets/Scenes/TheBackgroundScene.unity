@@ -7786,7 +7786,7 @@ MonoBehaviour:
   MoveAction: {fileID: 6972639530819350904, guid: e39f4b35a6db18348b41eb0262520e69,
     type: 3}
   RequireAppFocus: 1
-  SprintSpeed: 1.5
+  SprintSpeed: 10
   SprintInput: 00000000
   SprintAction: {fileID: -9014867403852775025, guid: e39f4b35a6db18348b41eb0262520e69,
     type: 3}
@@ -20043,7 +20043,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2235925223756832580}
   - component: {fileID: 5281850714273005504}
-  - component: {fileID: 5281850714273005517}
   - component: {fileID: 4196011716828383503}
   - component: {fileID: 5281850714273005519}
   - component: {fileID: 5281850714273005520}
@@ -43728,23 +43727,6 @@ MonoBehaviour:
   SupportsIndexTouch: 0
   SupportsThumbTouch: 0
   ShowInputDebugger: 0
---- !u!114 &5281850714273005517
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2235925223756832582}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8ef3fb08709aab4cb6e18ac7630ea73, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LogTextColor: {r: 0, g: 1, b: 1, a: 1}
-  WarnTextColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  ErrTextColor: {r: 1, g: 0, b: 0, a: 1}
-  DebugTextHolder: {fileID: 0}
-  LastDebugMsg: 
 --- !u!114 &5281850714273005519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63992,8 +63974,7 @@ MonoBehaviour:
   DefaultLocomotion: 1
   LoadLocomotionFromPrefs: 0
   locomotionToggleInput: 
-  LocomotionToggleAction: {fileID: 3512515067727415170, guid: e39f4b35a6db18348b41eb0262520e69,
-    type: 3}
+  LocomotionToggleAction: {fileID: 0}
 --- !u!114 &7932797437440715516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64007,7 +63988,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   xp: 0
-  health: 1000
+  health: 100
   xpText: {fileID: 900303246}
   healthText: {fileID: 1704736125}
 --- !u!1 &7933098214292084339
