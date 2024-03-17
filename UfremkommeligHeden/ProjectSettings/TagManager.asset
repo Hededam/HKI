@@ -13,6 +13,9 @@ TagManager:
   - Synty Medium Farm
   - Synty Small Farm
   - Synty Tree
+  - Kill
+  - Sus
+  - Endpoint
   layers:
   - Default
   - TransparentFX

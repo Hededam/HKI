@@ -176,7 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8399b8e75cc5e8740ac9af20284b7076, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TheBackgroundScene: "\xC5bningsScenen"
+  TheBackgroundScene: TheBackgroundScene
   scenesToUnload:
   - TutorialScenen
   - LowPolyLand
@@ -185,7 +185,6 @@ MonoBehaviour:
   - EdderkoppeLand
   - Swarm
   newSceneName: JumpingScene
-  AltTPSpot: {fileID: 0}
   sceneNameText: {fileID: 325038008}
 --- !u!114 &76278447
 MonoBehaviour:
@@ -333,7 +332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8399b8e75cc5e8740ac9af20284b7076, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TheBackgroundScene: "\xC5bningsScenen"
+  TheBackgroundScene: TheBackgroundScene
   scenesToUnload:
   - TutorialScenen
   - LowPolyLand
@@ -342,7 +341,6 @@ MonoBehaviour:
   - JumpingScene
   - Swarm
   newSceneName: MatematikLand
-  AltTPSpot: {fileID: 0}
   sceneNameText: {fileID: 325038008}
 --- !u!114 &97777909
 MonoBehaviour:
@@ -490,7 +488,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8399b8e75cc5e8740ac9af20284b7076, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TheBackgroundScene: "\xC5bningsScenen"
+  TheBackgroundScene: TheBackgroundScene
   scenesToUnload:
   - TutorialScenen
   - LowPolyLand
@@ -499,7 +497,6 @@ MonoBehaviour:
   - JumpingScene
   - Swarm
   newSceneName: Akselsverden
-  AltTPSpot: {fileID: 0}
   sceneNameText: {fileID: 325038008}
 --- !u!114 &121949401
 MonoBehaviour:
@@ -781,7 +778,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8399b8e75cc5e8740ac9af20284b7076, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TheBackgroundScene: "\xC5bningsScenen"
+  TheBackgroundScene: TheBackgroundScene
   scenesToUnload:
   - TutorialScenen
   - LowPolyLand
@@ -790,7 +787,6 @@ MonoBehaviour:
   - JumpingScene
   - Akselsverden
   newSceneName: Swarm
-  AltTPSpot: {fileID: 0}
   sceneNameText: {fileID: 325038008}
 --- !u!114 &400000215
 MonoBehaviour:
@@ -938,7 +934,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8399b8e75cc5e8740ac9af20284b7076, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TheBackgroundScene: "\xC5bningsScenen"
+  TheBackgroundScene: TheBackgroundScene
   scenesToUnload:
   - TutorialScenen
   - Akselsverden
@@ -947,7 +943,6 @@ MonoBehaviour:
   - JumpingScene
   - Swarm
   newSceneName: LowPolyLand
-  AltTPSpot: {fileID: 0}
   sceneNameText: {fileID: 325038008}
 --- !u!114 &527331268
 MonoBehaviour:
@@ -1095,7 +1090,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8399b8e75cc5e8740ac9af20284b7076, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TheBackgroundScene: "\xC5bningsScenen"
+  TheBackgroundScene: TheBackgroundScene
   scenesToUnload:
   - TutorialScenen
   - LowPolyLand
@@ -1104,7 +1099,6 @@ MonoBehaviour:
   - JumpingScene
   - Swarm
   newSceneName: EdderkoppeLand
-  AltTPSpot: {fileID: 0}
   sceneNameText: {fileID: 325038008}
 --- !u!114 &655352656
 MonoBehaviour:
@@ -2191,7 +2185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8399b8e75cc5e8740ac9af20284b7076, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TheBackgroundScene: "\xC5bningsScenen"
+  TheBackgroundScene: TheBackgroundScene
   scenesToUnload:
   - Akselsverden
   - LowPolyLand
@@ -2201,7 +2195,6 @@ MonoBehaviour:
   - JumpingScene
   - Swarm
   newSceneName: TutorialScenen
-  AltTPSpot: {fileID: 0}
   sceneNameText: {fileID: 325038008}
 --- !u!114 &1264229621
 MonoBehaviour:
@@ -7768,10 +7761,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ControllerType: 0
-  MovementSpeed: 5
+  MovementSpeed: 4
   MovementForce: 500
-  MaxHorizontalVelocity: 5
-  MaxVerticalVelocity: 10
+  MaxHorizontalVelocity: 10
+  MaxVerticalVelocity: 15
   StepHeight: 0.1
   MaxSlopeAngle: 45
   MovementMaterial: {fileID: 0}
@@ -7788,7 +7781,7 @@ MonoBehaviour:
   RequireAppFocus: 1
   SprintSpeed: 10
   SprintInput: 00000000
-  SprintAction: {fileID: -9014867403852775025, guid: e39f4b35a6db18348b41eb0262520e69,
+  SprintAction: {fileID: 1303484546980060825, guid: e39f4b35a6db18348b41eb0262520e69,
     type: 3}
   StrafeSpeed: 1
   StrafeSprintSpeed: 1.25
@@ -7797,7 +7790,7 @@ MonoBehaviour:
   JumpAction: {fileID: 6794179407111191835, guid: e39f4b35a6db18348b41eb0262520e69,
     type: 3}
   AirControl: 1
-  AirControlSpeed: 1
+  AirControlSpeed: 2
   Magnitude: 0
   GroundContacts: 0
   SurfaceAngle: 0
@@ -13137,15 +13130,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 3
     m_MaxSize: 50
-    m_Alignment: 1
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '
-
-    Hededams Debug log:'
+  m_Text: 'Hededams Debug log:'
 --- !u!4 &1350717287745465061
 Transform:
   m_ObjectHideFlags: 0
@@ -17522,7 +17513,7 @@ RectTransform:
   m_GameObject: {fileID: 5253544577921570766}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.6134, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6788937006132038972}
@@ -17531,7 +17522,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -0.00005415389, y: 0.00010135467}
-  m_SizeDelta: {x: 0, y: 1000}
+  m_SizeDelta: {x: 0, y: 2000}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1932759530167017033
 GameObject:
@@ -20046,9 +20037,11 @@ GameObject:
   - component: {fileID: 4196011716828383503}
   - component: {fileID: 5281850714273005519}
   - component: {fileID: 5281850714273005520}
+  - component: {fileID: 5281850714273005521}
+  - component: {fileID: 5281850714273005522}
   m_Layer: 0
-  m_Name: PlayerRIG
-  m_TagString: Untagged
+  m_Name: Player
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24781,11 +24774,10 @@ GameObject:
   - component: {fileID: 210867920494895286}
   - component: {fileID: 7534025794594831144}
   - component: {fileID: 268499777003674768}
-  - component: {fileID: 4196011716067476494}
   - component: {fileID: 7932797437440715516}
   m_Layer: 9
   m_Name: PlayerController
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34309,23 +34301,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6878808701860500331}
   m_LocalEulerAnglesHint: {x: 21.343, y: 90.75, z: 36.084}
---- !u!114 &4196011716067476494
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2825914835990251013}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57ed093aba1f3dc40b680242d0f0e734, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GroundedLayers:
-    serializedVersion: 2
-    m_Bits: 1025
-  DistanceFromGround: 0
-  CurrentPlatform: {fileID: 0}
 --- !u!4 &4196011716190653668
 Transform:
   m_ObjectHideFlags: 0
@@ -38749,8 +38724,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1078291449119022771}
   m_HandleRect: {fileID: 5620958221439239381}
   m_Direction: 0
-  m_Value: 1.0000061
-  m_Size: 0.9599996
+  m_Value: 1.0000001
+  m_Size: 0.29750833
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -43752,6 +43727,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   newSceneName: TutorialScenen
+--- !u!114 &5281850714273005521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2235925223756832582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7817f26d87ffc3d4fa43db9123fd414b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5281850714273005522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2235925223756832582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57ed093aba1f3dc40b680242d0f0e734, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GroundedLayers:
+    serializedVersion: 2
+    m_Bits: 1025
+  DistanceFromGround: 0
+  CurrentPlatform: {fileID: 0}
 --- !u!4 &5286508387402372991
 Transform:
   m_ObjectHideFlags: 0
@@ -47498,7 +47502,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GravityEnabled: 1
-  Gravity: {x: 0, y: -10, z: 0}
+  Gravity: {x: 0, y: -12, z: 0}
 --- !u!1 &5728376334815764097
 GameObject:
   m_ObjectHideFlags: 0
@@ -52986,7 +52990,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1317559982016680552}
   m_LocalRotation: {x: 0.1811568, y: -0.59821945, z: -0.1411593, w: 0.76771724}
-  m_LocalPosition: {x: 0, y: 0, z: 0.0545}
+  m_LocalPosition: {x: 0, y: 0, z: 0.0504}
   m_LocalScale: {x: 0.00025000004, y: 0.00025, z: 0.00025}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -53011,7 +53015,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 6.273, y: -77.29401, z: -25.855}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.0313, y: 0.0183}
+  m_AnchoredPosition: {x: 0.0323, y: 0.0203}
   m_SizeDelta: {x: 1280, y: 960}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!4 &6446436132835344586
@@ -55509,7 +55513,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2850378093871397239}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -8,11 +8,8 @@ public class SceneLoaderHede : MonoBehaviour
 {
     public string TheBackgroundScene; // Navnet på scenen, der altid skal være aktiv
     public string[] scenesToUnload; // Array med navne på scener, der skal afmelde
-    public string newSceneName; // Navnet på scenen, der skal indlæses
+    public string newSceneName; // Navnet på den scene, der skal indlæses
     public static string lastLoadedScene = "TutorialScenen"; // Navnet på den seneste indlæste scene
-
-    // Tilføj denne linje
-    public Transform AltTPSpot; // Alternativ teleporteringsposition
 
     // Reference til dit TMP textfelt (til at vise den seneste indlæste scene)
     public TMP_Text sceneNameText;
@@ -45,26 +42,6 @@ public class SceneLoaderHede : MonoBehaviour
         // Opdater tekstfeltet med den seneste indlæste scene
         sceneNameText.text = lastLoadedScene;
 
-        // Find AltTPSpot eller EmptyTeleportLocation
-        if (AltTPSpot != null)
-        {
-            // Teleportér spilleren til AltTPSpot
-            PlayerTeleport(AltTPSpot.position);
-        }
-        else
-        {
-            GameObject emptyTeleportLocation = GameObject.Find("EmptyTeleportLocation");
-            if (emptyTeleportLocation != null)
-            {
-                // Hvis AltTPSpot ikke er sat, men EmptyTeleportLocation findes, teleportér spilleren til EmptyTeleportLocation
-                PlayerTeleport(emptyTeleportLocation.transform.position);
-            }
-            else
-            {
-                Debug.LogError("Neither AltTPSpot nor EmptyTeleportLocation were found in the scene!");
-            }
-        }
-
         yield return null;
     }
 
@@ -84,22 +61,6 @@ public class SceneLoaderHede : MonoBehaviour
                 Debug.Log("Unloading scene: " + scene.name);
                 SceneManager.UnloadSceneAsync(scene);
             }
-        }
-    }
-
-    private void PlayerTeleport(Vector3 targetPosition)
-    {
-        // Få adgang til din spiller
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-
-        // Flyt spilleren til targetPosition
-        if (player != null)
-        {
-            player.transform.position = targetPosition;
-        }
-        else
-        {
-            Debug.LogError("Player not found!");
         }
     }
 }

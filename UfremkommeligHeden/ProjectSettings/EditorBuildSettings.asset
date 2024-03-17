@@ -47,6 +47,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Swarm.unity
     guid: dc1a534b3bf2e9941b99f981534dad8b
+  - enabled: 1
+    path: Assets/Scenes/SwarmRuntime.unity
+    guid: 5db836e9a4a77f84295f4db8ff235fe0
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 6b5777c8442c2a543bc8ce750ba6ffcc,
       type: 2}
