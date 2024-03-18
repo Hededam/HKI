@@ -8,6 +8,7 @@ public class DamageOnCollision : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            Debug.Log("Nu rammer cuben min player?"); // Example: You can add more logic or effects here
             // Hvis objektet kolliderer med spilleren, tager spilleren skade
             PlayerXp playerXp = collision.gameObject.GetComponent<PlayerXp>();
             if (playerXp != null)

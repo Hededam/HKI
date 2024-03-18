@@ -24,10 +24,11 @@ public class PlayerXp : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
-
-        if (health <= 0)
+        Debug.Log("Player burde tage skade nu?");
         {
+            Debug.Log("Player brude dø nu"); 
             Die();
+
         }
     }
 
