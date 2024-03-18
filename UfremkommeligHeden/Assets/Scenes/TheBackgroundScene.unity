@@ -1554,7 +1554,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1091712651}
   m_LocalEulerAnglesHint: {x: 50, y: 169.8, z: 0}
 --- !u!1 &900303242
 GameObject:
@@ -1905,6 +1905,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1089820016}
   m_CullTransparentMesh: 1
+--- !u!1 &1091712649
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1091712651}
+  - component: {fileID: 1091712650}
+  m_Layer: 0
+  m_Name: TheBGSceanStuff
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1091712650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1091712649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61409b05b2bd2de40a4f02a2a170643a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  newSceneName: TutorialScenen
+--- !u!4 &1091712651
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1091712649}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1099809495}
+  - {fileID: 818986804}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1099809493
 GameObject:
   m_ObjectHideFlags: 0
@@ -1997,7 +2044,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1091712651}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &1101881867
 GameObject:
@@ -4932,8 +4979,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0.061157227, y: 0}
+  m_SizeDelta: {x: -0.061427116, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!136 &268499777003674768
 CapsuleCollider:
@@ -13116,7 +13163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.735849, g: 0.0541473, b: 0.0541473, a: 1}
+  m_Color: {r: 0.14150941, g: 0.13950692, b: 0.13950692, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -13125,7 +13172,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 30
+    m_FontSize: 35
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 3
@@ -17513,7 +17560,7 @@ RectTransform:
   m_GameObject: {fileID: 5253544577921570766}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1.6134, z: 1}
+  m_LocalScale: {x: 1, y: 1.7716744, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6788937006132038972}
@@ -20036,7 +20083,6 @@ GameObject:
   - component: {fileID: 5281850714273005504}
   - component: {fileID: 4196011716828383503}
   - component: {fileID: 5281850714273005519}
-  - component: {fileID: 5281850714273005520}
   - component: {fileID: 5281850714273005521}
   - component: {fileID: 5281850714273005522}
   m_Layer: 0
@@ -38725,7 +38771,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 5620958221439239381}
   m_Direction: 0
   m_Value: 1.0000001
-  m_Size: 0.29750833
+  m_Size: 0.27093017
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -43714,19 +43760,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dfb37e7663e944439273a0494a49058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5281850714273005520
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2235925223756832582}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61409b05b2bd2de40a4f02a2a170643a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  newSceneName: TutorialScenen
 --- !u!114 &5281850714273005521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55514,7 +55547,7 @@ RectTransform:
   m_GameObject: {fileID: 2850378093871397239}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 2}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.36375976, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1930528017095854051}
@@ -74535,6 +74568,5 @@ GameObject:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 1099809495}
+  - {fileID: 1091712651}
   - {fileID: 2235925223756832580}
-  - {fileID: 818986804}

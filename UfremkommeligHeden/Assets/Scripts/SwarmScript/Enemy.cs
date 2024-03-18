@@ -43,9 +43,10 @@ public class Enemy : MonoBehaviour
             PlayerXp playerXp = collision.gameObject.GetComponent<PlayerXp>();
             if (playerXp != null && collision.gameObject.CompareTag("Player"))
             {
+
                 playerXp.TakeDamage(damage); // Brug TakeDamage-metoden fra PlayerXp
             }
-
+             Debug.Log("fjenden kolliderer med spilleren, completed ");
             DestroyEnemy();
         }
     }
@@ -57,6 +58,7 @@ public class Enemy : MonoBehaviour
         PlayerXp playerXp = GameObject.Find("Player").GetComponent<PlayerXp>();
         if (playerXp != null)
         {
+            Debug.Log("DestroyEnemy() completed: " );
             playerXp.GainXP(xpReward);
         }
 

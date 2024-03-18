@@ -13,7 +13,8 @@ public class DamageOnCollision : MonoBehaviour
             PlayerXp playerXp = collision.gameObject.GetComponent<PlayerXp>();
             if (playerXp != null)
             {
-                playerXp.TakeDamage(damage); // Brug TakeDamage-metoden fra PlayerXp
+               Debug.Log("Hvis jeg ser det her er kolliderer spilleren med gmeobjektet, completed ");   
+            playerXp.TakeDamage(damage); // Brug TakeDamage-metoden fra PlayerXp
             }
         }
     }
