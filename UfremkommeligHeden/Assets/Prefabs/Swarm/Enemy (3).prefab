@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 8533446296732094798}
   m_Layer: 0
   m_Name: Enemy (3)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -9147153897960152629, guid: 3f3793ea205bfa04ab7724c9aac94bd5, type: 3}
+  - {fileID: 2100000, guid: 6b8c696c22a1c5b4fa46ca1de444d20e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -196,3 +196,4 @@ MonoBehaviour:
   speed: 1
   damage: 3
   xpReward: 5
+  chasePlayerDistance: 10

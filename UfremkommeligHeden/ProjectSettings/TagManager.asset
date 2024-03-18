@@ -16,6 +16,7 @@ TagManager:
   - Kill
   - Sus
   - Endpoint
+  - Enemy
   layers:
   - Default
   - TransparentFX
