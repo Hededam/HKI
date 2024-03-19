@@ -5,9 +5,11 @@ public class PlayerXp : MonoBehaviour
 {
     public int xp = 0; // Player's XP
     public int health = 100; // Player's health
+    public int PlayTimeLeft;
 
     public Text xpText; // UI text field for the XP
     public Text healthText; // UI text field for the health
+    public Text PlayTimeLeftText;
 
     private void Update()
     {
@@ -35,6 +37,31 @@ public class PlayerXp : MonoBehaviour
     private void Die()
     {
         // Handle player death here
-        Debug.Log("Player has died!"); // Example: You can add more logic or effects here
+        Debug.Log("Player has died!");
+
+        // Find the SceneStuff GameObject
+        GameObject sceneStuffObject = GameObject.Find("SceneStuff");
+
+        if (sceneStuffObject != null)
+        {
+            // Check if the object has the PlayerDeathHandler script attached
+            PlayerDeathHandler playerDeathHandler = sceneStuffObject.GetComponent<PlayerDeathHandler>();
+
+            if (playerDeathHandler != null)
+            {
+                // If the script is attached, execute the HandlePlayerDeath() function
+                playerDeathHandler.HandlePlayerDeath();
+                Debug.Log("HandlePlayerDeath() function executed successfully.");
+            }
+            else
+            {
+                Debug.Log("PlayerDeathHandler script not found on SceneStuff object.");
+            }
+        }
+        else
+        {
+            Debug.Log("SceneStuff object not found.");
+        }
     }
+
 }

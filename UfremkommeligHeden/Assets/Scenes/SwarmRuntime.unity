@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.00902095, g: 0.0130818, b: 0.020748641, a: 1}
+  m_IndirectSpecularColor: {r: 0.009021972, g: 0.013082055, b: 0.020743988, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4001,8 +4001,9 @@ GameObject:
   - component: {fileID: 1968515079}
   - component: {fileID: 1968515080}
   - component: {fileID: 1968515081}
+  - component: {fileID: 1968515082}
   m_Layer: 0
-  m_Name: SwarmStuff
+  m_Name: SceanStoff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4054,6 +4055,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   newSkybox: {fileID: 2100000, guid: 51b74d7bad397457d883c5940f7664d8, type: 2}
+--- !u!114 &1968515082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1968515078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0cc44b7d0bdb834b9e5199730798e75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reloadScene: 1
+  setPlayerHealthTo100: 0
+  setPlayerXPToZero: 0
+  teleportToSpecificLocation: 0
+  specificTeleportLocation: {fileID: 0}
 --- !u!1001 &2015118067
 PrefabInstance:
   m_ObjectHideFlags: 0

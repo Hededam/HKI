@@ -1,5 +1,4 @@
 using UnityEngine;
-
 public class DamageOnCollision : MonoBehaviour
 {
     public int damage = 1; // Skaden, der påføres spilleren ved kollision

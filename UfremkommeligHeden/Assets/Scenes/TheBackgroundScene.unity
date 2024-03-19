@@ -3163,6 +3163,7 @@ GameObject:
   - component: {fileID: 4623691672010896828}
   - component: {fileID: 230535176172406694}
   - component: {fileID: 4129891986201343692}
+  - component: {fileID: 5797889812357264291}
   m_Layer: 0
   m_Name: Clipbord_medpapirDebug (1)
   m_TagString: Untagged
@@ -24821,6 +24822,7 @@ GameObject:
   - component: {fileID: 7534025794594831144}
   - component: {fileID: 268499777003674768}
   - component: {fileID: 7932797437440715516}
+  - component: {fileID: 7932797437440715517}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -48186,6 +48188,33 @@ RectTransform:
   m_AnchoredPosition: {x: -299, y: -210}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!54 &5797889812357264291
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 94650376946527080}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!4 &5801615735289901260
 Transform:
   m_ObjectHideFlags: 0
@@ -64026,8 +64055,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xp: 0
   health: 100
+  PlayTimeLeft: 0
   xpText: {fileID: 900303246}
   healthText: {fileID: 1704736125}
+  PlayTimeLeftText: {fileID: 0}
+--- !u!54 &7932797437440715517
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2825914835990251013}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &7933098214292084339
 GameObject:
   m_ObjectHideFlags: 0
