@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.009021972, g: 0.013082055, b: 0.020743988, a: 1}
+  m_IndirectSpecularColor: {r: 0.00902095, g: 0.0130818, b: 0.020748641, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2075,11 +2075,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6250492133310713943, guid: 699ac351c48192f4ab4bbf2d7c92947c,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1228710873}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 699ac351c48192f4ab4bbf2d7c92947c, type: 3}
 --- !u!4 &1228710871 stripped
 Transform:
@@ -2087,25 +2083,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1228710870}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1228710872 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6250492133310713943, guid: 699ac351c48192f4ab4bbf2d7c92947c,
-    type: 3}
-  m_PrefabInstance: {fileID: 1228710870}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1228710873
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1228710872}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 703250c7568ef9e4b9e6c9c9ecd0e15b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TeleportDestination: {fileID: 1228710871}
 --- !u!1 &1255171102
 GameObject:
   m_ObjectHideFlags: 0
@@ -2851,7 +2828,7 @@ GameObject:
   - component: {fileID: 1968515080}
   - component: {fileID: 1968515081}
   m_Layer: 0
-  m_Name: SwarmStuff
+  m_Name: SceneStuff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
