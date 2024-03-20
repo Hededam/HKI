@@ -10,6 +10,7 @@ public class PlayerXp : MonoBehaviour
     public Text xpText; // UI text field for the XP
     public Text healthText; // UI text field for the health
     public Text PlayTimeLeftText;
+    public Image damageImage; // UI image for the damage effect
 
     private void Update()
     {
@@ -28,10 +29,19 @@ public class PlayerXp : MonoBehaviour
         health -= damage;
         Debug.Log("Player burde tage skade nu?");
         {
-            Debug.Log("Player brude dø nu"); 
+            Debug.Log("Player brude dø nu");
             Die();
-
+            ShowDamageEffect();
         }
+    }
+
+    private void ShowDamageEffect()
+    {
+        // Change the color of the damage image to red
+        damageImage.color = Color.red;
+
+        // Fade the damage image back to transparent over time
+        damageImage.CrossFadeAlpha(0f, 1f, false);
     }
 
     private void Die()
@@ -63,5 +73,4 @@ public class PlayerXp : MonoBehaviour
             Debug.Log("SceneStuff object not found.");
         }
     }
-
 }
