@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class PlayerXp : MonoBehaviour
 {
@@ -11,6 +12,16 @@ public class PlayerXp : MonoBehaviour
     public Text healthText; // UI text field for the health
     public Text PlayTimeLeftText; // UI text field for the PlayTimeLeft
     public Image damageImage; // UI image for the damage effect
+
+    void Start()
+    {
+        // Set the alpha value of the damage image to 1
+        damageImage.color = new Color(1, 0, 0, 1);
+
+        // Start the fade effect
+        StartCoroutine(ShowDamageEffectCoroutine());
+    }
+
 
     private void Update()
     {
@@ -49,16 +60,32 @@ public class PlayerXp : MonoBehaviour
             ShowDamageEffect();
         }
     }
-
-    private void ShowDamageEffect()
+    private IEnumerator ShowDamageEffectCoroutine()
     {
-        // Change the color of the damage image to red
-        damageImage.color = Color.red;
+        // Change the color of the damage image to red and reset the alpha value to 1
+        damageImage.color = new Color(1, 0, 0, 1);
 
         // Fade the damage image back to transparent over time
-        damageImage.CrossFadeAlpha(0f, 1f, false);
+        for (float t = 0; t < 1; t += Time.deltaTime)
+        {
+            // Interpolate the alpha value from 1 to 0 over one second
+            float alpha = Mathf.Lerp(1, 0, t);
+            damageImage.color = new Color(1, 0, 0, alpha);
+            yield return null;
+        }
+
+        // Ensure the alpha value is set to 0 at the end of the fade
+        damageImage.color = new Color(1, 0, 0, 0);
     }
 
+    public void ShowDamageEffect()
+    {
+        // Stop the previous coroutine if it's still running
+        StopCoroutine("ShowDamageEffectCoroutine");
+
+        // Start a new coroutine to show the damage effect
+        StartCoroutine("ShowDamageEffectCoroutine");
+    }
     private void Die()
     {
         // Handle player death here
