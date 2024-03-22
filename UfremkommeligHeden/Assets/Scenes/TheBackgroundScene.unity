@@ -1997,7 +1997,6 @@ GameObject:
   - component: {fileID: 1091712651}
   - component: {fileID: 1091712650}
   - component: {fileID: 1091712652}
-  - component: {fileID: 1091712653}
   m_Layer: 0
   m_Name: TheBGSceanStuff
   m_TagString: Untagged
@@ -2052,23 +2051,6 @@ MonoBehaviour:
   FadeInSpeed: 6
   FadeOutSpeed: 6
   SceneFadeInDelay: 1
---- !u!114 &1091712653
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1091712649}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0cc44b7d0bdb834b9e5199730798e75, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  reloadScene: 1
-  setPlayerHealthTo100: 0
-  setPlayerXPToZero: 1
-  teleportToSpecificLocation: 0
-  specificTeleportLocation: {fileID: 0}
 --- !u!1 &1099809493
 GameObject:
   m_ObjectHideFlags: 0
