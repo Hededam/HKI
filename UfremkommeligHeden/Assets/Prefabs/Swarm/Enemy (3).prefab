@@ -168,7 +168,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8533446296732094798}
         m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
-        m_MethodName: DestroyEnemy
+        m_MethodName: ActuallyDestroyEnemy
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

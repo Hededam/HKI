@@ -7613,6 +7613,7 @@ GameObject:
   - component: {fileID: 4742228912262349694}
   - component: {fileID: 2080038320885042305}
   - component: {fileID: 2541478713445859897}
+  - component: {fileID: 9215588785908559425}
   m_Layer: 0
   m_Name: Spider 1 SwarmDEMO
   m_TagString: Enemy
@@ -8098,7 +8099,7 @@ MonoBehaviour:
   Health: 1
   SelfDestruct: 0
   SelfDestructDelay: 0.1
-  SpawnOnDeath: {fileID: 194062, guid: 8c27aeead6d968e4ba986702d6b84335, type: 3}
+  SpawnOnDeath: {fileID: 0}
   ActivateGameObjectsOnDeath: []
   DeactivateGameObjectsOnDeath: []
   DeactivateCollidersOnDeath: []
@@ -8151,6 +8152,21 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &9215588785908559425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7547434043408892884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d578a41f4801f240a724c464761e989, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemiesScheduled: []
+  attackTimer: 5
+  callEnemies: 1
 --- !u!1 &7572588963704585874
 GameObject:
   m_ObjectHideFlags: 0

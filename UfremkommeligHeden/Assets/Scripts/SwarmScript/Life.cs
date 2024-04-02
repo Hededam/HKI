@@ -5,8 +5,8 @@ using System.Collections.Generic; // Tilføj denne linje for at bruge List
 
 public class Life : MonoBehaviour
 {
-    public int life = 10; // Livet for objektet
-    public string sceneToLoad; // Navnet på scenen, der skal loades
+    public int life = 100; // Livet for objektet
+    public string SceneToLoad; // Navnet på den scene, der skal indlæses
     public List<string> scenesToUnload; // Liste af scener, der skal unloades
     public TextMeshProUGUI lifeText; // Reference til dit TMP tekstfelt
 
@@ -25,7 +25,7 @@ public class Life : MonoBehaviour
             // Håndter objektets død (f.eks. slut spillet, vis game over skærm)
             if (gameObject.CompareTag("Endpoint"))
             {
-                SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Additive);
+                SceneManager.LoadScene(SceneToLoad, LoadSceneMode.Additive);
 
                 foreach (string scene in scenesToUnload)
                 {

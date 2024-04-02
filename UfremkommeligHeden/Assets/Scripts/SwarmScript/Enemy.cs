@@ -2,59 +2,81 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public float speed = 1f; // Fjendens hastighed
-    public int damage = 1; // Mængden af skade, fjenden påfører
-    public int xpReward = 20; // Mængden af XP, der belønnes, når fjenden ødelægges
-    public float chasePlayerDistance = 10f; // Afstanden, hvor fjenden begynder at jage spilleren
+    public float speed = 1f;
+    public int damage = 1;
+    public int xpReward = 20;
+    public float chasePlayerDistance = 10f;
 
-    private Transform targetTransform; // Målets transform
+    private Transform targetTransform;
+    private Animator animator; // Tilføj denne linje
+    private static readonly int IsWalking = Animator.StringToHash("IsWalking"); // Tilføj denne linje
+    private static readonly int IsDead = Animator.StringToHash("IsDead"); // Tilføj denne linje
 
     private void Start()
     {
+        animator = GetComponent<Animator>(); // Tilføj denne linje
         FindClosestEndpoint();
     }
 
-    private void Update()
-    {
-        // Bevæg dig mod målet
-        Vector3 direction = (targetTransform.position - transform.position).normalized;
-        transform.position += direction * speed * Time.deltaTime;
+   private void Update()
+{
+    Vector3 direction = (targetTransform.position - transform.position).normalized;
+    transform.position += direction * speed * Time.deltaTime;
 
-        // Hvis spilleren er inden for en bestemt afstand, begynd at jage spilleren
-        Transform playerTransform = GameObject.Find("Player").transform;
-        if (Vector3.Distance(transform.position, playerTransform.position) <= chasePlayerDistance)
-        {
-            targetTransform = playerTransform;
-        }
+    // Få fjenden til at kigge i bevægelsesretningen
+    Quaternion toRotation = Quaternion.LookRotation(direction, Vector3.up);
+    transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, speed * Time.deltaTime);
+
+    // Nulstil rotationen omkring X- og Z-akserne
+    transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+
+    // Hvis spilleren er inden for en bestemt afstand, begynd at jage spilleren
+    Transform playerTransform = GameObject.Find("Player").transform;
+    if (Vector3.Distance(transform.position, playerTransform.position) <= chasePlayerDistance)
+    {
+        targetTransform = playerTransform;
     }
+
+    // Opdater animationen baseret på fjendens bevægelse
+    if (speed > 0)
+    {
+        animator.SetBool(IsWalking, true);
+    }
+    else
+    {
+        animator.SetBool(IsWalking, false);
+    }
+}
+
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Endpoint") || collision.gameObject.CompareTag("Player"))
         {
-            // Målet tager skade
             Life life = collision.gameObject.GetComponent<Life>();
             if (life != null)
             {
-                life.TakeDamage(damage); // Brug TakeDamage-metoden fra Life
+                life.TakeDamage(damage);
             }
 
-            // Hvis fjenden kolliderer med spilleren, tager spilleren skade
             PlayerXp playerXp = collision.gameObject.GetComponent<PlayerXp>();
             if (playerXp != null && collision.gameObject.CompareTag("Player"))
             {
-
-                playerXp.TakeDamage(damage); // Brug TakeDamage-metoden fra PlayerXp
+                playerXp.TakeDamage(damage);
             }
-             Debug.Log("fjenden kolliderer med spilleren, completed ");
+            Debug.Log("fjenden kolliderer med spilleren, completed ");
             DestroyEnemy();
         }
     }
 
     public void DestroyEnemy()
     {
-        // Håndter fjendens ødelæggelse (f.eks. afspil partikeleffekt, fjern fra scenen)
-        // Beløn spilleren med XP
+        animator.SetBool(IsDead, true); // Tilføj denne linje
+        Invoke("ActuallyDestroyEnemy", 4f); // Tilføj denne linje
+    }
+
+    public void ActuallyDestroyEnemy() // Tilføj denne funktion
+    {
         PlayerXp playerXp = GameObject.Find("Player").GetComponent<PlayerXp>();
         if (playerXp != null)
         {
@@ -62,7 +84,7 @@ public class Enemy : MonoBehaviour
             playerXp.GainXP(xpReward);
         }
 
-        Destroy(gameObject); // Fjern fjendeobjektet
+        Destroy(gameObject);
     }
 
     private void FindClosestEndpoint()
