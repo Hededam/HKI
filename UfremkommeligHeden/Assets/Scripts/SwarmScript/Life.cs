@@ -27,6 +27,9 @@ public class Life : MonoBehaviour
             {
                 SceneManager.LoadScene(SceneToLoad, LoadSceneMode.Additive);
 
+                // Opdaterer lastLoadedScene i SceneLoaderHede scriptet
+                SceneLoaderHede.lastLoadedScene = SceneToLoad;
+
                 foreach (string scene in scenesToUnload)
                 {
                     SceneManager.UnloadSceneAsync(scene);

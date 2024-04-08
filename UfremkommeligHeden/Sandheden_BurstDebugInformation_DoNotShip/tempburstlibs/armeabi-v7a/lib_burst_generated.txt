@@ -16,7 +16,6 @@ Library: C:\Users\KBH-02\Documents\GitHub\HKI\UfremkommeligHeden\Temp\BurstOutpu
 --assembly-defines=MapMagic;
 --assembly-defines=Mono.Security;
 --assembly-defines=mscorlib;
---assembly-defines=PlayFab;
 --assembly-defines=PWCommon5DLL;
 --assembly-defines=System.Configuration;
 --assembly-defines=System.Core;
@@ -66,7 +65,6 @@ Library: C:\Users\KBH-02\Documents\GitHub\HKI\UfremkommeligHeden\Temp\BurstOutpu
 --assembly-defines=MapMagic;
 --assembly-defines=Mono.Security;
 --assembly-defines=mscorlib;
---assembly-defines=PlayFab;
 --assembly-defines=PWCommon5DLL;
 --assembly-defines=System.Configuration;
 --assembly-defines=System.Core;

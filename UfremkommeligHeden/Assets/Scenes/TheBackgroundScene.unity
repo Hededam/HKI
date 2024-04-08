@@ -4869,7 +4869,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1326413169224704295
 Transform:
   m_ObjectHideFlags: 0
@@ -6951,9 +6951,8 @@ GameObject:
   - component: {fileID: 7534025794594831144}
   - component: {fileID: 268499777003674768}
   - component: {fileID: 7932797437440715516}
-  - component: {fileID: 7932797437440715517}
   - component: {fileID: 7932797437440715518}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -11949,8 +11948,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 6327185461065584329}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.7290698, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -13362,10 +13361,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1930528017095854051}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 649.9693, y: -39.5}
+  m_SizeDelta: {x: 1259.9386, y: 39}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6795759291634424329
 MonoBehaviour:
@@ -14638,33 +14637,6 @@ MonoBehaviour:
   healthText: {fileID: 1704736125}
   PlayTimeLeftText: {fileID: 1353016723}
   damageImage: {fileID: 119277218}
---- !u!54 &7932797437440715517
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2825914835990251013}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
 --- !u!114 &7932797437440715518
 MonoBehaviour:
   m_ObjectHideFlags: 0
