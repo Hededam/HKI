@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -52,7 +53,10 @@ public class EnemySpawner : MonoBehaviour
                     for (int i = 0; i < enemiesToSpawn; i++)
                     {
                         Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-                        Instantiate(enemyTypes[enemyWave.enemyType].prefab, spawnPoint.position, Quaternion.identity);
+                        GameObject enemy = Instantiate(enemyTypes[enemyWave.enemyType].prefab, spawnPoint.position, Quaternion.identity);
+
+                        // Flytter fjenden til den ønskede scene
+                        SceneManager.MoveGameObjectToScene(enemy, SceneManager.GetSceneByName("SwarmRuntime"));
                     }
                     remainingEnemies -= enemiesToSpawn;
                     yield return new WaitForSeconds(1f);
