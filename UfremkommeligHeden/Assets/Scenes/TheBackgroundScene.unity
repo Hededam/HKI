@@ -3397,7 +3397,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.05
   m_Height: 1
@@ -5983,9 +5983,9 @@ GameObject:
   - component: {fileID: 5281850714273005504}
   - component: {fileID: 4196011716828383503}
   - component: {fileID: 5281850714273005519}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PlayerRIG
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
