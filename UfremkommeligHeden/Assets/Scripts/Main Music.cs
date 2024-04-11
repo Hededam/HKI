@@ -12,13 +12,6 @@ public class MainMusic : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            Destroy(gameObject);
-        }
-    }
     public void PlaySound(float vol, AudioClip myClip)     //adjust preferred volume of particular clip in "vol" 
     {
         soundSource.clip = myClip;
