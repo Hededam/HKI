@@ -185,6 +185,7 @@ MonoBehaviour:
   - EdderkoppeLand
   - Swarm
   - SwarmRuntime
+  - OliverB
   newSceneName: JumpingScene
   sceneNameText: {fileID: 325038008}
 --- !u!114 &76278447
@@ -342,6 +343,7 @@ MonoBehaviour:
   - JumpingScene
   - Swarm
   - SwarmRuntime
+  - OliverB
   newSceneName: MatematikLand
   sceneNameText: {fileID: 325038008}
 --- !u!114 &97777909
@@ -502,7 +504,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 119277217}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.147}
+  m_LocalPosition: {x: 0, y: 0, z: 0.529}
   m_LocalScale: {x: 0.0061753304, y: 0.0045650387, z: 0.7436128}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -574,6 +576,7 @@ MonoBehaviour:
   - JumpingScene
   - Swarm
   - SwarmRuntime
+  - OliverB
   newSceneName: Akselsverden
   sceneNameText: {fileID: 325038008}
 --- !u!114 &121949401
@@ -865,6 +868,7 @@ MonoBehaviour:
   - JumpingScene
   - Akselsverden
   - SwarmRuntime
+  - OliverB
   newSceneName: Swarm
   sceneNameText: {fileID: 325038008}
 --- !u!114 &400000215
@@ -1097,6 +1101,7 @@ MonoBehaviour:
   - JumpingScene
   - Swarm
   - SwarmRuntime
+  - OliverB
   newSceneName: LowPolyLand
   sceneNameText: {fileID: 325038008}
 --- !u!114 &527331268
@@ -1254,6 +1259,7 @@ MonoBehaviour:
   - JumpingScene
   - Swarm
   - SwarmRuntime
+  - OliverB
   newSceneName: EdderkoppeLand
   sceneNameText: {fileID: 325038008}
 --- !u!114 &655352656
@@ -2354,6 +2360,79 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1101881867}
   m_CullTransparentMesh: 1
+--- !u!1001 &1227816827
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2683195716791022644, guid: 4ac7df741a9c0a2418ec19477729ee3d,
+        type: 3}
+      propertyPath: m_Name
+      value: XR Rig Advanced
+      objectReference: {fileID: 0}
+    - target: {fileID: 2683195716791022644, guid: 4ac7df741a9c0a2418ec19477729ee3d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2683195716791022646, guid: 4ac7df741a9c0a2418ec19477729ee3d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2683195716791022646, guid: 4ac7df741a9c0a2418ec19477729ee3d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2683195716791022646, guid: 4ac7df741a9c0a2418ec19477729ee3d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2683195716791022646, guid: 4ac7df741a9c0a2418ec19477729ee3d,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2683195716791022646, guid: 4ac7df741a9c0a2418ec19477729ee3d,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2683195716791022646, guid: 4ac7df741a9c0a2418ec19477729ee3d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2683195716791022646, guid: 4ac7df741a9c0a2418ec19477729ee3d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2683195716791022646, guid: 4ac7df741a9c0a2418ec19477729ee3d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2683195716791022646, guid: 4ac7df741a9c0a2418ec19477729ee3d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2683195716791022646, guid: 4ac7df741a9c0a2418ec19477729ee3d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4ac7df741a9c0a2418ec19477729ee3d, type: 3}
 --- !u!1 &1264229618
 GameObject:
   m_ObjectHideFlags: 0
@@ -2416,6 +2495,7 @@ MonoBehaviour:
   - JumpingScene
   - Swarm
   - SwarmRuntime
+  - OliverB
   newSceneName: TutorialScenen
   sceneNameText: {fileID: 325038008}
 --- !u!114 &1264229621
@@ -5012,7 +5092,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1326413169224704295
 Transform:
   m_ObjectHideFlags: 0
@@ -7081,8 +7161,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2825914835990157867}
-  - component: {fileID: 2825914835985707981}
   - component: {fileID: 5689590633832378783}
+  - component: {fileID: 2825914835985707981}
   - component: {fileID: 7932797437440715515}
   - component: {fileID: 694864836492657708}
   - component: {fileID: 694864836492657709}
@@ -7095,7 +7175,7 @@ GameObject:
   - component: {fileID: 268499777003674768}
   - component: {fileID: 7932797437440715516}
   - component: {fileID: 7932797437440715517}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -12091,8 +12171,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 6327185461065584329}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.7290698, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -13504,10 +13584,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1930528017095854051}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 649.9693, y: -39.5}
-  m_SizeDelta: {x: 1259.9386, y: 39}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6795759291634424329
 MonoBehaviour:
@@ -16438,6 +16518,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1091712651}
+  - {fileID: 1227816827}
   - {fileID: 2235925223756832580}
   - {fileID: 495370332}
   - {fileID: 1804608694}
