@@ -56,7 +56,7 @@ public class PlayerXp : MonoBehaviour
         Debug.Log("Player burde tage skade nu?");
         {
             Debug.Log("Player brude dø nu");
-            Die();
+         
             ShowDamageEffect();
         }
     }

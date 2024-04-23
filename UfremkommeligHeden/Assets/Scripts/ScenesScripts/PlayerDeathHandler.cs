@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerDeathHandler : MonoBehaviour
 {
@@ -6,7 +8,8 @@ public class PlayerDeathHandler : MonoBehaviour
     private PlayerXp playerXp;
 
     // Handling for when the player dies
-    public bool reloadScene = true;
+    public string sceneToLoad;
+    public string sceneToUnload; // Navnet på scenen, der skal unloades
     public bool setPlayerHealthTo100 = false;
     public bool setPlayerXPToZero = false;
     public bool teleportToSpecificLocation = false;
@@ -14,15 +17,11 @@ public class PlayerDeathHandler : MonoBehaviour
 
     private void Start()
     {
-        {
-            // Find the PlayerXp component on the "Player" gameobject
-            playerXp = GameObject.Find("Player").GetComponent<PlayerXp>();
+        // Find the PlayerXp component on the "Player" gameobject
+        playerXp = GameObject.Find("Player").GetComponent<PlayerXp>();
 
-            // Initialize any necessary components or variables
-        }
-
+        // Initialize any necessary components or variables
     }
-
 
     // Call this method when the player dies
     public void HandlePlayerDeath()
@@ -33,11 +32,13 @@ public class PlayerDeathHandler : MonoBehaviour
             return;
         }
 
-  
-        if (reloadScene)
+        if (!string.IsNullOrEmpty(sceneToLoad))
         {
-            // Reload the current scene
-            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+            SceneManager.UnloadSceneAsync(sceneToUnload);
+            SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Additive);
+
+            // Opdaterer lastLoadedScene i SceneLoaderHede scriptet
+            SceneLoaderHede.lastLoadedScene = sceneToLoad;
         }
 
         if (setPlayerHealthTo100)
@@ -57,5 +58,19 @@ public class PlayerDeathHandler : MonoBehaviour
             // Teleport the player to the specific location
             transform.position = specificTeleportLocation.position;
         }
+    }
+
+    private IEnumerator LoadSceneAfterUnloadingOthers(string sceneToLoad)
+    {
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            Scene scene = SceneManager.GetSceneAt(i);
+            if (scene.name != "TheBackgroundScene")
+            {
+                yield return SceneManager.UnloadSceneAsync(scene);
+            }
+        }
+
+        SceneManager.LoadScene(sceneToLoad);
     }
 }
