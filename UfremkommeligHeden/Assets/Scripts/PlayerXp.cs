@@ -41,6 +41,11 @@ public class PlayerXp : MonoBehaviour
         if (PlayTimeLeft <= 0)
         {
             Debug.Log("Game Over");
+           
+        }
+        if (health <= 0)
+        {
+            Debug.Log("Du har taget for meget skade og er død");
             Die();
         }
     }
@@ -56,8 +61,7 @@ public class PlayerXp : MonoBehaviour
         Debug.Log("Player burde tage skade nu?");
         {
             Debug.Log("Player brude dø nu");
-         
-            ShowDamageEffect();
+                     ShowDamageEffect();
         }
     }
     private IEnumerator ShowDamageEffectCoroutine()
