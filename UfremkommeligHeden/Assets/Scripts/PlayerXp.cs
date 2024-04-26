@@ -1,17 +1,18 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class PlayerXp : MonoBehaviour
 {
     public int xp = 0; // Player's XP
     public int health = 100; // Player's health
     public float PlayTimeLeft = 1000; // Change this to float
-
     public Text xpText; // UI text field for the XP
     public Text healthText; // UI text field for the health
     public Text PlayTimeLeftText; // UI text field for the PlayTimeLeft
     public Image damageImage; // UI image for the damage effect
+    public string Himlen;
 
     void Start()
     {
@@ -21,7 +22,6 @@ public class PlayerXp : MonoBehaviour
         // Start the fade effect
         StartCoroutine(ShowDamageEffectCoroutine());
     }
-
 
     private void Update()
     {
@@ -41,7 +41,7 @@ public class PlayerXp : MonoBehaviour
         if (PlayTimeLeft <= 0)
         {
             Debug.Log("Game Over");
-           
+            GameOver();
         }
         if (health <= 0)
         {
@@ -60,7 +60,6 @@ public class PlayerXp : MonoBehaviour
         health -= damage;
         Debug.Log("Player burde tage skade nu?");
         {
-            Debug.Log("Player brude dø nu");
                      ShowDamageEffect();
         }
     }
@@ -118,5 +117,11 @@ public class PlayerXp : MonoBehaviour
         {
             Debug.Log("SceneStuff object not found.");
         }
+    }
+    private void GameOver()
+    {
+        // Ikke mere spille tid:
+        Debug.Log("Player has died! Din tid er forbi sorry");
+        SceneManager.LoadScene(Himlen);
     }
 }

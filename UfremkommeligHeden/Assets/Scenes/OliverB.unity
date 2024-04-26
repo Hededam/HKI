@@ -186,7 +186,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 0115e5c2932734b4182fc8737ad888a5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.832
+      value: 9.651977
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0115e5c2932734b4182fc8737ad888a5,
         type: 3}
@@ -196,27 +196,27 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 0115e5c2932734b4182fc8737ad888a5,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.1487
+      value: 0.81
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0115e5c2932734b4182fc8737ad888a5,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.90724856
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0115e5c2932734b4182fc8737ad888a5,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0115e5c2932734b4182fc8737ad888a5,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.4205949
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0115e5c2932734b4182fc8737ad888a5,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0115e5c2932734b4182fc8737ad888a5,
         type: 3}
@@ -226,7 +226,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 0115e5c2932734b4182fc8737ad888a5,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -49.744
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0115e5c2932734b4182fc8737ad888a5,
         type: 3}
@@ -1445,10 +1445,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToLoad: 
+  sceneToUnload: 
   setPlayerHealthTo100: 1
   setPlayerXPToZero: 1
   teleportToSpecificLocation: 1
   specificTeleportLocation: {fileID: 398526895}
+  RedusePlayTimeLeft: 0
 --- !u!82 &602714664
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1748,7 +1750,7 @@ MonoBehaviour:
   ParentHandModel: 1
   SnapHandModel: 1
   CanBeDropped: 1
-  CanBeSnappedToSnapZone: 1
+  CanBeSnappedToSnapZone: 0
   ForceDisableKinematicOnDrop: 0
   InstantMovement: 0
   MakeChildCollidersGrabbable: 0
@@ -2402,7 +2404,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 4a3f285ccda33af48ab272bfa94e7946,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.63
+      value: 2.3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4a3f285ccda33af48ab272bfa94e7946,
         type: 3}
@@ -2412,7 +2414,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 4a3f285ccda33af48ab272bfa94e7946,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.2895145
+      value: -5.71
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4a3f285ccda33af48ab272bfa94e7946,
         type: 3}

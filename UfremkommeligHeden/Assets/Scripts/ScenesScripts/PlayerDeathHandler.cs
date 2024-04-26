@@ -4,31 +4,27 @@ using UnityEngine.SceneManagement;
 
 public class PlayerDeathHandler : MonoBehaviour
 {
-    // Reference to the PlayerXp script on the player
-    private PlayerXp playerXp;
-
-    // Handling for when the player dies
+    private PlayerXp playerXp; // Reference til PlayerXp-scriptet på spilleren
     public string sceneToLoad;
     public string sceneToUnload; // Navnet på scenen, der skal unloades
     public bool setPlayerHealthTo100 = false;
     public bool setPlayerXPToZero = false;
     public bool teleportToSpecificLocation = false;
-    public Transform specificTeleportLocation; // Reference to the teleport location gameobject
+    public Transform specificTeleportLocation; 
+    public float RedusePlayTimeLeft = 0f;
 
     private void Start()
     {
-        // Find the PlayerXp component on the "Player" gameobject
+        // Find PlayerXp-komponenten på "Player"-objektet
         playerXp = GameObject.Find("Player").GetComponent<PlayerXp>();
-
-        // Initialize any necessary components or variables
     }
 
-    // Call this method when the player dies
+    // Kald denne metode, når spilleren dør
     public void HandlePlayerDeath()
     {
         if (playerXp == null)
         {
-            Debug.LogError("PlayerXp component not found!");
+            Debug.LogError("PlayerXp-komponent ikke fundet!");
             return;
         }
 
@@ -37,27 +33,30 @@ public class PlayerDeathHandler : MonoBehaviour
             SceneManager.UnloadSceneAsync(sceneToUnload);
             SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Additive);
 
-            // Opdaterer lastLoadedScene i SceneLoaderHede scriptet
+            // Opdaterer lastLoadedScene i SceneLoaderHede-scriptet
             SceneLoaderHede.lastLoadedScene = sceneToLoad;
         }
 
         if (setPlayerHealthTo100)
         {
-            // Set player health to the specified value
+            // Sæt spillerens sundhed til den specificerede værdi
             playerXp.health = 100;
         }
 
         if (setPlayerXPToZero)
         {
-            // Set player XP to 0
+            // Sæt spillerens XP til 0
             playerXp.xp = 0;
         }
 
         if (teleportToSpecificLocation && specificTeleportLocation != null)
         {
-            // Teleport the player to the specific location
+            // Teleportér spilleren til det specifikke sted
             transform.position = specificTeleportLocation.position;
         }
+
+        // Træk RedusePlayTimeLeft fra PlayTimeLeft
+        playerXp.PlayTimeLeft -= RedusePlayTimeLeft;
     }
 
     private IEnumerator LoadSceneAfterUnloadingOthers(string sceneToLoad)
