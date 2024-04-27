@@ -43,6 +43,19 @@ public class Tidsmåling : MonoBehaviour
             float endTime = Time.time - startTime;
             string formattedTime = string.Format("{0:0.00}", endTime);
             tidTekst.text = "Tid: " + formattedTime + " sekunder";
+            // XP til spiller           
+            GameObject playerObject = GameObject.FindWithTag("Player");
+
+                if (playerObject != null)
+                {
+                    // Tjek om objektet har PlayerXp scriptet tilknyttet
+                    PlayerXp playerXp = playerObject.GetComponent<PlayerXp>();
+
+                    if (playerXp != null)
+                    {  playerXp.GainXP(1000); // Tilføj 1000 XP
+                    }
+                }
+            
             raceFinished = true;
 
             // Afspil lyden når målringen er passeret

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.009021972, g: 0.013082055, b: 0.020743988, a: 1}
+  m_IndirectSpecularColor: {r: 0.00902095, g: 0.0130818, b: 0.020748641, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -909,7 +909,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 497004, guid: 4d3d4c896d8ce3746857930276d8fd7c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -8.709118
+      value: -10.6
       objectReference: {fileID: 0}
     - target: {fileID: 497004, guid: 4d3d4c896d8ce3746857930276d8fd7c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2277,7 +2277,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 466824, guid: 69a8b82af9c20454ca564ce4b8e6c261, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 24.92
+      value: 25.95
       objectReference: {fileID: 0}
     - target: {fileID: 466824, guid: 69a8b82af9c20454ca564ce4b8e6c261, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2285,7 +2285,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 466824, guid: 69a8b82af9c20454ca564ce4b8e6c261, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -35.68
+      value: -35.81
       objectReference: {fileID: 0}
     - target: {fileID: 466824, guid: 69a8b82af9c20454ca564ce4b8e6c261, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2391,7 +2391,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 406328, guid: be4701cf5a2ebb248ab252cb593f7108, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 22.8
+      value: 26.35
       objectReference: {fileID: 0}
     - target: {fileID: 406328, guid: be4701cf5a2ebb248ab252cb593f7108, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2399,7 +2399,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 406328, guid: be4701cf5a2ebb248ab252cb593f7108, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -8.709118
+      value: -9.64
       objectReference: {fileID: 0}
     - target: {fileID: 406328, guid: be4701cf5a2ebb248ab252cb593f7108, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3550,7 +3550,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 407448, guid: 86fee95da60b3e447a5446d0481f297e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.93
+      value: 8.22
       objectReference: {fileID: 0}
     - target: {fileID: 407448, guid: 86fee95da60b3e447a5446d0481f297e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3558,7 +3558,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 407448, guid: 86fee95da60b3e447a5446d0481f297e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -38.03
+      value: -37.92
       objectReference: {fileID: 0}
     - target: {fileID: 407448, guid: 86fee95da60b3e447a5446d0481f297e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4845,11 +4845,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0cc44b7d0bdb834b9e5199730798e75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reloadScene: 0
+  sceneToLoad: TutorialScenen
+  sceneToUnload: SwarmRuntime
   setPlayerHealthTo100: 1
   setPlayerXPToZero: 1
-  teleportToSpecificLocation: 1
+  teleportToSpecificLocation: 0
   specificTeleportLocation: {fileID: 617189811}
+  RedusePlayTimeLeft: 0
 --- !u!114 &1968515083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5108,7 +5110,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 498642, guid: 06e3424508744c84db4c1f1e72ee9ed1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -40.33
+      value: -40.49
       objectReference: {fileID: 0}
     - target: {fileID: 498642, guid: 06e3424508744c84db4c1f1e72ee9ed1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5116,7 +5118,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 498642, guid: 06e3424508744c84db4c1f1e72ee9ed1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -38.53
+      value: -38
       objectReference: {fileID: 0}
     - target: {fileID: 498642, guid: 06e3424508744c84db4c1f1e72ee9ed1, type: 3}
       propertyPath: m_LocalRotation.w
