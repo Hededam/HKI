@@ -16,6 +16,9 @@ public class PlayerXp : MonoBehaviour
 
     void Start()
     {
+        // Hent gemt XP (hvis det findes)
+        xp = PlayerPrefs.GetInt("PlayerXP", 0);
+
         // Set the alpha value of the damage image to 1
         damageImage.color = new Color(1, 0, 0, 1);
 
@@ -63,6 +66,7 @@ public class PlayerXp : MonoBehaviour
                      ShowDamageEffect();
         }
     }
+
     private IEnumerator ShowDamageEffectCoroutine()
     {
         // Change the color of the damage image to red and reset the alpha value to 1
@@ -81,6 +85,12 @@ public class PlayerXp : MonoBehaviour
         damageImage.color = new Color(1, 0, 0, 0);
     }
 
+    public void SaveXP()
+    {
+        PlayerPrefs.SetInt("PlayerXP", xp);
+        PlayerPrefs.Save();
+    }
+
     public void ShowDamageEffect()
     {
         // Stop the previous coroutine if it's still running
@@ -89,6 +99,7 @@ public class PlayerXp : MonoBehaviour
         // Start a new coroutine to show the damage effect
         StartCoroutine("ShowDamageEffectCoroutine");
     }
+
     private void Die()
     {
         // Handle player death here
@@ -118,6 +129,7 @@ public class PlayerXp : MonoBehaviour
             Debug.Log("SceneStuff object not found.");
         }
     }
+
     private void GameOver()
     {
         // Ikke mere spille tid:

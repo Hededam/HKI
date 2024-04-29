@@ -53,7 +53,8 @@ public class Tidsmåling : MonoBehaviour
 
                     if (playerXp != null)
                     {  playerXp.GainXP(1000); // Tilføj 1000 XP
-                    }
+                    playerXp.PlayTimeLeft += 200; // Tilføj 200 sekunder til spilletiden
+                }
                 }
             
             raceFinished = true;
