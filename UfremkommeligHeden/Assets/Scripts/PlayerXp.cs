@@ -16,8 +16,6 @@ public class PlayerXp : MonoBehaviour
 
     void Start()
     {
-        // Hent gemt XP (hvis det findes)
-        xp = PlayerPrefs.GetInt("PlayerXP", 0);
 
         // Set the alpha value of the damage image to 1
         damageImage.color = new Color(1, 0, 0, 1);
@@ -85,11 +83,6 @@ public class PlayerXp : MonoBehaviour
         damageImage.color = new Color(1, 0, 0, 0);
     }
 
-    public void SaveXP()
-    {
-        PlayerPrefs.SetInt("PlayerXP", xp);
-        PlayerPrefs.Save();
-    }
 
     public void ShowDamageEffect()
     {

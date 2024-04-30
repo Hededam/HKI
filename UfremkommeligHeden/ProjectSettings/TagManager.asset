@@ -17,6 +17,7 @@ TagManager:
   - Sus
   - Endpoint
   - Enemy
+  - Gamestuff
   layers:
   - Default
   - TransparentFX

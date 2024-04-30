@@ -16,7 +16,7 @@ public class PlayerDeathHandler : MonoBehaviour
     private void Start()
     {
         // Find PlayerXp-komponenten på "Player"-objektet
-        playerXp = GameObject.Find("Player").GetComponent<PlayerXp>();
+        playerXp = GameObject.Find("Gamestuff").GetComponent<PlayerXp>();
     }
 
     // Kald denne metode, når spilleren dør

@@ -9,24 +9,22 @@ public class ScoreboardHede : MonoBehaviour
     public TMP_Text playTimeLeftText; // UI text field for the PlayTimeLeft
 
     private PlayerXp player; // Reference to the PlayerXp script
-    private int highestXP = 0; // Variable to store the highest XP
+
 
     void Start()
     {
-        // Find the player in the scene using the tag
-        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        // Find the Gamestuff object in the scene using the tag
+        GameObject Gamestuff = GameObject.FindGameObjectWithTag("Gamestuff");
 
-        if (playerObject != null)
+        if (Gamestuff != null)
         {
-            player = playerObject.GetComponent<PlayerXp>();
+            player = Gamestuff.GetComponent<PlayerXp>();
         }
         else
         {
             Debug.Log("Player object not found.");
         }
 
-        // Load the highest XP from PlayerPrefs (if it exists)
-        highestXP = PlayerPrefs.GetInt("HighestXP", 0);
     }
 
     void Update()
@@ -37,16 +35,10 @@ public class ScoreboardHede : MonoBehaviour
             xpText.text = "XP: " + player.xp;
             healthText.text = "Health: " + player.health;
             playTimeLeftText.text = "Time Left: " + FormatTime(player.PlayTimeLeft);
-
-            // Check if the current XP is higher than the stored highestXP
-            if (player.xp > highestXP)
-            {
-                highestXP = player.xp;
-                SaveHighestXP(); // Save the new highest XP
-            }
-
-            // Update the highscore text field
-            highscoreText.text = "Highscore: " + highestXP;
+        }
+        else
+        {
+            Debug.Log("PlayerXp component not found.");
         }
     }
 
@@ -58,12 +50,5 @@ public class ScoreboardHede : MonoBehaviour
 
         // Return the time in MM:SS format
         return string.Format("{0:00}:{1:00}", minutes, seconds);
-    }
-
-    void SaveHighestXP()
-    {
-        // Save the highest XP to PlayerPrefs
-        PlayerPrefs.SetInt("HighestXP", highestXP);
-        PlayerPrefs.Save();
     }
 }

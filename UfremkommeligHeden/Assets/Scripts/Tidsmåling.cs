@@ -44,12 +44,12 @@ public class Tidsmåling : MonoBehaviour
             string formattedTime = string.Format("{0:0.00}", endTime);
             tidTekst.text = "Tid: " + formattedTime + " sekunder";
             // XP til spiller           
-            GameObject playerObject = GameObject.FindWithTag("Player");
+            GameObject Gamestuff = GameObject.FindWithTag("Gamestuff");
 
-                if (playerObject != null)
+                if (Gamestuff != null)
                 {
                     // Tjek om objektet har PlayerXp scriptet tilknyttet
-                    PlayerXp playerXp = playerObject.GetComponent<PlayerXp>();
+                    PlayerXp playerXp = Gamestuff.GetComponent<PlayerXp>();
 
                     if (playerXp != null)
                     {  playerXp.GainXP(1000); // Tilføj 1000 XP

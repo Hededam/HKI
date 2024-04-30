@@ -1,5 +1,5 @@
 using UnityEngine;
-
+//Det her script er i stykker
 public class Enemy : MonoBehaviour
 {
     public float speed = 1f;
@@ -18,35 +18,35 @@ public class Enemy : MonoBehaviour
         FindClosestEndpoint();
     }
 
-   private void Update()
-{
-    Vector3 direction = (targetTransform.position - transform.position).normalized;
-    transform.position += direction * speed * Time.deltaTime;
-
-    // Få fjenden til at kigge i bevægelsesretningen
-    Quaternion toRotation = Quaternion.LookRotation(direction, Vector3.up);
-    transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, speed * Time.deltaTime);
-
-    // Nulstil rotationen omkring X- og Z-akserne
-    transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
-
-    // Hvis spilleren er inden for en bestemt afstand, begynd at jage spilleren
-    Transform playerTransform = GameObject.Find("Player").transform;
-    if (Vector3.Distance(transform.position, playerTransform.position) <= chasePlayerDistance)
+    private void Update()
     {
-        targetTransform = playerTransform;
-    }
+        Vector3 direction = (targetTransform.position - transform.position).normalized;
+        transform.position += direction * speed * Time.deltaTime;
 
-    // Opdater animationen baseret på fjendens bevægelse
-    if (speed > 0)
-    {
-        animator.SetBool(IsWalking, true);
+        // Få fjenden til at kigge i bevægelsesretningen
+        Quaternion toRotation = Quaternion.LookRotation(direction, Vector3.up);
+        transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, speed * Time.deltaTime);
+
+        // Nulstil rotationen omkring X- og Z-akserne
+        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+
+        // Hvis spilleren er inden for en bestemt afstand, begynd at jage spilleren
+        Transform playerTransform = GameObject.Find("Player").transform;
+        if (Vector3.Distance(transform.position, playerTransform.position) <= chasePlayerDistance)
+        {
+            targetTransform = playerTransform;
+        }
+
+        // Opdater animationen baseret på fjendens bevægelse
+        if (speed > 0)
+        {
+            animator.SetBool(IsWalking, true);
+        }
+        else
+        {
+            animator.SetBool(IsWalking, false);
+        }
     }
-    else
-    {
-        animator.SetBool(IsWalking, false);
-    }
-}
 
 
     private void OnCollisionEnter(Collision collision)
@@ -80,7 +80,7 @@ public class Enemy : MonoBehaviour
         PlayerXp playerXp = GameObject.Find("Player").GetComponent<PlayerXp>();
         if (playerXp != null)
         {
-            Debug.Log("DestroyEnemy() completed: " );
+            Debug.Log("DestroyEnemy() completed: ");
             playerXp.GainXP(xpReward);
         }
 

@@ -9,14 +9,20 @@ public class EnemyDamage : MonoBehaviour
         // Tjek om kollisionen er med spilleren
         if (collision.gameObject.CompareTag("Player"))
         {
-            // Hent PlayerXp-komponenten fra spilleren
-            PlayerXp playerXp = collision.gameObject.GetComponent<PlayerXp>();
+            // Find GameObject med tagget "Gamestuff"
+            GameObject gameStuff = GameObject.FindGameObjectWithTag("Gamestuff");
 
-            // Hvis PlayerXp-komponenten eksisterer, påfør skade
-            if (playerXp != null)
+            // Hvis GameObject med tagget "Gamestuff" eksisterer, hent PlayerXp-komponenten
+            if (gameStuff != null)
             {
-                Debug.Log("TakeDamage");
-                playerXp.TakeDamage(damageAmount);
+                PlayerXp playerXp = gameStuff.GetComponent<PlayerXp>();
+
+                // Hvis PlayerXp-komponenten eksisterer, påfør skade
+                if (playerXp != null)
+                {
+                    Debug.Log("TakeDamage");
+                    playerXp.TakeDamage(damageAmount);
+                }
             }
         }
     }
