@@ -304,7 +304,7 @@ GameObject:
   - component: {fileID: 929852856}
   - component: {fileID: 929852855}
   m_Layer: 0
-  m_Name: GameStats
+  m_Name: GameStuff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -645,6 +645,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1296324022298796285, guid: 1b4e8d42157e67945a94f0149eb3084d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1989148295167019157, guid: 1b4e8d42157e67945a94f0149eb3084d,
         type: 3}
       propertyPath: m_Name
@@ -755,7 +760,8 @@ PrefabInstance:
       propertyPath: Himlen
       value: Himlen
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8426916318423308079, guid: 1b4e8d42157e67945a94f0149eb3084d, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -765,8 +771,8 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1091712651}
+  - {fileID: 929852856}
   - {fileID: 1227816827}
   - {fileID: 4902991439428198841}
   - {fileID: 495370332}
   - {fileID: 1804608694}
-  - {fileID: 929852856}
