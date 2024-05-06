@@ -40,7 +40,42 @@ public class MathGame : MonoBehaviour
     public List<WordProblem> wordProblems = new List<WordProblem>
     {
         new WordProblem { Text = "Hvis en bil kører med en hastighed på 60 km/t, Hvor lang tid vil det tage at køre 240 km?", Answer = 4 },
-       
+        new WordProblem { Text = "Hvis en skole har 10 klasser, og hver klasse har 15 elever, hvor mange elever er der i alt på skolen?", Answer = 150 },
+        new WordProblem { Text = "Hvis en landmand har 4 høns, og hver høne lægger 3 æg om dagen, hvor mange æg får landmanden om dagen?", Answer = 12 },
+        new WordProblem { Text = "Hvis en bog har 200 sider, og du læser 25 sider om dagen, hvor mange dage vil det tage at læse hele bogen?", Answer = 8 },
+        new WordProblem { Text = "Hvis en cykel koster 3000 kr, og du sparer 200 kr om måneden, hvor mange måneder vil det tage at spare op til cyklen?", Answer = 15 },
+        new WordProblem { Text = "Hvis en bager har 25 brød, og hver kunde køber 2 brød, hvor mange kunder kan bageren betjene?", Answer = 12 },
+        new WordProblem { Text = "Hvis der er 12 fugle på et træ, 7 flyver væk, og 5 mere lander på træet, hvor mange fugle er der nu?", Answer = 10 },
+        new WordProblem { Text = "Hvis Anna har 15 blyanter, hun giver 5 til sin ven og køber 10 mere, hvor mange blyanter har hun nu?", Answer = 20 },
+        new WordProblem { Text = "Hvis Bob har ti æbler, efter han har givet to til Mads og selv spist tre, hvor mange har han så tilbage?", Answer = 5 },
+        new WordProblem { Text = "Hvis en bil kører med en hastighed på 70 km/t, hvor lang tid vil det tage at køre 280 km?", Answer = 4 },
+        new WordProblem { Text = "Hvis en skole har 9 klasser, og hver klasse har 20 elever, hvor mange elever er der i alt på skolen?", Answer = 180 },
+        new WordProblem { Text = "Hvis en landmand har 5 høns, og hver høne lægger 4 æg om dagen, hvor mange æg får landmanden om dagen?", Answer = 20 },
+        new WordProblem { Text = "Hvis en bog har 250 sider, og du læser 50 sider om dagen, hvor mange dage vil det tage at læse hele bogen?", Answer = 5 },
+        new WordProblem { Text = "Hvis en cykel koster 3500 kr, og du sparer 700 kr om måneden, hvor mange måneder vil det tage at spare op til cyklen?", Answer = 5 },
+        new WordProblem { Text = "Hvis en bager har 30 brød, og hver kunde køber 3 brød, hvor mange kunder kan bageren betjene?", Answer = 10 },
+        new WordProblem { Text = "Hvis der er 15 fugle på et træ, 5 flyver væk, og 7 mere lander på træet, hvor mange fugle er der nu?", Answer = 17 },
+        new WordProblem { Text = "Hvis Anna har 20 blyanter, hun giver 5 til sin ven og køber 15 mere, hvor mange blyanter har hun nu?", Answer = 30 },
+        new WordProblem { Text = "Hvis Bob har 15 æbler, efter han har givet 3 til Mads og selv spist 4, hvor mange har han så tilbage?", Answer = 8 },
+        new WordProblem { Text = "Hvis en bil kører med en hastighed på 80 km/t, hvor lang tid vil det tage at køre 320 km?", Answer = 4 },
+        new WordProblem { Text = "Hvis en skole har 8 klasser, og hver klasse har 25 elever, hvor mange elever er der i alt på skolen?", Answer = 200 },
+        new WordProblem { Text = "Hvis en landmand har 6 høns, og hver høne lægger 5 æg om dagen, hvor mange æg får landmanden om dagen?", Answer = 30 },
+        new WordProblem { Text = "Hvis en bog har 300 sider, og du læser 60 sider om dagen, hvor mange dage vil det tage at læse hele bogen?", Answer = 5 },
+        new WordProblem { Text = "Hvis en cykel koster 4000 kr, og du sparer 800 kr om måneden, hvor mange måneder vil det tage at spare op til cyklen?", Answer = 5 },
+        new WordProblem { Text = "Hvis en bager har 35 brød, og hver kunde køber 7 brød, hvor mange kunder kan bageren betjene?", Answer = 5 },
+        new WordProblem { Text = "Hvis der er 18 fugle på et træ, 6 flyver væk, og 9 mere lander på træet, hvor mange fugle er der nu?", Answer = 21 },
+        new WordProblem { Text = "Hvis Anna har 25 blyanter, hun giver 5 til sin ven og køber 20 mere, hvor mange blyanter har hun nu?", Answer = 40 },
+        new WordProblem { Text = "Hvis Bob har 20 æbler, efter han har givet 4 til Mads og selv spist 5, hvor mange har han så tilbage?", Answer = 11 },
+        new WordProblem { Text = "Hvis en bil kører med en hastighed på 90 km/t, hvor lang tid vil det tage at køre 360 km?", Answer = 4 },
+        new WordProblem { Text = "Hvis en skole har 7 klasser, og hver klasse har 30 elever, hvor mange elever er der i alt på skolen?", Answer = 210 },
+        new WordProblem { Text = "Hvis en landmand har 7 høns, og hver høne lægger 6 æg om dagen, hvor mange æg får landmanden om dagen?", Answer = 42 },
+        new WordProblem { Text = "Hvis en bog har 350 sider, og du læser 70 sider om dagen, hvor mange dage vil det tage at læse hele bogen?", Answer = 5 },
+        new WordProblem { Text = "Hvis en cykel koster 4500 kr, og du sparer 900 kr om måneden, hvor mange måneder vil det tage at spare op til cyklen?", Answer = 5 },
+        new WordProblem { Text = "Hvis en bager har 40 brød, og hver kunde køber 8 brød, hvor mange kunder kan bageren betjene?", Answer = 5 },
+        new WordProblem { Text = "Hvis der er 21 fugle på et træ, 7 flyver væk, og 11 mere lander på træet, hvor mange fugle er der nu?", Answer = 25 },
+        new WordProblem { Text = "Hvis Anna har 30 blyanter, hun giver 6 til sin ven og køber 24 mere, hvor mange blyanter har hun nu?", Answer = 48 },
+        new WordProblem { Text = "Hvis Bob har 25 æbler, efter han har givet 5 til Mads og selv spist 6, hvor mange har han så tilbage?", Answer = 14 },
+        new WordProblem { Text = "Hvis en bil kører med en hastighed på 100 km/t, hvor lang tid vil det tage at køre 400 km?", Answer = 4 }
 
     };
 
