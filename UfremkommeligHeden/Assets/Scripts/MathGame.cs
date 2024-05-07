@@ -2,11 +2,13 @@
 using TMPro;
 using System.Collections.Generic;
 
+
 public class WordProblem
 {
     public string Text { get; set; }
     public int Answer { get; set; }
 }
+
 
 public class MathGame : MonoBehaviour
 {
@@ -39,44 +41,35 @@ public class MathGame : MonoBehaviour
 
     public List<WordProblem> wordProblems = new List<WordProblem>
     {
-        new WordProblem { Text = "Hvis en bil kører med en hastighed på 60 km/t, Hvor lang tid vil det tage at køre 240 km?", Answer = 4 },
-        new WordProblem { Text = "Hvis en skole har 10 klasser, og hver klasse har 15 elever, hvor mange elever er der i alt på skolen?", Answer = 150 },
-        new WordProblem { Text = "Hvis en landmand har 4 høns, og hver høne lægger 3 æg om dagen, hvor mange æg får landmanden om dagen?", Answer = 12 },
-        new WordProblem { Text = "Hvis en bog har 200 sider, og du læser 25 sider om dagen, hvor mange dage vil det tage at læse hele bogen?", Answer = 8 },
-        new WordProblem { Text = "Hvis en cykel koster 3000 kr, og du sparer 200 kr om måneden, hvor mange måneder vil det tage at spare op til cyklen?", Answer = 15 },
-        new WordProblem { Text = "Hvis en bager har 25 brød, og hver kunde køber 2 brød, hvor mange kunder kan bageren betjene?", Answer = 12 },
-        new WordProblem { Text = "Hvis der er 12 fugle på et træ, 7 flyver væk, og 5 mere lander på træet, hvor mange fugle er der nu?", Answer = 10 },
-        new WordProblem { Text = "Hvis Anna har 15 blyanter, hun giver 5 til sin ven og køber 10 mere, hvor mange blyanter har hun nu?", Answer = 20 },
-        new WordProblem { Text = "Hvis Bob har ti æbler, efter han har givet to til Mads og selv spist tre, hvor mange har han så tilbage?", Answer = 5 },
-        new WordProblem { Text = "Hvis en bil kører med en hastighed på 70 km/t, hvor lang tid vil det tage at køre 280 km?", Answer = 4 },
-        new WordProblem { Text = "Hvis en skole har 9 klasser, og hver klasse har 20 elever, hvor mange elever er der i alt på skolen?", Answer = 180 },
-        new WordProblem { Text = "Hvis en landmand har 5 høns, og hver høne lægger 4 æg om dagen, hvor mange æg får landmanden om dagen?", Answer = 20 },
-        new WordProblem { Text = "Hvis en bog har 250 sider, og du læser 50 sider om dagen, hvor mange dage vil det tage at læse hele bogen?", Answer = 5 },
-        new WordProblem { Text = "Hvis en cykel koster 3500 kr, og du sparer 700 kr om måneden, hvor mange måneder vil det tage at spare op til cyklen?", Answer = 5 },
-        new WordProblem { Text = "Hvis en bager har 30 brød, og hver kunde køber 3 brød, hvor mange kunder kan bageren betjene?", Answer = 10 },
-        new WordProblem { Text = "Hvis der er 15 fugle på et træ, 5 flyver væk, og 7 mere lander på træet, hvor mange fugle er der nu?", Answer = 17 },
-        new WordProblem { Text = "Hvis Anna har 20 blyanter, hun giver 5 til sin ven og køber 15 mere, hvor mange blyanter har hun nu?", Answer = 30 },
-        new WordProblem { Text = "Hvis Bob har 15 æbler, efter han har givet 3 til Mads og selv spist 4, hvor mange har han så tilbage?", Answer = 8 },
-        new WordProblem { Text = "Hvis en bil kører med en hastighed på 80 km/t, hvor lang tid vil det tage at køre 320 km?", Answer = 4 },
-        new WordProblem { Text = "Hvis en skole har 8 klasser, og hver klasse har 25 elever, hvor mange elever er der i alt på skolen?", Answer = 200 },
-        new WordProblem { Text = "Hvis en landmand har 6 høns, og hver høne lægger 5 æg om dagen, hvor mange æg får landmanden om dagen?", Answer = 30 },
-        new WordProblem { Text = "Hvis en bog har 300 sider, og du læser 60 sider om dagen, hvor mange dage vil det tage at læse hele bogen?", Answer = 5 },
-        new WordProblem { Text = "Hvis en cykel koster 4000 kr, og du sparer 800 kr om måneden, hvor mange måneder vil det tage at spare op til cyklen?", Answer = 5 },
-        new WordProblem { Text = "Hvis en bager har 35 brød, og hver kunde køber 7 brød, hvor mange kunder kan bageren betjene?", Answer = 5 },
-        new WordProblem { Text = "Hvis der er 18 fugle på et træ, 6 flyver væk, og 9 mere lander på træet, hvor mange fugle er der nu?", Answer = 21 },
-        new WordProblem { Text = "Hvis Anna har 25 blyanter, hun giver 5 til sin ven og køber 20 mere, hvor mange blyanter har hun nu?", Answer = 40 },
-        new WordProblem { Text = "Hvis Bob har 20 æbler, efter han har givet 4 til Mads og selv spist 5, hvor mange har han så tilbage?", Answer = 11 },
-        new WordProblem { Text = "Hvis en bil kører med en hastighed på 90 km/t, hvor lang tid vil det tage at køre 360 km?", Answer = 4 },
-        new WordProblem { Text = "Hvis en skole har 7 klasser, og hver klasse har 30 elever, hvor mange elever er der i alt på skolen?", Answer = 210 },
-        new WordProblem { Text = "Hvis en landmand har 7 høns, og hver høne lægger 6 æg om dagen, hvor mange æg får landmanden om dagen?", Answer = 42 },
-        new WordProblem { Text = "Hvis en bog har 350 sider, og du læser 70 sider om dagen, hvor mange dage vil det tage at læse hele bogen?", Answer = 5 },
-        new WordProblem { Text = "Hvis en cykel koster 4500 kr, og du sparer 900 kr om måneden, hvor mange måneder vil det tage at spare op til cyklen?", Answer = 5 },
-        new WordProblem { Text = "Hvis en bager har 40 brød, og hver kunde køber 8 brød, hvor mange kunder kan bageren betjene?", Answer = 5 },
-        new WordProblem { Text = "Hvis der er 21 fugle på et træ, 7 flyver væk, og 11 mere lander på træet, hvor mange fugle er der nu?", Answer = 25 },
-        new WordProblem { Text = "Hvis Anna har 30 blyanter, hun giver 6 til sin ven og køber 24 mere, hvor mange blyanter har hun nu?", Answer = 48 },
-        new WordProblem { Text = "Hvis Bob har 25 æbler, efter han har givet 5 til Mads og selv spist 6, hvor mange har han så tilbage?", Answer = 14 },
-        new WordProblem { Text = "Hvis en bil kører med en hastighed på 100 km/t, hvor lang tid vil det tage at køre 400 km?", Answer = 4 }
-
+new WordProblem { Text = "Her er en svær, Hvis en rumraket flyver med en hastighed på 28.000 km/t, hvor lang tid vil det tage at nå Månen, der er 384.400 km væk?", Answer = 14 },
+new WordProblem { Text = "En troldmand fremtryller 7 kaniner fra sin hat hver dag, bare fordi han ikke har andet at lave, hvor mange kaniner vil han have efter en uge, hvis vi går ud fra at de ikke pare sig?", Answer = 49 },
+new WordProblem { Text = "En IT-underviser kan løfte 100 gange sin egen vægt, og han vejer 70 kg, hvor menge Kg. kan han løfte?", Answer = 7000 },
+new WordProblem { Text = "Hvis en robot kan bygge en bil på 6 timer, hvor mange biler kan den bygge på en dag?", Answer = 4 },
+new WordProblem { Text = "Hvis en pirat finder en skattekiste med 500 guldmønter og deler dem ligeligt mellem sig selv og sine 4 besætningsmedlemmer, hvor mange mønter får hver person?", Answer = 100 },
+new WordProblem { Text = "Hvis en prinsesse har 20 par sko men mister 7 par på en rejse, og så køber 15 par mere, Hvor mange par sko har hun så?", Answer = 28 },
+new WordProblem { Text = "Her er en lidt svær, Hvis en astronaut tager 3 skridt på Månen, og hvert skridt er 1,5 gange længere end på Jorden, hvor mange 'jord-skridt' har astronauten så taget?", Answer = 5 },
+new WordProblem { Text = "Hvis en detektiv løser 2 mysterier om dagen, hvor mange mysterier vil detektiven have løst på en uge?", Answer = 14 },
+new WordProblem { Text = "Hvis en ninja kaster 5 stjerner hvert minut, hvor mange stjerner vil ninjaen have kastet på en time?", Answer = 300 },
+new WordProblem { Text = "Hvis en zombie spiser 3 hjerner om dagen, hvor mange hjerner vil zombien have spist på en uge?", Answer = 21 },
+new WordProblem { Text = "Hvis en vampyr drikker 2 liter blod hver nat, hvor meget blod vil vampyren have drukket på en måned (30 dage)?", Answer = 60 },
+new WordProblem { Text = "Hvis et rumvæsen har 5 øjne og møder 4 andre rumvæsener, hvor mange øjne ser rumvæsenet i alt?", Answer = 20 },
+new WordProblem { Text = "Hvis en heks brygger 2 trylledrikke om dagen, og hver trylledrik kræver 3 edderkopper, hvor mange edderkopper vil heksen bruge på en uge?", Answer = 42 },
+new WordProblem { Text = "Hvis en superhelt redder 4 grimme børn fra brandende bygninger hver dag, hvor mange børn vil superhelten have reddet på en måned (30 dage)?", Answer = 120 },
+new WordProblem { Text = "Hvis en robot kan danse i 15 minutter på et enkelt batteri, hvor mange timer kan robotten danse med 12 batterier?", Answer = 3 },
+new WordProblem { Text = "Hvis en enhjørning løber 5 km om dagen, hvor mange km vil enhjørningen have løbet på en måned (30 dage)?", Answer = 150 },
+new WordProblem { Text = "Hvis en drage samler 3 skatte om dagen, hvor mange skatte vil dragen have samlet på en uge?", Answer = 21 },
+new WordProblem { Text = "Hvis en snegl bevæger sig 0,03 km/t, hvor mange dage vil det tage for sneglen at bevæge sig 1 km?", Answer = 33 },
+new WordProblem { Text = "Hvis en myre kan bære 50 gange sin egen vægt, og den vejer 3 mg, hvor meget kan myren bære?", Answer = 150 },
+new WordProblem { Text = "Hvis en frø kan hoppe 20 gange sin egen længde, og den er 5 cm lang, hvor langt kan frøen hoppe?", Answer = 100 },
+new WordProblem { Text = "Hvis en kakerlak kan lægge 5 æg om dagen, hvor mange æg vil kakerlakken have lagt på en måned (30 dage)?", Answer = 150 },
+new WordProblem { Text = "Hvis en flue kan producere 10 gram afføring om dagen, hvor meget afføring vil fluen have produceret på en uge? (og ja det er en temmelig stor flue)", Answer = 70 },
+new WordProblem { Text = "Hvis en rotte kan gnave gennem 2 cm træ om dagen, hvor lang tid vil det tage for rotten at gnave gennem en 30 cm tyk trædør?", Answer = 15 },
+new WordProblem { Text = "Hvis en skorpion stikker 3 gange om dagen, hvor mange gange vil skorpionen have stukket på en uge?", Answer = 21 },
+new WordProblem { Text = "Hvis en edderkop spinder 4 meter spindelvæv om dagen, hvor mange meter spindelvæv vil edderkoppen have spundet på en måned (30 dage)?", Answer = 120 },
+new WordProblem { Text = "Hvis en drage ånder ild og brænder 4 slotte ned hver måned, hvor mange slotte vil ligge i ruiner efter et år?", Answer = 48 },
+new WordProblem { Text = "En zombiehær angriber en by med 1000 indbyggere. Hver zombie kan æde 5 menneskehjerner om dagen. Hvor mange dage tager det, før byen er hjerneløs", Answer = 200 },
+new WordProblem { Text = "Hvis en trold kan spise 10 kilo slik på en time, hvor meget slik vil han have spist efter 3 timer, hvis han ikke får ondt i maven?", Answer = 30 },
+new WordProblem { Text = "Hvis en varulv æder 4 dumme børn hver fuldmåne, hvor mange dumme unger vil han have spist efter 3 fuldmåner?", Answer = 12 },
     };
 
     void Start()
@@ -89,7 +82,6 @@ public class MathGame : MonoBehaviour
 
     void GenerateProblem()
     {
-        operation = Random.Range(0, 5);
         // Tjek om alle operationer er deaktiveret
         if (!isAdditionEnabled && !isSubtractionEnabled && !isMultiplicationEnabled && !isDivisionEnabled && !isSquareRootEnabled && !isWordProblemEnabled)
         {
@@ -97,11 +89,22 @@ public class MathGame : MonoBehaviour
             return;
         }
 
-        if (isWordProblemEnabled && Random.Range(0, 2) == 0) // Tilfældigt vælg mellem en WordProblem og en normal matematisk operation
+        // Hvis kun wordProblems er aktiveret, generer et nyt wordProblem
+        if (isWordProblemEnabled && !isAdditionEnabled && !isSubtractionEnabled && !isMultiplicationEnabled && !isDivisionEnabled && !isSquareRootEnabled)
         {
-            var problem = wordProblems[Random.Range(0, wordProblems.Count)];
-            problemText.text = problem.Text;
-            correctAnswer = problem.Answer;
+            if (wordProblems.Count > 0)
+            {
+                int index = Random.Range(0, wordProblems.Count);
+                var problem = wordProblems[index];
+                problemText.text = problem.Text;
+                correctAnswer = problem.Answer;
+                wordProblems.RemoveAt(index); // Fjern det valgte problem fra listen
+            }
+            else
+            {
+                problemText.text = "Der er ikke flere wordProblems tilbage. Aktivér en anden type opgave for at fortsætte.";
+                return;
+            }
         }
         else
         {

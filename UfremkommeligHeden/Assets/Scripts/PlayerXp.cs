@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class PlayerXp : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class PlayerXp : MonoBehaviour
     public Text PlayTimeLeftText; // UI text field for the PlayTimeLeft
     public Image damageImage; // UI image for the damage effect
     public string Himlen;
+    public TextMeshProUGUI tmpPlayTimeText; // UI TextMeshPro Text-felt for den midlertidige PlayTimeLeft-visning
+
 
     void Start()
     {
@@ -36,7 +39,32 @@ public class PlayerXp : MonoBehaviour
         // Update the UI text fields
         xpText.text = "XP: " + xp;
         healthText.text = "Health: " + health;
-        PlayTimeLeftText.text = string.Format("Time Left: {0:00}:{1:00}", minutes, seconds); // Display the time left in MM:SS format
+
+        // Display the time left in MM:SS format
+        PlayTimeLeftText.text = string.Format("Time Left: {0:00}:{1:00}", minutes, seconds);
+
+        // Change text color to red if PlayTimeLeft is less than a minute
+        if (PlayTimeLeft < 60)
+        {
+            PlayTimeLeftText.color = Color.red;
+        }
+        else
+        {
+            // Set to default color if more than a minute is left
+            PlayTimeLeftText.color = Color.white; // Eller en anden standardfarve efter dit valg
+        }
+
+        if (PlayTimeLeft < 30)
+        {
+            // Formatér og vis tiden i tmpPlayTimeText
+            tmpPlayTimeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+            tmpPlayTimeText.enabled = true; // Vis teksten
+        }
+        else
+        {
+            tmpPlayTimeText.enabled = false; // Skjul teksten, når der er mere end et minut tilbage
+        }
+
 
         // Check if the PlayTimeLeft has reached zero
         if (PlayTimeLeft <= 0)
