@@ -522,7 +522,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xp: 0
   health: 100
-  PlayTimeLeft: 90
+  PlayTimeLeft: 240
   xpText: {fileID: 1558993407}
   healthText: {fileID: 884353083}
   PlayTimeLeftText: {fileID: 651879786}
