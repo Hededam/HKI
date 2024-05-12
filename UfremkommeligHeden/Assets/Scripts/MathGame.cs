@@ -202,7 +202,7 @@ new WordProblem { Text = "Hvis en varulv æder 4 dumme børn hver fuldmåne, hvo
                     problemText.text = $"√{correctAnswer} = ?";
                     break;
                 default:
-                    Debug.LogError("Invalid operation!");
+                    Debug.LogError("fejl i GenerateProblem()");
                     break;
             }
         }
@@ -232,7 +232,7 @@ new WordProblem { Text = "Hvis en varulv æder 4 dumme børn hver fuldmåne, hvo
                        switch (operation) 
                         {
                             case 0: // Addition
-                                playerXp.GainXP(10); // Tilføj 10 XP
+                                playerXp.GainXP(10); // Tilføj 50 XP
                                 playerXp.PlayTimeLeft += 30; // Tilføj 30 sekunder til spilletiden
                                 break;
                             case 1: // Subtraction
@@ -252,7 +252,7 @@ new WordProblem { Text = "Hvis en varulv æder 4 dumme børn hver fuldmåne, hvo
                                 playerXp.PlayTimeLeft += 75; // Tilføj 75 sekunder til spilletiden
                                 break;
                             default:
-                                Debug.LogError("Invalid operation!");
+                                Debug.LogError("fejl i CheckAnswer()");
                                 break;
                         }
                     }
