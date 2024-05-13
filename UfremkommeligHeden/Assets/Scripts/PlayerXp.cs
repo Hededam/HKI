@@ -14,12 +14,11 @@ public class PlayerXp : MonoBehaviour
     public Text PlayTimeLeftText; // UI text field for the PlayTimeLeft
     public Image damageImage; // UI image for the damage effect
     public string Himlen;
-    public TextMeshProUGUI tmpPlayTimeText; // UI TextMeshPro Text-felt for den midlertidige PlayTimeLeft-visning
+    public TextMeshProUGUI tmpPlayTimeText; //30 sekunder tilbage advarslen
 
 
     void Start()
     {
-
         // Set the alpha value of the damage image to 1
         damageImage.color = new Color(1, 0, 0, 1);
 
@@ -57,7 +56,7 @@ public class PlayerXp : MonoBehaviour
         if (PlayTimeLeft < 30)
         {
             // Formatér og vis tiden i tmpPlayTimeText
-            tmpPlayTimeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+            tmpPlayTimeText.text = string.Format("{0:00}:{1:00}", minutes, seconds) + " Sekunder tilbage";
             tmpPlayTimeText.enabled = true; // Vis teksten
         }
         else

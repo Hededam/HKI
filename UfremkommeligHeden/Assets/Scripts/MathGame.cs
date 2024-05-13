@@ -61,11 +61,11 @@ new WordProblem { Text = "Hvis en frø kan hoppe 20 gange sin egen længde, og d
 new WordProblem { Text = "Hvis en kakerlak kan lægge 5 æg om dagen, hvor mange æg vil kakerlakken have lagt på en måned (30 dage)?", Answer = 150 },
 new WordProblem { Text = "Hvis en flue kan producere 10 gram afføring om dagen, hvor meget afføring vil fluen have produceret på en uge? (og ja det er en temmelig stor flue)", Answer = 70 },
 new WordProblem { Text = "Hvis en rotte kan gnave gennem 2 cm træ om dagen, hvor lang tid vil det tage for rotten at gnave gennem en 30 cm tyk trædør?", Answer = 15 },
-new WordProblem { Text = "Hvis en skorpion stikker 3 gange om dagen, hvor mange gange vil skorpionen have stukket på en uge?", Answer = 21 },
+new WordProblem { Text = "Hvis en skorpion stikker 3 gange om dagen, hver dag i en uge, hvor mange gange vil skorpionen have stukket på den uge?", Answer = 21 },
 new WordProblem { Text = "Hvis en edderkop spinder 4 meter spindelvæv om dagen, hvor mange meter spindelvæv vil edderkoppen have spundet på en måned (30 dage)?", Answer = 120 },
 new WordProblem { Text = "Hvis en drage ånder ild og brænder 4 slotte ned hver måned, hvor mange slotte vil ligge i ruiner efter et år?", Answer = 48 },
 new WordProblem { Text = "En zombiehær angriber en by med 1000 indbyggere. Hver zombie kan æde 5 menneskehjerner om dagen. Hvor mange dage tager det, før byen er hjerneløs", Answer = 200 },
-new WordProblem { Text = "Hvis en trold kan spise 10 kilo slik på en time, hvor meget slik vil han have spist efter 3 timer, hvis han ikke får ondt i maven?", Answer = 30 },
+new WordProblem { Text = "Hvis en IT lære Mikkel kan spise 10 kilo slik på en time, hvor meget slik vil han have spist efter 3 timer, hvis han ikke får ondt i maven?", Answer = 30 },
 new WordProblem { Text = "Hvis en varulv æder 4 dumme børn hver fuldmåne, hvor mange dumme unger vil han have spist efter 3 fuldmåner?", Answer = 12 },
 
 
@@ -318,17 +318,17 @@ new WordProblem { Text = "Hvis en varulv æder 4 dumme børn hver fuldmåne, hvo
 
     void UpdateCorrectAnswersCountText()
     {
-        correctAnswersCountText.text = $"Correct Answers: {correctAnswersCount}";
+        correctAnswersCountText.text = $"Antal rigtige svar: {correctAnswersCount}";
     }
 
     void UpdateWrongAnswersCountText()
     {
-        wrongAnswersCountText.text = $"Wrong Answers: {wrongAnswersCount}";
+        wrongAnswersCountText.text = $"Antal Forkerte svar:{wrongAnswersCount}";
     }
 
     void UpdateDifficultyLevelText()
     {
-        difficultyLevelText.text = $"Difficulty Level: {difficultyLevel}";
+        difficultyLevelText.text = $"Sværhedsgraden: {difficultyLevel}";
     }
 
     public void ToggleAddition()

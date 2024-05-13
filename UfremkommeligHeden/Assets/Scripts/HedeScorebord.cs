@@ -9,10 +9,14 @@ public class HedeScorebord : MonoBehaviour
 
     private PlayerXp playerXp; // Player's XP
     private bool hasSavedHighscore = false; // Tjekker om highscoren allerede er gemt
-    private string secretCode = "1qaz"; // Hemmelig kode for at nulstille scorebordet
+    private string secretCode = "mads er gud"; // Hemmelig kode for at nulstille scorebordet
 
     void Start()
     {
+        
+    
+        // Begræns antallet af bogstaver til 10  
+        playerNameInput.characterLimit = 20;
         // Find the GameObject with the tag "Gamestuff"
         GameObject gamestuff = GameObject.FindGameObjectWithTag("Gamestuff");
 
@@ -21,8 +25,7 @@ public class HedeScorebord : MonoBehaviour
 
         UpdateHighscoreTexts();
         // Update the current XP text with the player's XP
-        currentXpText.text = "Current XP: " + playerXp.xp.ToString();
-        Debug.Log("GainXP called. Current XP: " + playerXp.xp);
+        currentXpText.text = "Du fik samlet : " + playerXp.xp.ToString() + " XP sammen";
     }
 
     void UpdateHighscoreTexts()
@@ -32,7 +35,7 @@ public class HedeScorebord : MonoBehaviour
         {
             int highscore = PlayerPrefs.GetInt("Highscore" + i, 0);
             string playerName = PlayerPrefs.GetString("PlayerName" + i, "Unknown");
-            highscoreTexts[i].text = "Highscore " + (i + 1) + ": " + highscore + " by " + playerName;
+            highscoreTexts[i].text = "Highscore " + (i + 1) + ": " + highscore + " Sat af " + playerName;
         }
     }
 
@@ -45,7 +48,6 @@ public class HedeScorebord : MonoBehaviour
         }
         else if (!hasSavedHighscore)
         {
-            // Gemmer highscore som før
             int playerXP = playerXp.xp;
             string playerName = playerNameInput.text;
 
@@ -95,7 +97,6 @@ public class HedeScorebord : MonoBehaviour
         playerNameInput.text = ""; // Nulstiller inputfeltet
     }
 
-    // Tilføj denne metode, hvis du vil have en separat knap til at nulstille inputfeltet
     public void ClearPlayerNameInput()
     {
         playerNameInput.text = ""; // Sætter tekstfeltet til en tom streng
