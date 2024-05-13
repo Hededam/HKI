@@ -2,13 +2,11 @@
 using TMPro;
 using System.Collections.Generic;
 
-
 public class WordProblem
 {
     public string Text { get; set; }
     public int Answer { get; set; }
 }
-
 
 public class MathGame : MonoBehaviour
 {
@@ -38,7 +36,6 @@ public class MathGame : MonoBehaviour
     public bool isDivisionEnabled = true;
     public bool isSquareRootEnabled = true;
     public bool isWordProblemEnabled = true;
-
     public List<WordProblem> wordProblems = new List<WordProblem>
     {
 new WordProblem { Text = "Her er en svær, Hvis en rumraket flyver med en hastighed på 28.000 km/t, hvor lang tid vil det tage at nå Månen, der er 384.400 km væk?", Answer = 14 },
@@ -70,6 +67,8 @@ new WordProblem { Text = "Hvis en drage ånder ild og brænder 4 slotte ned hver
 new WordProblem { Text = "En zombiehær angriber en by med 1000 indbyggere. Hver zombie kan æde 5 menneskehjerner om dagen. Hvor mange dage tager det, før byen er hjerneløs", Answer = 200 },
 new WordProblem { Text = "Hvis en trold kan spise 10 kilo slik på en time, hvor meget slik vil han have spist efter 3 timer, hvis han ikke får ondt i maven?", Answer = 30 },
 new WordProblem { Text = "Hvis en varulv æder 4 dumme børn hver fuldmåne, hvor mange dumme unger vil han have spist efter 3 fuldmåner?", Answer = 12 },
+
+
     };
 
     void Start()
@@ -82,6 +81,7 @@ new WordProblem { Text = "Hvis en varulv æder 4 dumme børn hver fuldmåne, hvo
 
     void GenerateProblem()
     {
+        operation = Random.Range(0, 5);
         // Tjek om alle operationer er deaktiveret
         if (!isAdditionEnabled && !isSubtractionEnabled && !isMultiplicationEnabled && !isDivisionEnabled && !isSquareRootEnabled && !isWordProblemEnabled)
         {
@@ -206,9 +206,7 @@ new WordProblem { Text = "Hvis en varulv æder 4 dumme børn hver fuldmåne, hvo
                     break;
             }
         }
-
     }
-
 
     public void CheckAnswer()
     {
@@ -218,14 +216,10 @@ new WordProblem { Text = "Hvis en varulv æder 4 dumme børn hver fuldmåne, hvo
         {
             if (playerAnswer == correctAnswer)
             {
-
                             GameObject Gamestuff = GameObject.FindWithTag("Gamestuff");
-
                 if (Gamestuff != null)
                 {
-                    // Tjek om objektet har PlayerXp scriptet tilknyttet
                     PlayerXp playerXp = Gamestuff.GetComponent<PlayerXp>();
-
                     if (playerXp != null)
                     {
                         // Bestem belønningen baseret på operationstypen
@@ -307,9 +301,6 @@ new WordProblem { Text = "Hvis en varulv æder 4 dumme børn hver fuldmåne, hvo
             answerInput.text = "";
         }
     } 
-
-
-
 
     public void ClearAnswerInput()
     {
