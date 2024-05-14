@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class MainMusicHede : MonoBehaviour
@@ -10,12 +11,16 @@ public class MainMusicHede : MonoBehaviour
     AudioSource _audioSource;
 
     public List<AudioClip> myClips = new List<AudioClip>();
+    public List<string> myLyrics = new List<string>();
+    public Text lyricsText; 
 
-    public Button myButton;
+    public Button PlayRandom;
     public Button muteButton;
     public Button nextButton;
     public Button unmuteButton;
     public Button previousButton;
+    public Button volumeUpButton; 
+    public Button volumeDownButton; 
 
     private int currentClipIndex = 0;
 
@@ -23,13 +28,16 @@ public class MainMusicHede : MonoBehaviour
     {
         _audioSource = GetComponent<AudioSource>();
 
-        myButton.onClick.AddListener(() => PlayRandomSound(1.0f));
+        PlayRandom.onClick.AddListener(() => PlayRandomSound(1.0f));
         muteButton.onClick.AddListener(Mute);
         unmuteButton.onClick.AddListener(Unmute);
         nextButton.onClick.AddListener(PlayNextSound);
         previousButton.onClick.AddListener(PlayPreviousSound);
-    }
+        volumeUpButton.onClick.AddListener(VolumeUp);
+        volumeDownButton.onClick.AddListener(VolumeDown);
 
+        PlayNextSound();
+    }
     public void PlayRandomSound(float vol)
     {
         int randomIndex = Random.Range(0, myClips.Count);
@@ -39,7 +47,7 @@ public class MainMusicHede : MonoBehaviour
         soundSource.volume = masterSoundVolume * vol;
         soundSource.Play();
 
-        StartCoroutine(PlayNextClipAfterDelay(myClip.length)); // Tilføj denne linje
+        StartCoroutine(PlayNextClipAfterDelay(myClip.length)); 
     }
 
     public void Mute()
@@ -61,7 +69,27 @@ public class MainMusicHede : MonoBehaviour
         soundSource.volume = masterSoundVolume;
         soundSource.Play();
 
-        StartCoroutine(PlayNextClipAfterDelay(myClip.length)); // Tilføj denne linje
+        lyricsText.text = myLyrics[currentClipIndex];
+
+        StartCoroutine(PlayNextClipAfterDelay(myClip.length));
+    }
+
+    public void VolumeUp()
+    {
+        if (soundSource.volume < 1)
+        {
+            soundSource.volume += 0.1f;
+            masterSoundVolume = soundSource.volume;
+        }
+    }
+
+    public void VolumeDown()
+    {
+        if (soundSource.volume > 0)
+        {
+            soundSource.volume -= 0.1f;
+            masterSoundVolume = soundSource.volume;
+        }
     }
 
     public void PlayPreviousSound()
@@ -77,11 +105,14 @@ public class MainMusicHede : MonoBehaviour
         soundSource.volume = masterSoundVolume;
         soundSource.Play();
 
-        StartCoroutine(PlayNextClipAfterDelay(myClip.length)); // Tilføj denne linje
+        lyricsText.text = myLyrics[currentClipIndex]; // Tilføj denne linje
+
+        StartCoroutine(PlayNextClipAfterDelay(myClip.length));
     }
 
-    // Tilføj denne coroutine for at afspille det næste klip efter en forsinkelse
-    IEnumerator PlayNextClipAfterDelay(float delay)
+
+
+IEnumerator PlayNextClipAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
         PlayNextSound();
