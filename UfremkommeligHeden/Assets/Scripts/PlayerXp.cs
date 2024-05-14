@@ -40,7 +40,7 @@ public class PlayerXp : MonoBehaviour
         healthText.text = "Health: " + health;
 
         // Display the time left in MM:SS format
-        PlayTimeLeftText.text = string.Format("Time Left: {0:00}:{1:00}", minutes, seconds);
+        PlayTimeLeftText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
 
         // Change text color to red if PlayTimeLeft is less than a minute
         if (PlayTimeLeft < 60)
