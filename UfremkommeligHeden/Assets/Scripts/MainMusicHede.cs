@@ -12,7 +12,8 @@ public class MainMusicHede : MonoBehaviour
 
     public List<AudioClip> myClips = new List<AudioClip>();
     public List<TextAsset> myLyricsFiles = new List<TextAsset>();
-    public TMP_Text lyricsText;
+    public Text lyricsText;
+   
 
     public Button PlayRandom;
     public Button muteButton;
