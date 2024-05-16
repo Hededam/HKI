@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
+using TMPro;
 
 public class MainMusicHede : MonoBehaviour
 {
@@ -11,16 +11,16 @@ public class MainMusicHede : MonoBehaviour
     AudioSource _audioSource;
 
     public List<AudioClip> myClips = new List<AudioClip>();
-    public List<string> myLyrics = new List<string>();
-    public Text lyricsText; 
+    public List<TextAsset> myLyricsFiles = new List<TextAsset>();
+    public TMP_Text lyricsText;
 
     public Button PlayRandom;
     public Button muteButton;
     public Button nextButton;
     public Button unmuteButton;
     public Button previousButton;
-    public Button volumeUpButton; 
-    public Button volumeDownButton; 
+    public Button volumeUpButton;
+    public Button volumeDownButton;
 
     private int currentClipIndex = 0;
 
@@ -38,6 +38,7 @@ public class MainMusicHede : MonoBehaviour
 
         PlayNextSound();
     }
+
     public void PlayRandomSound(float vol)
     {
         int randomIndex = Random.Range(0, myClips.Count);
@@ -47,7 +48,7 @@ public class MainMusicHede : MonoBehaviour
         soundSource.volume = masterSoundVolume * vol;
         soundSource.Play();
 
-        StartCoroutine(PlayNextClipAfterDelay(myClip.length)); 
+        StartCoroutine(PlayNextClipAfterDelay(myClip.length));
     }
 
     public void Mute()
@@ -69,7 +70,7 @@ public class MainMusicHede : MonoBehaviour
         soundSource.volume = masterSoundVolume;
         soundSource.Play();
 
-        lyricsText.text = myLyrics[currentClipIndex];
+        lyricsText.text = myLyricsFiles[currentClipIndex].text;
 
         StartCoroutine(PlayNextClipAfterDelay(myClip.length));
     }
@@ -105,14 +106,12 @@ public class MainMusicHede : MonoBehaviour
         soundSource.volume = masterSoundVolume;
         soundSource.Play();
 
-        lyricsText.text = myLyrics[currentClipIndex]; // Tilføj denne linje
+        lyricsText.text = myLyricsFiles[currentClipIndex].text;
 
         StartCoroutine(PlayNextClipAfterDelay(myClip.length));
     }
 
-
-
-IEnumerator PlayNextClipAfterDelay(float delay)
+    IEnumerator PlayNextClipAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
         PlayNextSound();
