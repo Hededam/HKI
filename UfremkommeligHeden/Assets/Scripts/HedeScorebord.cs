@@ -62,10 +62,12 @@ public class HedeScorebord : MonoBehaviour
                     {
                         PlayerPrefs.SetInt("Highscore" + j, PlayerPrefs.GetInt("Highscore" + (j - 1), 0));
                         PlayerPrefs.SetString("PlayerName" + j, PlayerPrefs.GetString("PlayerName" + (j - 1), "Unknown"));
+                        highscoreTexts[j].color = Color.white; // Gør de gamle highscores hvide
                     }
 
                     PlayerPrefs.SetInt("Highscore" + i, playerXP);
                     PlayerPrefs.SetString("PlayerName" + i, playerName);
+                    highscoreTexts[i].color = Color.red; // Gør den nye highscore rød
 
                     // Opdaterer highscoreTexts med de nye værdier
                     UpdateHighscoreTexts();
@@ -78,6 +80,7 @@ public class HedeScorebord : MonoBehaviour
             hasSavedHighscore = true; // Sætter hasSavedHighscore til true, så highscoren ikke kan gemmes igen
         }
     }
+
 
     // Metode til at nulstille alle highscores
     private void ResetHighscores()
