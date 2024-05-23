@@ -1,4 +1,3 @@
-
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,8 +9,17 @@ public class RestartGame : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player")) // Tjekker om det er spilleren, der er gået ind i triggeren
         {
-
+            DestroyGameStuffObject();
             SceneManager.LoadScene(sceneToLoad);
+        }
+    }
+
+    private void DestroyGameStuffObject()
+    {
+        GameObject gameStuffObject = GameObject.FindGameObjectWithTag("Gamestuff");
+        if (gameStuffObject != null)
+        {
+            Destroy(gameStuffObject);
         }
     }
 }

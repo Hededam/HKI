@@ -318,17 +318,17 @@ new WordProblem { Text = "Hvis en varulv æder 4 dumme børn hver fuldmåne, hvo
 
     void UpdateCorrectAnswersCountText()
     {
-        correctAnswersCountText.text = $"Antal rigtige svar: {correctAnswersCount}";
+        correctAnswersCountText.text = $"Rigtige svar: {correctAnswersCount}";
     }
 
     void UpdateWrongAnswersCountText()
     {
-        wrongAnswersCountText.text = $"Antal Forkerte svar:{wrongAnswersCount}";
+        wrongAnswersCountText.text = $"Forkerte svar: {wrongAnswersCount}";
     }
 
     void UpdateDifficultyLevelText()
     {
-        difficultyLevelText.text = $"Sværhedsgraden: {difficultyLevel}";
+        difficultyLevelText.text = $"Sværhedsgrad: {difficultyLevel}";
     }
 
     public void ToggleAddition()
