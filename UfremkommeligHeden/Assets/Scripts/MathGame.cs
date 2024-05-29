@@ -42,7 +42,7 @@ new WordProblem { Text = "Her er en svær, Hvis en rumraket flyver med en hastig
 new WordProblem { Text = "En troldmand fremtryller 7 kaniner fra sin hat hver dag, bare fordi han ikke har andet at lave, hvor mange kaniner vil han have efter en uge, hvis vi går ud fra at de ikke pare sig?", Answer = 49 },
 new WordProblem { Text = "En IT-underviser kan løfte 100 gange sin egen vægt, og han vejer 70 kg, hvor menge Kg. kan han løfte?", Answer = 7000 },
 new WordProblem { Text = "Hvis en robot kan bygge en bil på 6 timer, hvor mange biler kan den bygge på en dag?", Answer = 4 },
-new WordProblem { Text = "Hvis en pirat finder en skattekiste med 500 guldmønter og deler dem ligeligt mellem sig selv og sine 4 besætningsmedlemmer, hvor mange mønter får hver person?", Answer = 100 },
+new WordProblem { Text = "Hvis en pirat finder en skattekiste med 500 guldmønter og deler dem ligeligt mellem sig selv og sine 4 besætningsmedlemmer, hvor mange mønter får hver person?", Answer = 125 },
 new WordProblem { Text = "Hvis en prinsesse har 20 par sko men mister 7 par på en rejse, og så køber 15 par mere, Hvor mange par sko har hun så?", Answer = 28 },
 new WordProblem { Text = "Her er en lidt svær, Hvis en astronaut tager 3 skridt på Månen, og hvert skridt er 1,5 gange længere end på Jorden, hvor mange 'jord-skridt' har astronauten så taget?", Answer = 5 },
 new WordProblem { Text = "Hvis en detektiv løser 2 mysterier om dagen, hvor mange mysterier vil detektiven have løst på en uge?", Answer = 14 },
@@ -115,11 +115,11 @@ new WordProblem { Text = "Hvis en varulv æder 4 dumme børn hver fuldmåne, hvo
                     num2 = Random.Range(1, 10);
                     break;
                 case 1:
-                    num1 = Random.Range(10, 20);
-                    num2 = Random.Range(10, 20);
+                    num1 = Random.Range(5, 15);
+                    num2 = Random.Range(5, 15);
                     break;
                 case 2:
-                    num1 = Random.Range(20, 30);
+                    num1 = Random.Range(10, 30);
                     num2 = Random.Range(20, 30);
                     break;
                 case 3:
