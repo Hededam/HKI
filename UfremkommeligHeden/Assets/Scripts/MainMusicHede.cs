@@ -29,7 +29,7 @@ public class MainMusicHede : MonoBehaviour
     {
         _audioSource = GetComponent<AudioSource>();
 
-        PlayRandom.onClick.AddListener(() => PlayRandomSound(1.0f));
+
         muteButton.onClick.AddListener(Mute);
         unmuteButton.onClick.AddListener(Unmute);
         nextButton.onClick.AddListener(PlayNextSound);
@@ -40,17 +40,7 @@ public class MainMusicHede : MonoBehaviour
         PlayNextSound();
     }
 
-    public void PlayRandomSound(float vol)
-    {
-        int randomIndex = Random.Range(0, myClips.Count);
-        AudioClip myClip = myClips[randomIndex];
 
-        soundSource.clip = myClip;
-        soundSource.volume = masterSoundVolume * vol;
-        soundSource.Play();
-
-        StartCoroutine(PlayNextClipAfterDelay(myClip.length));
-    }
 
     public void Mute()
     {
