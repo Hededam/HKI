@@ -135,8 +135,15 @@ namespace BNG {
         }
 
         public virtual void DestroyThis() {
-            Health = 0;
-            destroyed = true;
+                Health = 0;
+                destroyed = true;
+
+                // Afspil dødsanimationen
+                Animator animator = GetComponent<Animator>();
+                if(animator) {
+                    animator.SetTrigger("Die");
+                    
+                }
 
             // Activate
             foreach (var go in ActivateGameObjectsOnDeath) {

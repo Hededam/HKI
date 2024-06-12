@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8409910019133995966}
   - component: {fileID: 1650380833278179821}
   m_Layer: 0
-  m_Name: Button (1)
+  m_Name: FremKnap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +27,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 240714827747082515}
   m_LocalRotation: {x: 0.70710677, y: 0, z: 0, w: 0.70710677}
-  m_LocalPosition: {x: 0, y: 0, z: 0.00052}
+  m_LocalPosition: {x: 0, y: 0, z: 0.00053}
   m_LocalScale: {x: 0.0000296705, y: 0.0000296705, z: 0.59341}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -36,7 +36,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 90, y: 90, z: 90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0026, y: 0.00007}
+  m_AnchoredPosition: {x: -0.0026, y: 0.00006}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7707336419437158839
@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 9024838854990340773}
   - component: {fileID: 9033451375945659077}
   m_Layer: 0
-  m_Name: Button
+  m_Name: TilbageKnap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -169,7 +169,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.00773, y: 0.00025}
+  m_AnchoredPosition: {x: -0.00773, y: 0.00008}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7236277661072938955
@@ -256,7 +256,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8411183484174477626}
         m_TargetAssemblyTypeName: BookScript, Assembly-CSharp
-        m_MethodName: ChangeMaterialForward
+        m_MethodName: ChangeMaterialBackward
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -347,7 +347,7 @@ Transform:
   m_GameObject: {fileID: 2098498490741415367}
   serializedVersion: 2
   m_LocalRotation: {x: 0.4616149, y: -0.53564185, z: -0.5356421, w: 0.4616135}
-  m_LocalPosition: {x: 0, y: -0, z: 0}
+  m_LocalPosition: {x: -0, y: -0, z: 0.01}
   m_LocalScale: {x: 0.096991174, y: 0.096991144, z: 0.09699115}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -452,7 +452,7 @@ Transform:
   m_GameObject: {fileID: 2216107273717885131}
   serializedVersion: 2
   m_LocalRotation: {x: 0.4616149, y: -0.53564185, z: -0.5356421, w: 0.4616135}
-  m_LocalPosition: {x: 0, y: -0, z: 0}
+  m_LocalPosition: {x: -0, y: -0, z: 0.002}
   m_LocalScale: {x: 0.096991174, y: 0.096991144, z: 0.09699115}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -538,7 +538,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3862719949136905636}
-  - component: {fileID: 2155832113834995409}
   - component: {fileID: 4642852320662026202}
   - component: {fileID: 8136289908096312698}
   - component: {fileID: 8411183484174477626}
@@ -547,6 +546,7 @@ GameObject:
   - component: {fileID: 2043641110862931991}
   - component: {fileID: 6410816626214419300}
   - component: {fileID: 1353415742046752812}
+  - component: {fileID: 2563627949327178730}
   m_Layer: 0
   m_Name: den lille hjelperbog 1
   m_TagString: Untagged
@@ -561,9 +561,9 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2519644723087593831}
-  m_LocalRotation: {x: -0.6984772, y: -0.110134214, z: -0.110134214, w: 0.69847727}
+  m_LocalRotation: {x: -0.6984772, y: -0.11013434, z: -0.11013434, w: 0.6984772}
   m_LocalPosition: {x: 0, y: 0, z: 4.2335}
-  m_LocalScale: {x: 33.327873, y: 33.327873, z: 33.327877}
+  m_LocalScale: {x: 51.001644, y: 51.001644, z: 51.00165}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7808304088485661093}
@@ -577,39 +577,12 @@ RectTransform:
   - {fileID: 108033226392799896}
   - {fileID: 7088652947698412483}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -17.921}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 9.1763, y: 0.14228}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!54 &2155832113834995409
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2519644723087593831}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
 --- !u!33 &4642852320662026202
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -681,7 +654,13 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 3c95ab28a0b9b2e438d64adbd2b1b756, type: 2}
   - {fileID: 2100000, guid: c323a804e9514b249972f4aa7873a50d, type: 2}
   - {fileID: 2100000, guid: 8e5b9e9a7acc6ef41bc8325371b4281e, type: 2}
-  - {fileID: 2100000, guid: 8e5b9e9a7acc6ef41bc8325371b4281e, type: 2}
+  - {fileID: 2100000, guid: 13966c2a57e3fd84d8dd68d71e35fe9a, type: 2}
+  - {fileID: 2100000, guid: 3286e4b20c794284080526fc39c2489a, type: 2}
+  - {fileID: 2100000, guid: d2b59ce34ab83c94b967c74dea83e504, type: 2}
+  - {fileID: 2100000, guid: 98de0ced69619e94c93475e3ea967c98, type: 2}
+  - {fileID: 2100000, guid: 1a99aca9b782c764e845df33d0370a38, type: 2}
+  - {fileID: 2100000, guid: 237a2230a5b3faf4b9662adb756d5cf4, type: 2}
+  - {fileID: 2100000, guid: 5934ced07530b624ea41c0a994ab2379, type: 2}
   bookPage1: {fileID: 3610123264132007181}
   bookPage2: {fileID: 0}
 --- !u!114 &4452085966074972335
@@ -702,7 +681,7 @@ MonoBehaviour:
   GrabPhysics: 4
   GrabMechanic: 1
   GrabSpeed: 15
-  RemoteGrabbable: 0
+  RemoteGrabbable: 1
   RemoteGrabMechanic: 0
   RemoteGrabDistance: 2
   ThrowForceMultiplier: 2
@@ -713,7 +692,7 @@ MonoBehaviour:
   ParentHandModel: 1
   SnapHandModel: 1
   CanBeDropped: 1
-  CanBeSnappedToSnapZone: 1
+  CanBeSnappedToSnapZone: 0
   ForceDisableKinematicOnDrop: 0
   InstantMovement: 0
   MakeChildCollidersGrabbable: 0
@@ -749,7 +728,9 @@ MonoBehaviour:
   SecondaryLookOffset: {x: 0, y: 0, z: 0}
   SecondaryLookAtTransform: {fileID: 0}
   LocalOffsetTransform: {fileID: 0}
-  GrabPoints: []
+  GrabPoints:
+  - {fileID: 0}
+  - {fileID: 0}
   UseCustomInspector: 1
   lastFlickTime: 0
   FlickForce: 1
@@ -826,6 +807,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ee805472840d5843b863535775bbe97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &2563627949327178730
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2519644723087593831}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &2844113708082281418
 GameObject:
   m_ObjectHideFlags: 0
@@ -854,7 +862,7 @@ Transform:
   m_GameObject: {fileID: 2844113708082281418}
   serializedVersion: 2
   m_LocalRotation: {x: 0.4616149, y: -0.53564185, z: -0.5356421, w: 0.4616135}
-  m_LocalPosition: {x: 0, y: -0, z: 0}
+  m_LocalPosition: {x: -0, y: -0, z: 0.01}
   m_LocalScale: {x: 0.096991174, y: 0.096991144, z: 0.09699115}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1169,7 +1177,7 @@ Transform:
   m_GameObject: {fileID: 5659460713609994305}
   serializedVersion: 2
   m_LocalRotation: {x: 0.4616149, y: -0.53564185, z: -0.5356421, w: 0.4616135}
-  m_LocalPosition: {x: 0, y: -0, z: 0}
+  m_LocalPosition: {x: -0, y: -0, z: 0.015}
   m_LocalScale: {x: 0.096991174, y: 0.096991144, z: 0.09699115}
   m_ConstrainProportionsScale: 0
   m_Children: []
