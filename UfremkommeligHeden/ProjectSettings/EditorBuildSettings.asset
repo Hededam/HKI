@@ -15,9 +15,6 @@ EditorBuildSettings:
     path: Assets/Scenes/LowPolyLand.unity
     guid: 1bb99f43eaf27a64186db07bc1c2da7a
   - enabled: 1
-    path: Assets/Scenes/MatematikLand.unity
-    guid: 99b72e75301858f49a9d07ff4fa022aa
-  - enabled: 1
     path: Assets/Scenes/Akselsverden.unity
     guid: 85018371ce29ecc4a9d0d32d243c5867
   - enabled: 1
@@ -38,6 +35,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Himlen.unity
     guid: 472f7258a4c66984f81917cf2929de33
+  - enabled: 1
+    path: Assets/Scenes/RollMyBall.unity
+    guid: 1ab9793193d4cc945ab0b53e16db26bc
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 6b5777c8442c2a543bc8ce750ba6ffcc,
       type: 2}

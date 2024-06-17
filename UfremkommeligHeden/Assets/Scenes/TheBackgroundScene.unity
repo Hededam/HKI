@@ -654,10 +654,50 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 831958260383732054, guid: 1b4e8d42157e67945a94f0149eb3084d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -14.489742
+      objectReference: {fileID: 0}
+    - target: {fileID: 831958260383732054, guid: 1b4e8d42157e67945a94f0149eb3084d,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.78509986
+      objectReference: {fileID: 0}
+    - target: {fileID: 831958260383732054, guid: 1b4e8d42157e67945a94f0149eb3084d,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.24950127
+      objectReference: {fileID: 0}
+    - target: {fileID: 831958260383732054, guid: 1b4e8d42157e67945a94f0149eb3084d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.5403652
+      objectReference: {fileID: 0}
+    - target: {fileID: 831958260383732054, guid: 1b4e8d42157e67945a94f0149eb3084d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.1713849
+      objectReference: {fileID: 0}
+    - target: {fileID: 831958260383732054, guid: 1b4e8d42157e67945a94f0149eb3084d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 19.87866
+      objectReference: {fileID: 0}
+    - target: {fileID: 831958260383732054, guid: 1b4e8d42157e67945a94f0149eb3084d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 10.69231
+      objectReference: {fileID: 0}
     - target: {fileID: 1989148295167019157, guid: 1b4e8d42157e67945a94f0149eb3084d,
         type: 3}
       propertyPath: m_Name
       value: PlayerRIG
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402819787101140929, guid: 1b4e8d42157e67945a94f0149eb3084d,
+        type: 3}
+      propertyPath: field of view
+      value: 42
       objectReference: {fileID: 0}
     - target: {fileID: 2703985750897601764, guid: 1b4e8d42157e67945a94f0149eb3084d,
         type: 3}
@@ -877,8 +917,52 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1305314076463429284, guid: 1b4e8d42157e67945a94f0149eb3084d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4902991439428198843}
   m_SourcePrefab: {fileID: 100100000, guid: 1b4e8d42157e67945a94f0149eb3084d, type: 3}
+--- !u!1 &4902991439428198842 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1305314076463429284, guid: 1b4e8d42157e67945a94f0149eb3084d,
+    type: 3}
+  m_PrefabInstance: {fileID: 4902991439428198841}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4902991439428198843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4902991439428198842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShowDebugText: 0
+  m_ShowCameraFrustum: 1
+  m_IgnoreTimeScale: 0
+  m_WorldUpOverride: {fileID: 0}
+  m_UpdateMethod: 2
+  m_BlendUpdateMethod: 1
+  m_DefaultBlend:
+    m_Style: 1
+    m_Time: 2
+    m_CustomCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  m_CustomBlends: {fileID: 0}
+  m_CameraCutEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_CameraActivatedEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
