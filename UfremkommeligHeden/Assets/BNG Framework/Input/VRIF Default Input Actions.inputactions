@@ -875,8 +875,8 @@
                 {
                     "name": "",
                     "id": "f213fee6-8604-4051-9c24-1226e0401216",
-                    "path": "<XRController>{RightHand}/{PrimaryButton}",
-                    "interactions": "Press(behavior=2)",
+                    "path": "<XRController>{RightHand}/secondaryButton",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
@@ -886,7 +886,7 @@
                 {
                     "name": "",
                     "id": "2311141d-8b02-4f83-baff-e1dbec9dab00",
-                    "path": "<XRController>{RightHand}/{SecondaryButton}",
+                    "path": "<XRController>{RightHand}/primaryButton",
                     "interactions": "Press",
                     "processors": "",
                     "groups": "",

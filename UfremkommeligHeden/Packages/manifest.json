@@ -4,6 +4,7 @@
     "com.unity.animation.rigging": "1.2.1",
     "com.unity.cinemachine": "2.9.7",
     "com.unity.collab-proxy": "2.2.0",
+    "com.unity.editorcoroutines": "1.0.0",
     "com.unity.ext.nunit": "1.0.6",
     "com.unity.formats.alembic": "2.3.2",
     "com.unity.ide.rider": "3.0.28",
@@ -17,10 +18,11 @@
     "com.unity.toolchain.win-x86_64-linux-x86_64": "2.0.6",
     "com.unity.ugui": "1.0.0",
     "com.unity.visualscripting": "1.9.2",
-    "com.unity.xr.interaction.toolkit": "2.5.3",
+    "com.unity.xr.interaction.toolkit": "3.0.5",
     "com.unity.xr.management": "4.4.1",
     "com.unity.xr.oculus": "4.2.0",
     "com.unity.xr.openxr": "1.10.0",
+    "io.extendreality.tilia.visuals.vignette.unity": "1.0.6",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
     "com.unity.modules.animation": "1.0.0",
@@ -52,5 +54,14 @@
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
     "com.unity.modules.xr": "1.0.0"
-  }
+  },
+  "scopedRegistries": [
+    {
+      "name": "npmjs",
+      "url": "https://registry.npmjs.org/",
+      "scopes": [
+        "io.extendreality"
+      ]
+    }
+  ]
 }
