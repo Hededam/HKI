@@ -15,7 +15,7 @@ public class MainMusicHede : MonoBehaviour
     public Text lyricsText;
    
 
-    public Button PlayRandom;
+
     public Button muteButton;
     public Button nextButton;
     public Button unmuteButton;
