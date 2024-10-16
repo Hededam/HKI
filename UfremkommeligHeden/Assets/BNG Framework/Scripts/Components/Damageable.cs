@@ -7,6 +7,16 @@ using Invector;
 #endif
 
 namespace BNG {
+
+
+
+
+
+
+
+
+
+
     /// <summary>
     /// A basic damage implementation. Call a function on death. Allow for respawning.
     /// </summary>
@@ -14,6 +24,10 @@ namespace BNG {
 
         public float Health = 100;
         private float _startingHealth;
+        public Animation animationComponent;
+        public Rigidbody[] ragdollRigidbodies;
+        public Collider[] ragdollColliders;
+        public bool startWithRagdollActive = false;
 
         [Tooltip("Set to true if you want to destroy this object when it is spawned / enabled in the scene")]
         public bool SelfDestruct = false;
@@ -89,6 +103,7 @@ namespace BNG {
         bool initialWasKinematic;
 
         private void Start() {
+            SetRagdollActive(startWithRagdollActive);
             _startingHealth = Health;
             rigid = GetComponent<Rigidbody>();
             if (rigid) {
@@ -131,6 +146,7 @@ namespace BNG {
 
             if (Health <= 0) {
                 DestroyThis();
+                ZeroLife();
             }
         }
 
@@ -203,7 +219,24 @@ namespace BNG {
                 }
             }
         }
+        void SetRagdollActive(bool active)
+        {
+            foreach (Rigidbody rb in ragdollRigidbodies)
+            {
+                rb.isKinematic = !active;
+            }
 
+            foreach (Collider col in ragdollColliders)
+            {
+                col.enabled = active;
+            }
+        }
+
+        public void ZeroLife()
+        {
+            animationComponent.enabled = false; 
+            SetRagdollActive(true);
+        }
         IEnumerator RespawnRoutine(float seconds) {
 
             yield return new WaitForSeconds(seconds);
