@@ -145,11 +145,11 @@ namespace BNG {
 #endif
 
             if (Health <= 0) {
+                animationComponent.enabled = false; 
+                SetRagdollActive(true);
                 DestroyThis();
-                ZeroLife();
             }
         }
-
         public virtual void DestroyThis() {
                 Health = 0;
                 destroyed = true;
@@ -232,11 +232,7 @@ namespace BNG {
             }
         }
 
-        public void ZeroLife()
-        {
-            animationComponent.enabled = false; 
-            SetRagdollActive(true);
-        }
+
         IEnumerator RespawnRoutine(float seconds) {
 
             yield return new WaitForSeconds(seconds);
