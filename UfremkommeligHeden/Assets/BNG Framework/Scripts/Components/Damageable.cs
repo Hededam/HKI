@@ -224,14 +224,10 @@ namespace BNG
             }
         }
 
-        private void OnCollisionEnter(Collision collision)
+        public void ZeroLife()
         {
-            Debug.Log("Collision detected with: " + collision.gameObject.name);
-            // Example: Apply damage on collision. Adjust as necessary for your game's logic.
-            if (collision.gameObject.CompareTag("Projectile"))
-            {
-                DealDamage(10); // Apply 10 damage, adjust as needed
-            }
+            animationComponent.enabled = false;
+            SetRagdollActive(true, true);
         }
 
         IEnumerator RespawnRoutine(float seconds)
