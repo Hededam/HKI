@@ -11,6 +11,7 @@ namespace BNG
     public class Damageable : MonoBehaviour
     {
         public float Health = 100;
+        public int XPCount = 10;
         private float _startingHealth;
         public bool SelfDestruct = false;
         public float SelfDestructDelay = 0.1f;
@@ -27,6 +28,7 @@ namespace BNG
         public FloatEvent onDamaged;
         public UnityEvent onDestroyed;
         public UnityEvent onRespawn;
+        private PlayerXp playerXp; // Reference til PlayerXp-scriptet på spilleren
 #if INVECTOR_BASIC || INVECTOR_AI_TEMPLATE
         public bool SendDamageToInvector = true;
 #endif
@@ -45,6 +47,8 @@ namespace BNG
                 initialWasKinematic = rigid.isKinematic;
             }
             ragdollController = GetComponent<RagdollController>();
+           
+            playerXp = GameObject.Find("Gamestuff").GetComponent<PlayerXp>(); // Find PlayerXp-komponenten på "Player"-objektet
         }
 
         void OnEnable()
@@ -57,6 +61,7 @@ namespace BNG
 
         public virtual void DealDamage(float damageAmount)
         {
+            Debug.Log("Dealing damage: " + damageAmount);
             DealDamage(damageAmount, transform.position);
         }
 
@@ -66,28 +71,22 @@ namespace BNG
             {
                 return;
             }
+            Debug.Log("Damage received: " + damageAmount + ", Health remaining: " + Health);
             Health -= damageAmount;
             onDamaged?.Invoke(damageAmount);
-#if INVECTOR_BASIC || INVECTOR_AI_TEMPLATE
-            if(SendDamageToInvector) {
-                var d = new Invector.vDamage();
-                d.hitReaction = reactToHit;
-                d.hitPosition = (Vector3)hitPosition;
-                d.receiver = receiver == null ? this.gameObject.transform : null;
-                d.damageValue = (int)damageAmount;
-                this.gameObject.ApplyDamage(new Invector.vDamage(d));
-            }
-#endif
+
             if (Health <= 0)
             {
                 DestroyThis();
             }
         }
 
+
         public virtual void DestroyThis()
         {
             Health = 0;
             destroyed = true;
+            playerXp.GainXP(XPCount); // Tilføj 10 XP
 
             if (ragdollController != null)
             {
