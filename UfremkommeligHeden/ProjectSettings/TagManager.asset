@@ -2,7 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
-  serializedVersion: 2
+  serializedVersion: 3
   tags:
   - "M\xE5lRing"
   - StartRing
@@ -30,11 +30,11 @@ TagManager:
   - Restricted
   - Player
   - Grabbable
-  - Pellet
+  - 
   - Node
   - GameObject
-  - Pacman
-  - Ghost
+  - 
+  - 
   - PW_VFX
   - PW_Object_Small
   - PW_Object_Medium
@@ -55,3 +55,5 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  m_RenderingLayers:
+  - Default

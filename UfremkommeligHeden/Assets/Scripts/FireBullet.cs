@@ -12,7 +12,7 @@ public class FireBullet : MonoBehaviour
     {
         GetComponent<AudioSource>().Play();
         GameObject spawnedBullet = Instantiate(bulletObj, frontOfGun.position, frontOfGun.rotation);
-        spawnedBullet.GetComponent<Rigidbody>().velocity = speed * frontOfGun.forward;
+        spawnedBullet.GetComponent<Rigidbody>().linearVelocity = speed * frontOfGun.forward;
         Destroy(spawnedBullet, 45f);
     }
 }
