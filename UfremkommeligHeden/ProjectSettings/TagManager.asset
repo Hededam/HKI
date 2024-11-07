@@ -22,19 +22,19 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Muse Animate Posing
   - Water
   - UI
-  - 
+  - Muse Animate Baking
   - ignore-player-col
   - Restricted
   - Player
   - Grabbable
-  - 
+  - Muse Animate Handles
   - Node
   - GameObject
-  - 
-  - 
+  - Muse Animate Thumbnail
+  - Muse Animate Environment
   - PW_VFX
   - PW_Object_Small
   - PW_Object_Medium
