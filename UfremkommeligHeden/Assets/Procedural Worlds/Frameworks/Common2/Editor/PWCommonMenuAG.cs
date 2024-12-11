@@ -1,9 +1,9 @@
 ﻿// Copyright © 2018 Procedural Worlds Pty Limited.  All Rights Reserved.
 using UnityEngine;
 using UnityEditor;
-using PWCommon5;
+using PWCommon2;
 
-namespace PWCommon5.Internal
+namespace PWCommon2.Internal
 {
     public class CommonMenu : Editor
     {
