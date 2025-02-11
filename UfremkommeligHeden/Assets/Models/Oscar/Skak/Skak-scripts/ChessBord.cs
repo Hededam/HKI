@@ -12,7 +12,9 @@ public class ChessBoard : MonoBehaviour
 
     public void InitializeBoard()
     {
-        // Placer hvide brikker
+        Debug.Log("Initializing board...");
+
+        // Placer hvide officerer
         PlacePiece(pieces[0], squares[0]);   // Hvidt tårn på a1
         PlacePiece(pieces[1], squares[1]);   // Hvid springer på b1
         PlacePiece(pieces[2], squares[2]);   // Hvid løber på c1
@@ -22,13 +24,14 @@ public class ChessBoard : MonoBehaviour
         PlacePiece(pieces[6], squares[6]);   // Hvid springer på g1
         PlacePiece(pieces[7], squares[7]);   // Hvidt tårn på h1
 
-        // Hvide bønder
-        for (int i = 8; i < 16; i++)
+        // Placer hvide bønder (a2 til h2)
+        for (int i = 0; i < 8; i++)
         {
-            PlacePiece(pieces[i], squares[i + 8]); // Bønder på a2 til h2
+            PlacePiece(pieces[8 + i], squares[8 + i]); // Bønder på a2 til h2
+            Debug.Log($"Placerer hvid bonde {pieces[8 + i].name} på felt {squares[8 + i].name}");
         }
 
-        // Placer sorte brikker
+        // Placer sorte officerer
         PlacePiece(pieces[16], squares[56]);  // Sort tårn på a8
         PlacePiece(pieces[17], squares[57]);  // Sort springer på b8
         PlacePiece(pieces[18], squares[58]);  // Sort løber på c8
@@ -38,11 +41,14 @@ public class ChessBoard : MonoBehaviour
         PlacePiece(pieces[22], squares[62]);  // Sort springer på g8
         PlacePiece(pieces[23], squares[63]);  // Sort tårn på h8
 
-        // Sorte bønder
-        for (int i = 24; i < 32; i++)
+        // Placer sorte bønder (a7 til h7)
+        for (int i = 0; i < 8; i++)
         {
-            PlacePiece(pieces[i], squares[i - 8]); // Bønder på a7 til h7
+            PlacePiece(pieces[24 + i], squares[48 + i]); // Bønder på a7 til h7
+            Debug.Log($"Placerer sort bonde {pieces[24 + i].name} på felt {squares[48 + i].name}");
         }
+
+        Debug.Log("Board initialization complete.");
     }
 
     public void PlacePiece(GameObject piece, GameObject square)
@@ -61,6 +67,7 @@ public class ChessBoard : MonoBehaviour
         if (chessPiece != null)
         {
             chessPiece.currentSquareIndex = System.Array.IndexOf(squares, square);
+            Debug.Log($"Placerer {piece.name} på {square.name} (index {chessPiece.currentSquareIndex})");
         }
         else
         {
