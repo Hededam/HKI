@@ -94,7 +94,9 @@ namespace BNG {
         }
 
         public void UpdateTeleportStatus() {
-            teleport.enabled = SelectedLocomotion == LocomotionType.Teleport;
+            if (teleport != null) {
+                teleport.enabled = SelectedLocomotion == LocomotionType.Teleport;
+            }
         }
 
         public void ChangeLocomotion(LocomotionType locomotionType, bool save) {
@@ -120,18 +122,15 @@ namespace BNG {
                 teleport = GetComponentInChildren<PlayerTeleport>();
             }
 
-            toggleTeleport(selectedLocomotion == LocomotionType.Teleport);
+            // Removed toggleTeleport call
+            // Only toggle smooth locomotion
             toggleSmoothLocomotion(selectedLocomotion == LocomotionType.SmoothLocomotion);
+
+            // Update teleport status
+            UpdateTeleportStatus();
         }
 
-        void toggleTeleport(bool enabled) {
-            if (enabled) {
-                teleport.EnableTeleportation();
-            }
-            else {
-                teleport.DisableTeleportation();
-            }
-        }
+        // Removed toggleTeleport function
 
         void toggleSmoothLocomotion(bool enabled) {
             if (smoothLocomotion) {
